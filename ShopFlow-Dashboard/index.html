@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopFlow — E-Commerce Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --sidebar-bg:#0f172a;--sidebar-hover:#1e293b;--sidebar-active:rgba(99,102,241,0.15);
+            --bg:#f8fafc;--bg2:#ffffff;--bg3:#f1f5f9;
+            --border:#e2e8f0;--border2:#cbd5e1;
+            --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+            --accent:#6366f1;--accent2:#818cf8;--accent-bg:rgba(99,102,241,0.08);
+            --green:#10b981;--green-bg:rgba(16,185,129,0.08);
+            --red:#ef4444;--red-bg:rgba(239,68,68,0.08);
+            --yellow:#f59e0b;--yellow-bg:rgba(245,158,11,0.08);
+            --blue:#3b82f6;--blue-bg:rgba(59,130,246,0.08);
+            --orange:#f97316;
+            --sidebar-w:260px;--topbar-h:60px;--radius:10px;--transition:0.15s ease;
+        }
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;overflow:hidden}
+
+        /* SIDEBAR */
+        .sidebar{width:var(--sidebar-w);height:100vh;background:var(--sidebar-bg);position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;transition:transform 0.25s}
+        .sidebar-header{padding:20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+        .brand{display:flex;align-items:center;gap:10px}
+        .brand-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),#ec4899);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:white}
+        .brand h2{font-size:16px;font-weight:700;color:white}
+        .brand span{font-size:10px;color:var(--text3)}
+
+        .sidebar-nav{flex:1;padding:12px 8px;overflow-y:auto}
+        .nav-group{margin-bottom:16px}
+        .nav-group-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);padding:8px 12px 4px}
+        .s-nav{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:#94a3b8;transition:all var(--transition)}
+        .s-nav:hover{background:var(--sidebar-hover);color:white}
+        .s-nav.active{background:var(--sidebar-active);color:var(--accent2)}
+        .s-nav svg{flex-shrink:0}
+        .s-nav .badge{margin-left:auto;font-size:10px;background:rgba(255,255,255,0.1);padding:2px 7px;border-radius:10px}
+        .s-nav.active .badge{background:var(--sidebar-active);color:var(--accent2)}
+
+        .sidebar-footer{padding:16px;border-top:1px solid rgba(255,255,255,0.08)}
+        .s-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer}
+        .s-user:hover{background:var(--sidebar-hover)}
+        .s-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ec4899);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white}
+        .s-user .name{font-size:12px;font-weight:500;color:white}
+        .s-user .role{font-size:10px;color:var(--text3)}
+
+        /* MAIN */
+        .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;height:100vh;width:calc(100% - var(--sidebar-w))}
+        .topbar{height:var(--topbar-h);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+        .topbar-left{display:flex;align-items:center;gap:12px}
+        .topbar-left h1{font-size:18px;font-weight:600}
+        .topbar-left .crumb{font-size:12px;color:var(--text3)}
+        .topbar-right{display:flex;align-items:center;gap:10px}
+        .t-btn{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:white;color:var(--text2);display:flex;align-items:center;gap:6px;transition:all var(--transition)}
+        .t-btn:hover{border-color:var(--border2);background:var(--bg3)}
+        .t-btn-primary{background:var(--accent);color:white;border-color:var(--accent)}
+        .t-btn-primary:hover{background:var(--accent2)}
+        .t-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--border);background:white;cursor:pointer;color:var(--text2);transition:all var(--transition)}
+        .t-icon:hover{background:var(--bg3)}
+        .mobile-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer}
+
+        .page-container{flex:1;overflow-y:auto;padding:24px}
+        .page{display:none;animation:fadeIn 0.2s ease}
+        .page.active{display:block}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+        /* DASHBOARD */
+        .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+        .kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+        .kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+        .kpi-label{font-size:12px;color:var(--text3);font-weight:500}
+        .kpi-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+        .kpi-value{font-size:28px;font-weight:700;margin-bottom:4px}
+        .kpi-change{font-size:11px;display:flex;align-items:center;gap:4px}
+        .kpi-change.up{color:var(--green)}
+        .kpi-change.down{color:var(--red)}
+
+        .charts-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px}
+        .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+        .card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+        .card-header h3{font-size:14px;font-weight:600}
+        .card-body{padding:20px}
+        .chart-box{height:260px;position:relative}
+
+        .mini-table{width:100%}
+        .mini-table th{text-align:left;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.03em;padding:8px 0;border-bottom:1px solid var(--border)}
+        .mini-table td{padding:10px 0;font-size:13px;border-bottom:1px solid var(--border)}
+        .mini-table tr:last-child td{border-bottom:none}
+        .status-badge{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500}
+
+        /* PRODUCTS */
+        .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+        .toolbar-left{display:flex;align-items:center;gap:8px}
+        .search-box{position:relative}
+        .search-box input{padding:8px 12px 8px 34px;border:1px solid var(--border);border-radius:8px;font-size:12px;outline:none;width:240px;background:var(--bg2);color:var(--text);transition:border var(--transition)}
+        .search-box input:focus{border-color:var(--accent)}
+        .search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3)}
+
+        .data-table{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+        .data-table thead{background:var(--bg3)}
+        .data-table th{padding:12px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.03em;border-bottom:1px solid var(--border)}
+        .data-table td{padding:14px 16px;font-size:13px;border-bottom:1px solid var(--border)}
+        .data-table tr:hover{background:var(--bg3)}
+        .data-table tr:last-child td{border-bottom:none}
+        .product-cell{display:flex;align-items:center;gap:10px}
+        .product-img{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--bg3)}
+        .product-name{font-weight:500}
+        .product-sku{font-size:10px;color:var(--text3)}
+        .stock-low{color:var(--red)}
+        .stock-ok{color:var(--green)}
+
+        /* ORDERS */
+        .order-filters{display:flex;gap:6px;margin-bottom:16px}
+        .o-filter{padding:5px 14px;border-radius:20px;font-size:11px;border:1px solid var(--border);background:white;color:var(--text2);cursor:pointer;transition:all var(--transition)}
+        .o-filter:hover{border-color:var(--accent);color:var(--accent)}
+        .o-filter.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
+
+        /* CUSTOMERS */
+        .customers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+        .customer-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all var(--transition)}
+        .customer-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+        .c-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+        .c-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:white}
+        .c-info h3{font-size:14px;font-weight:600}
+        .c-info p{font-size:11px;color:var(--text3)}
+        .c-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+        .c-stat{text-align:center;padding:8px;background:var(--bg3);border-radius:6px}
+        .c-stat .v{font-size:16px;font-weight:700;display:block}
+        .c-stat .l{font-size:9px;color:var(--text3);text-transform:uppercase}
+
+        /* ANALYTICS */
+        .analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+
+        /* SETTINGS */
+        .settings-layout{display:grid;grid-template-columns:200px 1fr;gap:24px}
+        .settings-nav{list-style:none}
+        .settings-nav li{padding:8px 14px;border-radius:8px;font-size:13px;color:var(--text2);cursor:pointer;margin-bottom:2px;transition:all var(--transition)}
+        .settings-nav li:hover{background:var(--bg3)}
+        .settings-nav li.active{background:var(--accent-bg);color:var(--accent)}
+        .s-section{margin-bottom:28px}
+        .s-section h3{font-size:15px;font-weight:600;margin-bottom:4px}
+        .s-section .desc{font-size:12px;color:var(--text3);margin-bottom:16px}
+        .s-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+        .s-row:last-child{border-bottom:none}
+        .s-row h4{font-size:13px;font-weight:500}
+        .s-row p{font-size:11px;color:var(--text3);margin-top:2px}
+        .toggle{width:36px;height:20px;background:var(--bg3);border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s;border:1px solid var(--border)}
+        .toggle.on{background:var(--accent);border-color:var(--accent)}
+        .toggle::after{content:'';width:16px;height:16px;background:white;border-radius:50%;position:absolute;top:1px;left:1px;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+        .toggle.on::after{transform:translateX(16px)}
+        .s-input{padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;outline:none;width:250px;background:white;color:var(--text)}
+        .s-input:focus{border-color:var(--accent)}
+
+        @media(max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.charts-row,.analytics-grid{grid-template-columns:1fr}.settings-layout{grid-template-columns:1fr}}
+        @media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%}.mobile-toggle{display:flex}.kpi-grid{grid-template-columns:1fr 1fr}.customers-grid{grid-template-columns:1fr}}
+        ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header"><div class="brand"><div class="brand-icon">S</div><div><h2>ShopFlow</h2><span>E-Commerce Suite</span></div></div></div>
+    <nav class="sidebar-nav">
+        <div class="nav-group">
+            <div class="nav-group-label">Main</div>
+            <div class="s-nav active" data-page="dashboard" onclick="goTo('dashboard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</div>
+            <div class="s-nav" data-page="orders" onclick="goTo('orders')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Orders<span class="badge">24</span></div>
+            <div class="s-nav" data-page="products" onclick="goTo('products')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Products<span class="badge">156</span></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-group-label">Management</div>
+            <div class="s-nav" data-page="customers" onclick="goTo('customers')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Customers<span class="badge">12.4K</span></div>
+            <div class="s-nav" data-page="analytics" onclick="goTo('analytics')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</div>
+            <div class="s-nav" data-page="settings" onclick="goTo('settings')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</div>
+        </div>
+    </nav>
+    <div class="sidebar-footer"><div class="s-user"><div class="s-avatar">AH</div><div><div class="name">Ahmed Hany</div><div class="role">Store Admin</div></div></div></div>
+</aside>
+
+<div class="main">
+    <div class="topbar">
+        <div class="topbar-left">
+            <button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+            <div><h1 id="pageTitle">Dashboard</h1><div class="crumb" id="pageCrumb">ShopFlow / Overview</div></div>
+        </div>
+        <div class="topbar-right">
+            <button class="t-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+            <div class="t-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+        </div>
+    </div>
+
+    <div class="page-container">
+
+        <!-- DASHBOARD -->
+        <div class="page active" id="page-dashboard">
+            <div class="kpi-grid">
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Total Revenue</span><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent)">$</div></div><div class="kpi-value">$48,295</div><div class="kpi-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+12.5% vs last month</div></div>
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Orders</span><div class="kpi-icon" style="background:var(--green-bg);color:var(--green)">&#128230;</div></div><div class="kpi-value">1,847</div><div class="kpi-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+8.2% vs last month</div></div>
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Customers</span><div class="kpi-icon" style="background:var(--blue-bg);color:var(--blue)">&#128100;</div></div><div class="kpi-value">12,493</div><div class="kpi-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+15.3% vs last month</div></div>
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Conversion Rate</span><div class="kpi-icon" style="background:var(--yellow-bg);color:var(--yellow)">%</div></div><div class="kpi-value">3.24%</div><div class="kpi-change down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg>-0.4% vs last month</div></div>
+            </div>
+            <div class="charts-row">
+                <div class="card"><div class="card-header"><h3>Revenue Overview</h3><div style="display:flex;gap:4px"><button class="o-filter active" style="padding:3px 10px">Monthly</button><button class="o-filter" style="padding:3px 10px">Weekly</button></div></div><div class="card-body"><div class="chart-box"><canvas id="revenueChart"></canvas></div></div></div>
+                <div class="card"><div class="card-header"><h3>Sales by Category</h3></div><div class="card-body"><div class="chart-box"><canvas id="categoryChart"></canvas></div></div></div>
+            </div>
+            <div class="charts-row">
+                <div class="card"><div class="card-header"><h3>Recent Orders</h3><button class="t-btn" onclick="goTo('orders')" style="font-size:11px;padding:4px 10px">View All</button></div><div class="card-body"><table class="mini-table"><thead><tr><th>Order</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead><tbody id="recentOrders"></tbody></table></div></div>
+                <div class="card"><div class="card-header"><h3>Top Products</h3></div><div class="card-body"><table class="mini-table"><thead><tr><th>Product</th><th>Sales</th><th>Revenue</th></tr></thead><tbody id="topProducts"></tbody></table></div></div>
+            </div>
+        </div>
+
+        <!-- ORDERS -->
+        <div class="page" id="page-orders">
+            <div class="toolbar">
+                <div class="toolbar-left"><div class="search-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Search orders..." id="orderSearch"></div></div>
+                <div style="font-size:12px;color:var(--text3)">Showing 24 orders</div>
+            </div>
+            <div class="order-filters"><button class="o-filter active">All Orders</button><button class="o-filter">Completed</button><button class="o-filter">Processing</button><button class="o-filter">Shipped</button><button class="o-filter">Cancelled</button></div>
+            <div class="data-table"><table style="width:100%;border-collapse:collapse"><thead><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th>Payment</th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+        </div>
+
+        <!-- PRODUCTS -->
+        <div class="page" id="page-products">
+            <div class="toolbar"><div class="toolbar-left"><div class="search-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Search products..."></div><button class="t-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>Filter</button></div><button class="t-btn t-btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Product</button></div>
+            <div class="data-table"><table style="width:100%;border-collapse:collapse"><thead><tr><th>Product</th><th>SKU</th><th>Price</th><th>Stock</th><th>Category</th><th>Sales</th><th>Status</th></tr></thead><tbody id="productsTable"></tbody></table></div>
+        </div>
+
+        <!-- CUSTOMERS -->
+        <div class="page" id="page-customers">
+            <div class="toolbar"><div class="toolbar-left"><div class="search-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Search customers..."></div></div><div style="font-size:12px;color:var(--text3)">12,493 total customers</div></div>
+            <div class="customers-grid" id="customersGrid"></div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="page" id="page-analytics">
+            <div class="kpi-grid" style="margin-bottom:24px">
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Avg. Order Value</span><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent)">$</div></div><div class="kpi-value">$26.14</div><div class="kpi-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+3.8%</div></div>
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Cart Abandonment</span><div class="kpi-icon" style="background:var(--red-bg);color:var(--red)">&#128722;</div></div><div class="kpi-value">67.2%</div><div class="kpi-change down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg>-2.1%</div></div>
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Return Rate</span><div class="kpi-icon" style="background:var(--yellow-bg);color:var(--yellow)">&#8635;</div></div><div class="kpi-value">4.8%</div><div class="kpi-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>-0.5%</div></div>
+                <div class="kpi"><div class="kpi-top"><span class="kpi-label">Customer LTV</span><div class="kpi-icon" style="background:var(--green-bg);color:var(--green)">&#9829;</div></div><div class="kpi-value">$142</div><div class="kpi-change up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+8.7%</div></div>
+            </div>
+            <div class="analytics-grid">
+                <div class="card"><div class="card-header"><h3>Traffic Sources</h3></div><div class="card-body"><div class="chart-box"><canvas id="trafficChart"></canvas></div></div></div>
+                <div class="card"><div class="card-header"><h3>Sales by Region</h3></div><div class="card-body"><div class="chart-box"><canvas id="regionChart"></canvas></div></div></div>
+            </div>
+            <div class="card"><div class="card-header"><h3>Monthly Performance</h3></div><div class="card-body"><div class="chart-box"><canvas id="perfChart"></canvas></div></div></div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="page" id="page-settings">
+            <div class="settings-layout">
+                <ul class="settings-nav"><li class="active">General</li><li>Payments</li><li>Shipping</li><li>Notifications</li><li>Tax</li></ul>
+                <div>
+                    <div class="s-section"><h3>Store Information</h3><div class="desc">Basic information about your store</div>
+                        <div class="s-row"><div><h4>Store Name</h4><p>Displayed across your storefront</p></div><input class="s-input" value="ShopFlow Store"></div>
+                        <div class="s-row"><div><h4>Store URL</h4><p>Your public store address</p></div><input class="s-input" value="shopflow-store.com"></div>
+                        <div class="s-row"><div><h4>Currency</h4><p>Default currency for all transactions</p></div><select class="s-input"><option>USD ($)</option><option>EUR (&euro;)</option><option>GBP (&pound;)</option><option>EGP (E&pound;)</option></select></div>
+                    </div>
+                    <div class="s-section"><h3>Notifications</h3><div class="desc">Manage how you receive alerts</div>
+                        <div class="s-row"><div><h4>New Order Alerts</h4><p>Get notified for every new order</p></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+                        <div class="s-row"><div><h4>Low Stock Alerts</h4><p>Alert when products are below threshold</p></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+                        <div class="s-row"><div><h4>Daily Sales Summary</h4><p>Receive daily email with sales recap</p></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+                        <div class="s-row"><div><h4>Customer Reviews</h4><p>Notify when new reviews are posted</p></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+                    </div>
+                    <div class="s-section"><h3>Shipping</h3><div class="desc">Configure shipping options</div>
+                        <div class="s-row"><div><h4>Free Shipping Threshold</h4><p>Minimum order amount for free shipping</p></div><input class="s-input" value="$50.00"></div>
+                        <div class="s-row"><div><h4>Default Shipping Rate</h4><p>Applied when free shipping doesn't qualify</p></div><input class="s-input" value="$4.99"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const orders=[
+    {id:'#SF-2847',customer:'Emma Wilson',date:'Mar 11, 2026',items:3,total:'$89.97',status:'completed',payment:'Visa ****4242'},
+    {id:'#SF-2846',customer:'James Brown',date:'Mar 11, 2026',items:1,total:'$129.00',status:'processing',payment:'PayPal'},
+    {id:'#SF-2845',customer:'Sofia Garcia',date:'Mar 10, 2026',items:5,total:'$234.50',status:'shipped',payment:'Mastercard ****8371'},
+    {id:'#SF-2844',customer:'Liam Chen',date:'Mar 10, 2026',items:2,total:'$67.98',status:'completed',payment:'Apple Pay'},
+    {id:'#SF-2843',customer:'Olivia Martinez',date:'Mar 10, 2026',items:1,total:'$49.99',status:'processing',payment:'Visa ****9156'},
+    {id:'#SF-2842',customer:'Noah Kim',date:'Mar 9, 2026',items:4,total:'$178.96',status:'shipped',payment:'Google Pay'},
+    {id:'#SF-2841',customer:'Ava Johnson',date:'Mar 9, 2026',items:2,total:'$95.00',status:'cancelled',payment:'Visa ****3847'},
+    {id:'#SF-2840',customer:'William Davis',date:'Mar 9, 2026',items:1,total:'$39.99',status:'completed',payment:'PayPal'},
+    {id:'#SF-2839',customer:'Isabella Lee',date:'Mar 8, 2026',items:3,total:'$142.47',status:'completed',payment:'Mastercard ****2059'},
+    {id:'#SF-2838',customer:'Mason Taylor',date:'Mar 8, 2026',items:2,total:'$84.98',status:'shipped',payment:'Visa ****6724'},
+    {id:'#SF-2837',customer:'Mia Anderson',date:'Mar 8, 2026',items:1,total:'$199.00',status:'processing',payment:'Apple Pay'},
+    {id:'#SF-2836',customer:'Ethan Thomas',date:'Mar 7, 2026',items:6,total:'$312.94',status:'completed',payment:'PayPal'},
+];
+
+const products=[
+    {name:'Wireless Noise-Cancelling Headphones',sku:'WH-NC400',price:'$129.99',stock:45,cat:'Electronics',sales:342,emoji:'&#127911;'},
+    {name:'Organic Cotton T-Shirt',sku:'CT-ORG01',price:'$34.99',stock:128,cat:'Clothing',sales:891,emoji:'&#128085;'},
+    {name:'Stainless Steel Water Bottle',sku:'WB-SS750',price:'$24.99',stock:5,cat:'Accessories',sales:1247,emoji:'&#129380;'},
+    {name:'Smart Fitness Watch Pro',sku:'FW-PRO3',price:'$199.99',stock:23,cat:'Electronics',sales:567,emoji:'&#9201;'},
+    {name:'Premium Yoga Mat',sku:'YM-PRM01',price:'$49.99',stock:67,cat:'Fitness',sales:423,emoji:'&#129336;'},
+    {name:'Bamboo Cutting Board Set',sku:'CB-BMB03',price:'$29.99',stock:0,cat:'Kitchen',sales:189,emoji:'&#127860;'},
+    {name:'LED Desk Lamp with USB',sku:'DL-LED02',price:'$44.99',stock:34,cat:'Home Office',sales:312,emoji:'&#128161;'},
+    {name:'Organic Green Tea Collection',sku:'GT-ORG12',price:'$19.99',stock:156,cat:'Food & Drink',sales:2103,emoji:'&#127861;'},
+    {name:'Canvas Laptop Backpack',sku:'BP-CNV01',price:'$59.99',stock:12,cat:'Accessories',sales:456,emoji:'&#127890;'},
+    {name:'Ceramic Plant Pot Set',sku:'PP-CRM04',price:'$39.99',stock:78,cat:'Home Decor',sales:234,emoji:'&#127807;'},
+];
+
+const customers=[
+    {name:'Emma Wilson',email:'emma.w@gmail.com',orders:12,spent:'$1,847.50',joined:'Jan 2025',grad:'linear-gradient(135deg,#6366f1,#ec4899)',status:'VIP'},
+    {name:'James Brown',email:'j.brown@outlook.com',orders:8,spent:'$923.40',joined:'Mar 2025',grad:'linear-gradient(135deg,#10b981,#3b82f6)',status:'Active'},
+    {name:'Sofia Garcia',email:'sofia.g@yahoo.com',orders:23,spent:'$3,421.80',joined:'Aug 2024',grad:'linear-gradient(135deg,#f59e0b,#f97316)',status:'VIP'},
+    {name:'Liam Chen',email:'liam.chen@gmail.com',orders:5,spent:'$412.90',joined:'Jul 2025',grad:'linear-gradient(135deg,#ec4899,#a855f7)',status:'Active'},
+    {name:'Olivia Martinez',email:'o.martinez@icloud.com',orders:15,spent:'$2,156.30',joined:'Nov 2024',grad:'linear-gradient(135deg,#3b82f6,#6366f1)',status:'VIP'},
+    {name:'Noah Kim',email:'noah.k@gmail.com',orders:3,spent:'$234.97',joined:'Jan 2026',grad:'linear-gradient(135deg,#f97316,#ef4444)',status:'New'},
+];
+
+const statusColors={completed:{bg:'var(--green-bg)',color:'var(--green)'},processing:{bg:'var(--blue-bg)',color:'var(--blue)'},shipped:{bg:'var(--yellow-bg)',color:'var(--yellow)'},cancelled:{bg:'var(--red-bg)',color:'var(--red)'},pending:{bg:'rgba(148,163,184,0.1)',color:'var(--text3)'}};
+
+function goTo(page){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.s-nav').forEach(n=>n.classList.remove('active'));
+    document.getElementById('page-'+page).classList.add('active');
+    document.querySelector(`.s-nav[data-page="${page}"]`)?.classList.add('active');
+    const titles={dashboard:'Dashboard',orders:'Orders',products:'Products',customers:'Customers',analytics:'Analytics',settings:'Settings'};
+    const crumbs={dashboard:'ShopFlow / Overview',orders:'ShopFlow / Order Management',products:'ShopFlow / Product Catalog',customers:'ShopFlow / Customer Management',analytics:'ShopFlow / Analytics & Reports',settings:'ShopFlow / Store Settings'};
+    document.getElementById('pageTitle').textContent=titles[page];
+    document.getElementById('pageCrumb').textContent=crumbs[page];
+    document.getElementById('sidebar').classList.remove('open');
+    if(page==='analytics')initAnalyticsCharts();
+}
+
+function renderDashboard(){
+    document.getElementById('recentOrders').innerHTML=orders.slice(0,5).map(o=>{const s=statusColors[o.status];return`<tr><td style="font-weight:500;font-size:12px">${o.id}</td><td>${o.customer}</td><td style="font-weight:600">${o.total}</td><td><span class="status-badge" style="background:${s.bg};color:${s.color}">${o.status}</span></td></tr>`}).join('');
+    document.getElementById('topProducts').innerHTML=products.slice(0,5).map(p=>`<tr><td style="display:flex;align-items:center;gap:8px"><span style="font-size:18px">${p.emoji}</span>${p.name.split(' ').slice(0,2).join(' ')}</td><td style="font-weight:600">${p.sales}</td><td style="color:var(--green);font-weight:500">$${(p.sales*parseFloat(p.price.slice(1))*0.3).toFixed(0)}</td></tr>`).join('');
+}
+
+function renderOrders(){
+    document.getElementById('ordersTable').innerHTML=orders.map(o=>{const s=statusColors[o.status];return`<tr><td style="font-weight:600;font-size:12px">${o.id}</td><td>${o.customer}</td><td style="color:var(--text3)">${o.date}</td><td>${o.items}</td><td style="font-weight:600">${o.total}</td><td><span class="status-badge" style="background:${s.bg};color:${s.color}">${o.status}</span></td><td style="font-size:12px;color:var(--text3)">${o.payment}</td></tr>`}).join('');
+}
+
+function renderProducts(){
+    document.getElementById('productsTable').innerHTML=products.map(p=>{const stockClass=p.stock<=5?'stock-low':'stock-ok';const statusText=p.stock===0?'Out of Stock':p.stock<=10?'Low Stock':'In Stock';const sBg=p.stock===0?statusColors.cancelled:p.stock<=10?statusColors.shipped:statusColors.completed;return`<tr><td><div class="product-cell"><div class="product-img">${p.emoji}</div><div><div class="product-name">${p.name}</div></div></div></td><td style="font-family:monospace;font-size:11px;color:var(--text3)">${p.sku}</td><td style="font-weight:600">${p.price}</td><td class="${stockClass}" style="font-weight:500">${p.stock}</td><td>${p.cat}</td><td style="font-weight:500">${p.sales.toLocaleString()}</td><td><span class="status-badge" style="background:${sBg.bg};color:${sBg.color}">${statusText}</span></td></tr>`}).join('');
+}
+
+function renderCustomers(){
+    document.getElementById('customersGrid').innerHTML=customers.map(c=>{const sBg=c.status==='VIP'?{bg:'var(--accent-bg)',color:'var(--accent)'}:c.status==='New'?{bg:'var(--green-bg)',color:'var(--green)'}:{bg:'var(--blue-bg)',color:'var(--blue)'};return`<div class="customer-card"><div class="c-header"><div class="c-avatar" style="background:${c.grad}">${c.name.split(' ').map(n=>n[0]).join('')}</div><div class="c-info"><h3>${c.name}</h3><p>${c.email}</p></div><span class="status-badge" style="background:${sBg.bg};color:${sBg.color}">${c.status}</span></div><div class="c-stats"><div class="c-stat"><span class="v">${c.orders}</span><span class="l">Orders</span></div><div class="c-stat"><span class="v">${c.spent}</span><span class="l">Spent</span></div><div class="c-stat"><span class="v">${c.joined}</span><span class="l">Joined</span></div></div></div>`}).join('');
+}
+
+function initCharts(){
+    const rc=document.getElementById('revenueChart')?.getContext('2d');
+    if(rc)new Chart(rc,{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{label:'Revenue',data:[28400,31200,29800,35600,38200,42100,39800,43500,41200,45800,44200,48295],borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,0.08)',fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:'#6366f1'},{label:'Expenses',data:[12200,13800,12900,15200,16100,17800,16500,18200,17100,19400,18600,20100],borderColor:'#94a3b8',borderDash:[5,5],tension:0.4,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{font:{size:11},boxWidth:12}}},scales:{x:{grid:{color:'#f1f5f9'},ticks:{font:{size:10},color:'#94a3b8'}},y:{grid:{color:'#f1f5f9'},ticks:{font:{size:10},color:'#94a3b8',callback:v=>'$'+v/1000+'k'}}}}});
+
+    const cc=document.getElementById('categoryChart')?.getContext('2d');
+    if(cc)new Chart(cc,{type:'doughnut',data:{labels:['Electronics','Clothing','Accessories','Food & Drink','Home'],datasets:[{data:[35,25,18,12,10],backgroundColor:['#6366f1','#ec4899','#f59e0b','#10b981','#3b82f6'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:12,boxWidth:12}}}}});
+}
+
+function initAnalyticsCharts(){
+    setTimeout(()=>{
+        const tc=document.getElementById('trafficChart')?.getContext('2d');
+        if(tc&&!tc.chart){tc.chart=new Chart(tc,{type:'bar',data:{labels:['Organic Search','Direct','Social Media','Email','Referral','Paid Ads'],datasets:[{label:'Visitors',data:[4521,3842,2918,1847,1234,2156],backgroundColor:['#6366f1','#3b82f6','#ec4899','#10b981','#f59e0b','#f97316'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'#f1f5f9'},ticks:{font:{size:10},color:'#94a3b8'}}}}})}
+        const rg=document.getElementById('regionChart')?.getContext('2d');
+        if(rg&&!rg.chart){rg.chart=new Chart(rg,{type:'doughnut',data:{labels:['North America','Europe','Asia Pacific','Middle East','South America'],datasets:[{data:[42,28,18,7,5],backgroundColor:['#6366f1','#3b82f6','#10b981','#f59e0b','#ec4899'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,boxWidth:12}}}}})}
+        const pf=document.getElementById('perfChart')?.getContext('2d');
+        if(pf&&!pf.chart){pf.chart=new Chart(pf,{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{label:'Orders',data:[1245,1389,1567,1423,1678,1834,1756,1923,1845,2012,1934,1847],borderColor:'#6366f1',tension:0.4,pointRadius:3},{label:'Returns',data:[62,71,78,65,84,87,82,91,88,96,92,89],borderColor:'#ef4444',tension:0.4,pointRadius:3,borderDash:[5,5]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:11},boxWidth:12}}},scales:{x:{grid:{color:'#f1f5f9'},ticks:{font:{size:10}}},y:{grid:{color:'#f1f5f9'},ticks:{font:{size:10},color:'#94a3b8'}}}}})}
+    },100);
+}
+
+renderDashboard();renderOrders();renderProducts();renderCustomers();initCharts();
+</script>
+</body>
+</html>

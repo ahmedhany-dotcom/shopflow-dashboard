@@ -1,0 +1,58 @@
+Category,Tool / Account,URL,Why,Pricing,Priority,When To Set Up
+Idea Discovery,Reddit,https://reddit.com,Mining pain points & unmet needs,Free,Must,Day 1
+Idea Discovery,IdeaBrowser (Gummy Search successor),https://ideabrowser.com/join,"Replaces the discontinued Gummy Search. AI surfaces trending Subreddits + 'Pain & Anger', 'Advice Requests', 'Solution Requests', 'Top Content' views. Greg Isenberg's primary tool.",Free trial / paid,Must,Day 1
+Idea Discovery,Perplexity AI,https://perplexity.ai,"Find top creators / influencers in any niche. Step 3 of Greg's framework: 'Who are the top 10 YouTube creators in [niche]?'",Free tier / paid,Recommended,Day 2
+Idea Discovery,Framer,https://framer.com,"Quick wireframes / prototypes. Step 4 of Greg's framework: turn the idea into a 1-page mock + landing page.",Free tier / paid,Recommended,Day 3
+Idea Discovery,Google Trends,https://trends.google.com,Demand validation,Free,Must,Day 3
+Idea Discovery,subredditstats.com,https://subredditstats.com,Find subreddits by size (10K-100K sweet spot),Free,Recommended,Day 1
+Validation,FLAME,https://goflame.ai,4-pillar idea scoring,Free first score,Optional,Day 3
+Competitor Analysis,Osum,https://osum.com,Auto-generates competitor SWOT in minutes,Free trial / paid,Must,Day 4
+Competitor Analysis,SEMrush,https://semrush.com,Traffic / keywords / ads,Free trial / paid,Recommended,Day 4
+Competitor Analysis,Ubersuggest,https://neilpatel.com/ubersuggest/,Cheap SEO data,Free tier / cheap,Optional,Day 4
+Competitor Analysis,SimilarWeb,https://similarweb.com,Traffic estimates,Free tier,Recommended,Day 4
+Competitor Analysis,Facebook Ad Library,https://www.facebook.com/ads/library,All competitor ads,Free,Must,Day 4
+Competitor Analysis,Google Maps,https://maps.google.com,Local competitor reviews & locations,Free,Must,Day 4
+Competitor Analysis,SE Ranking,https://seranking.com,SEO + has Claude MCP integration,Paid,Optional,Day 11
+Brand Mindset,Marty Neumeier book — The Brand Gap,https://www.martyneumeier.com/the-brand-gap,Foundation reading,Paid book,Recommended,Day 5
+Brand Build,Caleb Ralston Workbook,https://calebralston.com/startyourbrand,All frameworks from the 5h course,Free,Must,Day 6
+Brand Build,Notion,https://notion.so,Brand HQ document workspace,Free tier,Recommended,Day 5
+AI / Claude,Anthropic Claude Pro/Max,https://claude.ai,Pro = projects + skills | Max = best for heavy use,$20-200/mo,Must,Day 9
+AI / Claude,Claude Desktop,https://claude.ai/download,Local app for MCP servers,Free with Claude account,Must,Day 9
+AI / Claude,Claude Code CLI,npm i -g @anthropic-ai/claude-code,Best agentic AI on terminal,Free + API usage,Must,Day 9
+AI / Claude,Anthropic Skills repo,https://github.com/anthropics/skills,Official skills (PDF/DOCX/PPTX/XLSX),Free,Must,Day 10
+AI / Claude,Corey Haines Marketing Skills,https://github.com/coreyhaines31/marketingskills,32 marketing skills (CRO/SEO/copywriting),Free,Must,Day 10
+AI / Claude,skills.sh,https://skills.sh,Vercel-curated Skills directory,Free,Recommended,Day 10
+AI / Claude,MCP Market,https://mcpmarket.com,Marketplace for MCP/Skills,Free / paid skills,Recommended,Day 10
+AI / Claude,MCP Directory,https://mcp.directory,Skills directory,Free,Recommended,Day 10
+Scraping / MCP,Octoparse MCP,https://mcp.octoparse.com,No-code scraping via Claude,Free tier / paid,Recommended,Day 11
+Scraping / MCP,Apify,https://apify.com,Pre-built actors (Meta Ads / TikTok / IG),Free tier / paid,Recommended,Day 11
+Scraping / MCP,Firecrawl,https://firecrawl.dev,AI-friendly web scraping MCP,Free tier / paid,Recommended,Day 11
+Dev,Node.js 20+,https://nodejs.org,Required runtime,Free,Must,Day 9
+Dev,VS Code,https://code.visualstudio.com,Editor; install GitLens / ESLint / Prettier / Tailwind IntelliSense,Free,Must,Day 9
+Dev,Git,https://git-scm.com,Version control,Free,Must,Day 9
+Dev,Docker Desktop,https://www.docker.com/products/docker-desktop,Run MCP servers locally,Free for personal,Must,Day 9
+Dev,GitHub,https://github.com,Source hosting,Free,Must,Day 9
+Dev,GitHub Personal Access Token,github.com/settings/tokens,"Scopes: repo, workflow, read:org",Free,Must,Day 9
+Dev,GitHub Desktop (optional),https://desktop.github.com,GUI for git,Free,Optional,Day 9
+3D,Sketchfab,https://sketchfab.com,Free .glb 3D models,Free tier,Recommended,Day 15
+3D,Poly Pizza,https://poly.pizza,CC0 free 3D models,Free,Recommended,Day 15
+3D,Spline,https://spline.design,Visual 3D editor (Figma for 3D),Free tier,Optional,Day 15
+3D,gltfjsx,https://github.com/pmndrs/gltfjsx,Convert .glb -> R3F components,Free,Recommended,Day 16
+Hosting,Vercel,https://vercel.com,Easiest Vite/Next deploys; auto from GitHub,Free hobby tier,Must,Day 19
+Hosting,Netlify,https://netlify.com,Alternative,Free hobby tier,Optional,Day 19
+Hosting,Cloudflare Pages,https://pages.cloudflare.com,Fastest globally,Free generous tier,Optional,Day 19
+Hosting,GitHub Pages,https://pages.github.com,Static-site hosting,Free,Optional,Day 19
+Domain,Namecheap,https://namecheap.com,Affordable domains,~$10/yr,Must,Day 19
+Domain,Cloudflare Registrar,https://www.cloudflare.com/products/registrar/,At-cost domains,~$8/yr,Optional,Day 19
+Analytics,Google Search Console,https://search.google.com/search-console,Free SEO insights — REQUIRED,Free,Must,Day 19
+Analytics,GA4,https://analytics.google.com,Standard analytics,Free,Must,Day 19
+Analytics,Plausible,https://plausible.io,Privacy-friendly analytics,Paid (~$9/mo),Recommended,Day 19
+Analytics,Umami,https://umami.is,Open-source alternative,Self-host free / paid,Optional,Day 19
+Analytics,Vercel Analytics,Built into Vercel,Easy when on Vercel,Free tier,Optional,Day 19
+Analytics,PostHog,https://posthog.com,Heatmaps + funnels + product analytics,Free tier (1M events),Recommended,Day 19
+Repos to Star,anthropics/skills,https://github.com/anthropics/skills,Official Skills,Free,Must,Day 10
+Repos to Star,coreyhaines31/marketingskills,https://github.com/coreyhaines31/marketingskills,Marketing skills,Free,Must,Day 10
+Repos to Star,github/github-mcp-server,https://github.com/github/github-mcp-server,Official GitHub MCP,Free,Must,Day 14
+Repos to Star,adrianhajdin/3d-portfolio,https://github.com/adrianhajdin/3d-portfolio,JS Mastery 3D Portfolio source,Free,Recommended,Day 16
+Repos to Star,TechnoBlogger14o3/react-three-fiber-tutorials,https://github.com/TechnoBlogger14o3/react-three-fiber-tutorials,7 R3F courses + 41 examples,Free,Recommended,Day 16
+Repos to Star,sidpalas/devops-directive-github-actions-course,https://github.com/sidpalas/devops-directive-github-actions-course,GitHub Actions companion,Free,Recommended,Day 14

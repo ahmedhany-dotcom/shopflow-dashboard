@@ -1,0 +1,87 @@
+Day,Phase,Task #,Task Title,Action Steps,Time (min),Tool / Resource,Output / Deliverable,Status
+1,Idea Discovery,1.1,Watch Greg Isenberg #1,Watch the full ~20m video on Reddit + AI to find startup ideas,20,https://www.youtube.com/watch?v=8vXoI7lUroQ,Notes file on Greg's 5-step method,☐
+1,Idea Discovery,1.2,Set up ideas.md file,"Create ideas.md with columns: Idea | Pain Point | Source (Subreddit/URL) | Audience | Severity 1-5 | Date",5,VS Code or Notion,Empty ideas.md ready,☐
+1,Idea Discovery (Greg Step 1),1.3,Find trending subreddits via IdeaBrowser,"Use https://ideabrowser.com/join (replaces the discontinued Gummy Search). Focus on 10K-100K member communities — they answer 'why now'. Check daily / weekly / monthly growth trends. Pick niches where you have an unfair advantage.",30,https://ideabrowser.com/join,5-10 trending subreddits in your niche,☐
+1,Idea Discovery (Greg Step 1),1.4,Run Google Reddit hacks (parallel to IdeaBrowser),"Search 'site:reddit.com ""is there an app for"" [your niche]', 'site:reddit.com ""wish there was"" [your niche]', 'site:reddit.com ""is there a tool"" [your niche]', 'site:reddit.com ""why is there no"" [your niche]'",30,Google Search,List of 5-10 explicit unmet needs,☐
+1,Idea Discovery (Greg Step 2),1.5,Add subreddits to an 'audience' in IdeaBrowser,"Group your 5-10 subreddits into one IdeaBrowser audience so you can analyze them as a cohort.",10,https://ideabrowser.com/join,Audience configured,☐
+1,Idea Discovery (Greg Step 2),1.6,Mine 'Pain & Anger' patterns,"Open the Pain & Anger section. Read the top 30-50 posts. Log every recurring complaint. KEY: write down recurring THEMES, not one-offs.",60,IdeaBrowser audience,List of recurring frustrations,☐
+1,Idea Discovery (Greg Step 2),1.7,Mine 'Advice Requests' patterns,"Open Advice Requests. Capture what people are asking — these reveal blind spots in the niche.",30,IdeaBrowser audience,Top 10 question themes,☐
+1,Idea Discovery (Greg Step 2),1.8,Mine 'Solution Requests' patterns,"Open Solution Requests. These reveal the competitive landscape and tools people wish existed = direct idea fuel.",30,IdeaBrowser audience,Top 10 'I wish a tool existed for X' themes,☐
+1,Idea Discovery,1.9,Convert pain points to ideas,Turn each pain point / advice / solution request into a 1-line brand idea,30,Your brain + ideas.md,At least 20 ideas in ideas.md,☐
+2,Idea Discovery,2.1,Watch Greg Isenberg #2 (FULL Blueprint),"Watch the June 2025 deep-dive (covers ChatGPT history audit + Google Reddit hack + friction-point audit)",30,https://www.youtube.com/watch?v=F7MxPxNbFUw,Notes,☐
+2,Idea Discovery,2.2,ChatGPT/Claude history audit,Open your AI chat history; mark any question/topic you repeated 3+ times,30,ChatGPT/Claude history,5-10 recurring problems,☐
+2,Idea Discovery,2.3,Friction-point audit,"For 1 day, log every time you copy-paste between two tools/apps",continuous,Notes app,List of automation opportunities,☐
+2,Idea Discovery (Greg Step 3),2.4,Find creators in the niche via Perplexity,"Use https://perplexity.ai to find the top influencers in your niche. Ask: 'Who are the top 10 YouTube creators in [niche] in 2026?'",20,https://perplexity.ai,List of 10-15 creators,☐
+2,Idea Discovery (Greg Step 3),2.5,Watch top videos in the niche,"For each creator, find their 2-3 most popular videos. Aim for 20-25 videos total across the creators.",240 (split),YouTube,Notes per video,☐
+2,Idea Discovery (Greg Step 3),2.6,Read comments for audience insight,"On each of the 20-25 videos, read the top 30 comments. Capture: What are people praising? Complaining about? Asking for? This makes you THINK like your audience.",120,YouTube comments,Audience insight log,☐
+2,Idea Discovery,2.7,Add new ideas to ideas.md,Combine new ideas from comments + ChatGPT history + friction audit. Aim for total 30-40 ideas.,15,ideas.md,30-40 ideas total,☐
+3,Validation,3.1,Watch Amardeep Parmar,Step-by-step validation guide,25,https://www.youtube.com/watch?v=iTZIM4AlGZQ,Notes,☐
+3,Validation,3.2,Watch FLAME 4-Pillar,Quick scoring framework,4,https://www.youtube.com/watch?v=MwfrxWVtshg,Notes,☐
+3,Validation,3.3,Score every idea,"Score each idea 1-10 on: Market Demand, Ease to Build, Revenue Potential, Personal Fit",90,Spreadsheet,All ideas scored,☐
+3,Validation,3.4,Pick Top 3,Sort by total score; pick top 3,15,Spreadsheet,Top 3 ideas,☐
+3,Validation,3.5,Demand check,"For Top 3: search Google Trends, count 1-star competitor reviews, browse complaint posts",60,"trends.google.com, competitor reviews",Demand evidence per idea,☐
+3,Validation (Greg Step 4),3.6,Wireframe your solution,"Sketch out your product / service. Use Framer (https://framer.com) for fast prototypes. Come up with a catchy relevant name (Greg's example: DesignScientist.com).",90,https://framer.com,1-page wireframe + working name,☐
+3,Validation,3.7,Pick #1 idea,Commit to one idea to research deeper,10,Yourself,One chosen idea,☐
+4,Competitor Research,4.1,Watch Access Genie,22m step-by-step competitor analysis with Osum + SEMrush,22,https://www.youtube.com/watch?v=9QcRcRuVCfI,Notes,☐
+4,Competitor Research,4.2,Watch Local Market AI,Local market analysis with AI + Google Maps,15,https://www.youtube.com/watch?v=RVQSTZJLrUw,Notes,☐
+4,Competitor Research,4.3,List 5-10 competitors,"Direct + indirect + SEO competitors (search Google, Maps, marketplaces, social)",60,Search,Competitors list,☐
+4,Competitor Research,4.4,Spreadsheet template,"Create columns: Competitor | Type | Website | Pricing | USP | Strengths | Weaknesses | Marketing Channels | Reviews Sentiment | Backlinks",15,Sheets,Template ready,☐
+4,Competitor Research,4.5,Run Osum reports,Free trial; generate report per top 3 competitors,30,https://osum.com,3 competitor SWOTs,☐
+4,Competitor Research,4.6,Run SEMrush,"Free trial; check traffic, keywords, ads",30,https://semrush.com,Traffic & keyword data,☐
+4,Competitor Research,4.7,Facebook Ad Library,Pull every active competitor ad,30,https://www.facebook.com/ads/library,Ad inventory,☐
+4,Competitor Research,4.8,Identify gaps,"Document: features they all have, features none have, complaints customers repeat",45,Sheets,Gaps + opportunities,☐
+4,Competitor Research,4.9,Refine your idea,Adjust your idea/positioning based on the gap,30,ideas.md,Sharper idea,☐
+5,Brand Mindset,5.1,Watch Marty Neumeier,'What is Branding?' deep dive,30,https://www.youtube.com/watch?v=dpZfNNYUZEc,Notes,☐
+5,Brand Mindset,5.2,Watch Learn With Shopify,7-step branding overview,10,https://www.youtube.com/watch?v=4xnLp9A8G_U,Notes,☐
+5,Brand Mindset,5.3,Answer Neumeier's 5 questions,"Who are we? What do we do? Why does it matter? Who is it for? What's our Zag?",30,brand-context.md,brand-context.md draft,☐
+5,Brand Mindset,5.4,Decide Personal vs Business brand,"Apply: 'If I removed the products/services, would people still follow me?'",15,brand-context.md,Brand type decided,☐
+5,Brand Mindset (Greg Step 5),5.5,Analyze 'Top Content' in the community,"Use IdeaBrowser's top-content view (or scan top Reddit posts of all time in your subreddits). What format wins? Memes? Long-form? Polls? Stories? Capture patterns.",45,https://ideabrowser.com/join,Content patterns log,☐
+5,Brand Mindset (Greg Step 5),5.6,Ask AI about content preferences,"Ask Claude/ChatGPT: 'Given these top-performing posts in [niche], what content style does this audience love? Do they prefer memes, long-form essays, listicles, or screenshots? Why?'",20,Claude/ChatGPT,Content style guide,☐
+6,Brand Build (Caleb 1/3),6.1,Caleb Ralston 0:00-1:30,"Sections: Brand Journey Framework, Positioning, Why people listen, Differentiation",90,https://www.youtube.com/watch?v=uJ8Pg6t_iho,Notes,☐
+6,Brand Build (Caleb 1/3),6.2,Download workbook,Get Caleb's free workbook,5,https://calebralston.com/startyourbrand,Workbook PDF,☐
+6,Brand Build (Caleb 1/3),6.3,Fill: Credibility Bank,List your wins/proof,30,Workbook,Credibility Bank done,☐
+6,Brand Build (Caleb 1/3),6.4,Fill: Differentiation,Identify your contrarian (not controversial) belief,30,Workbook,Differentiation done,☐
+7,Brand Build (Caleb 2/3),7.1,Caleb Ralston 1:30-3:00,"Sections: Content Strategy, Cadence, First 3 Videos",90,Same video,Notes,☐
+7,Brand Build (Caleb 2/3),7.2,Pick 1-2 platforms,Choose where to publish (mistake = picking 5),20,Workbook,Platforms decided,☐
+7,Brand Build (Caleb 2/3),7.3,Plan first 3 videos/posts,Use Caleb's 4Cs + Wrapping Paper framework + the content style from Day 5.6,60,Workbook,3 content drafts,☐
+8,Brand Build (Caleb 3/3),8.1,Caleb Ralston 3:00-5:05,Month-by-month case study + Operating System,120,Same video,Notes,☐
+8,Brand Build (Caleb 3/3),8.2,Build brand-voice.md,3 adjectives + 5 do's + 5 don'ts + before/after examples,45,brand-voice.md,Voice guide,☐
+8,Brand Build (Caleb 3/3),8.3,Build content-pillars.md,3-5 content pillars; aligns to brand-context.md,30,content-pillars.md,Pillars defined,☐
+9,Tooling Setup,9.1,Install Node.js + Git + VS Code,Latest stable; configure git user.name & user.email,30,nodejs.org / git-scm.com,Toolchain ready,☐
+9,Tooling Setup,9.2,Install Claude Desktop + CLI,Sign up Claude Pro/Max if affordable,30,https://claude.ai/download,Claude installed,☐
+9,Tooling Setup,9.3,Install Docker Desktop,Required for MCP servers,20,https://docker.com,Docker running,☐
+9,Tooling Setup,9.4,Create GitHub PAT,"Scopes: repo, workflow, read:org",10,github.com/settings/tokens,PAT saved securely,☐
+9,Tooling Setup,9.5,Create [BrandName]-hq repo,Initialize git repo with brand-context.md / brand-voice.md / CLAUDE.md,15,GitHub,Repo live,☐
+10,Claude Setup,10.1,Build Claude Project,"Project: '[Brand] HQ'. Upload: brand-context.md, brand-voice.md, content-pillars.md, competitor analysis sheet, wireframe from Day 3.6",30,Claude,Project ready,☐
+10,Claude Setup,10.2,Install Anthropic Skills,Run /plugin marketplace add anthropics/skills,15,Claude Code CLI,Skills installed,☐
+10,Claude Setup,10.3,Install Marketing Skills,npx skills add coreyhaines31/marketingskills (page-cro / copywriting / seo-audit / ai-seo / social-content),20,GitHub coreyhaines31/marketingskills,Skills installed,☐
+10,Claude Setup,10.4,Add GitHub MCP,Run claude mcp add github with PAT,20,github/github-mcp-server,GitHub MCP working,☐
+10,Claude Setup,10.5,Add Firecrawl MCP,For ethical web scraping,15,firecrawl.dev,Firecrawl MCP active,☐
+11,Content Engine,11.1,Watch Tech With Tim Claude Code,Skills + MCP + Subagents,90,https://www.youtube.com/watch?v=uogzSxOw4LU,Notes,☐
+11,Content Engine,11.2,Build content calendar,Use Master Prompt 'Content Calendar' with Claude (incorporates style from Day 5.6),60,Claude + content-pillars.md,30-day calendar,☐
+11,Content Engine,11.3,Generate first batch,Produce 5 posts/scripts with brand voice,60,Claude,5 ready-to-publish pieces,☐
+11,Content Engine,11.4,Schedule weekly competitor monitoring,Set up Octoparse/Apify MCP + /schedule weekly report,45,mcp.octoparse.com / apify.com,Auto-monitoring on,☐
+12,Data & Analytics,12.1,Pick analytics stack,Plausible/Umami + GA4 + Search Console + PostHog (heatmaps),30,Each tool's site,Accounts created,☐
+12,Data & Analytics,12.2,Watch Claude Data Analysis,Without spreadsheet: claude code data analysis,20,https://www.youtube.com/watch?v=we4J_JgPeQA,Notes,☐
+12,Data & Analytics,12.3,Connect data to Claude,Postgres/Supabase MCP or upload CSV exports weekly,60,Claude,Data flows in,☐
+13,Git Skills,13.1,Watch freeCodeCamp Git/GitHub,2026 crash course,180,https://www.youtube.com/watch?v=mAFoROnOfHs,Notes,☐
+13,Git Skills,13.2,Practice 10 commands,"init, clone, add, commit, push, branch, checkout, merge, rebase, pull",60,Terminal,Comfortable,☐
+14,GitHub Actions,14.1,Watch DevOps Directive,Complete GitHub Actions course,180,https://www.youtube.com/watch?v=Xwpi0ITkL3U,Notes,☐
+14,GitHub Actions,14.2,Add Claude GitHub Action,/install-github-app inside Claude Code,30,code.claude.com/docs/en/github-actions,@claude works in PRs,☐
+14,GitHub Actions,14.3,Add CI workflow,build.yml + deploy.yml for your site repo,60,.github/workflows/,CI green,☐
+15,3D Site (Day 1),15.1,Watch Three.js 101,Crash course,90,https://www.youtube.com/watch?v=KM64t3pA4fs,Notes,☐
+15,3D Site (Day 1),15.2,Scaffold project,"npm create vite@latest brand-3d --template react-ts; install three @react-three/fiber @react-three/drei gsap tailwindcss",30,Terminal,Project running,☐
+16,3D Site (Day 2),16.1,Watch JS Mastery 3D Portfolio,Free 5h tutorial,300,https://www.youtube.com/watch?v=kt0FrkQgw8w,Notes + sample built,☐
+16,3D Site (Day 2),16.2,Add Hero with 3D logo,"R3F + Drei <Float>, <Environment>, <OrbitControls>",90,VS Code + Claude Code,Hero working,☐
+17,3D Site (Day 3),17.1,Watch JS Mastery Creative Frontend,10h GSAP + Three.js + React,600 (split over 2-3 days),https://www.youtube.com/watch?v=ATdaYQw0ptk,Notes + components built,☐
+17,3D Site (Day 3),17.2,Add scroll-driven animations,GSAP ScrollTrigger camera dolly + section reveals,120,VS Code + Claude Code,Scroll animations live,☐
+18,3D Site (Day 4),18.1,Build remaining sections,Story / Products / Local Proof / Contact,240,VS Code + Claude Code,Sections built,☐
+18,3D Site (Day 4),18.2,Optimize performance,"Compress models, lazy-load, mobile test, Lighthouse run",120,gltf-pipeline + Lighthouse,Lighthouse score >= 75,☐
+19,Launch,19.1,Connect domain,Buy domain; point to Vercel/Netlify,30,Namecheap/Cloudflare,Domain live,☐
+19,Launch,19.2,Deploy to Vercel,git push -> Vercel auto-deploys; add ANTHROPIC_API_KEY secret,30,vercel.com,Live URL,☐
+19,Launch,19.3,Add analytics tags,Plausible script + GA4 + PostHog snippet,30,Each provider,Analytics flowing,☐
+19,Launch,19.4,Submit to Search Console,Verify ownership; submit sitemap.xml,20,search.google.com,Indexing started,☐
+19,Launch,19.5,Publish first content,Post the 5 pieces from Day 11; announce launch,60,Each platform,Launch post live,☐
+20,Iterate,20.1,Weekly Claude analytics report,Claude reads PostHog/GSC via MCP and ships PR with 3 improvements,60 (weekly),Claude + GitHub MCP,Auto-report PR,☐
+20,Iterate,20.2,Monthly competitor re-scan,Re-run Octoparse/Apify scrape; compare to baseline,90 (monthly),Claude + scraping MCP,Diff report,☐
+20,Iterate,20.3,Quarterly brand review,Revisit brand-context.md and brand-voice.md; update if positioning evolved,120 (quarterly),Workbook,Updated docs,☐

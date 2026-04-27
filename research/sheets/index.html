@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Local Brand Roadmap — Dashboard</title>
+<style>
+  :root{
+    --bg:#0b0f17;--panel:#11182a;--panel2:#0e1422;--ink:#e9eef9;--muted:#8aa0c2;
+    --accent:#7c5cff;--accent2:#22d3ee;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;
+    --ring:#1d2840;--row:#0f1729;--rowAlt:#0b1322;--chip:#1a2440;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Cairo","Tajawal",sans-serif}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{padding:28px 28px 8px;background:radial-gradient(1200px 400px at 70% -10%,rgba(124,92,255,.25),transparent 60%),radial-gradient(900px 300px at 10% 0,rgba(34,211,238,.15),transparent 60%);border-bottom:1px solid var(--ring)}
+  h1{margin:0 0 6px;font-size:26px;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:14px}
+  .cta{display:inline-flex;gap:8px;align-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;font-weight:700;padding:10px 14px;border-radius:10px;margin-top:14px}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:var(--panel2);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--ring)}
+  nav.tabs button{background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  nav.tabs button.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;border-color:transparent}
+  main{padding:18px 24px 60px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+  .toolbar input,.toolbar select{background:var(--panel);color:var(--ink);border:1px solid var(--ring);border-radius:10px;padding:9px 12px;min-width:200px}
+  .panel{background:var(--panel);border:1px solid var(--ring);border-radius:14px;overflow:hidden}
+  .panel h2{margin:0;padding:14px 16px;border-bottom:1px solid var(--ring);font-size:16px;background:var(--panel2)}
+  .meta{padding:10px 16px;color:var(--muted);font-size:12.5px;border-bottom:1px solid var(--ring);display:flex;gap:14px;flex-wrap:wrap}
+  .meta b{color:var(--ink)}
+  .table-wrap{overflow:auto;max-height:75vh}
+  table{width:100%;border-collapse:collapse;direction:ltr;text-align:left}
+  thead th{position:sticky;top:0;background:#0a1426;color:#cfe0ff;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--ring);white-space:nowrap}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--ring);vertical-align:top;font-size:13.5px}
+  tbody tr:nth-child(odd){background:var(--row)}
+  tbody tr:nth-child(even){background:var(--rowAlt)}
+  tbody tr:hover{background:#142036}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--chip);font-size:12px;color:#cfe0ff;border:1px solid var(--ring)}
+  .pill.must{background:rgba(248,113,113,.12);color:#fecaca;border-color:rgba(248,113,113,.4)}
+  .pill.rec{background:rgba(52,211,153,.12);color:#bbf7d0;border-color:rgba(52,211,153,.4)}
+  .pill.opt{background:rgba(251,191,36,.12);color:#fde68a;border-color:rgba(251,191,36,.4)}
+  .pill.start{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;border:0;font-weight:800}
+  .day{font-weight:800;color:#cfe0ff}
+  .truncate{max-width:520px}
+  details{background:var(--panel2);border:1px solid var(--ring);border-radius:12px;padding:10px 14px;margin:10px 0}
+  details>summary{cursor:pointer;font-weight:700;color:#cfe0ff}
+  pre{background:#070b14;color:#cfe0ff;padding:12px;border-radius:10px;overflow:auto;font-size:12.5px;border:1px solid var(--ring)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
+  .card{background:var(--panel);border:1px solid var(--ring);border-radius:14px;padding:16px}
+  .card h3{margin:0 0 6px;font-size:15px}
+  .card p{margin:0;color:var(--muted);font-size:13px}
+  .empty{padding:18px;color:var(--muted);text-align:center}
+  .hide{display:none}
+  footer{color:var(--muted);font-size:12.5px;padding:18px 24px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Local Brand Roadmap — Interactive Dashboard</h1>
+  <div class="sub">كل اللي تحتاجه لإطلاق Local Brand باستخدام Claude — في شيت واحد قابل للتصفية والترتيب.</div>
+  <a class="cta" href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">▶ ابدأ دلوقتي بالفيديو الأول</a>
+</header>
+
+<nav class="tabs">
+  <button data-tab="start" class="active">🚀 ابدأ هنا</button>
+  <button data-tab="plan">📅 الخطة اليومية</button>
+  <button data-tab="videos">🎬 مكتبة الفيديوهات</button>
+  <button data-tab="tools">🛠️ الأدوات والحسابات</button>
+  <button data-tab="prompts">🧠 مكتبة الـ Prompts</button>
+  <button data-tab="reco">⭐ التوصية النهائية</button>
+</nav>
+
+<main>
+  <!-- ابدأ هنا -->
+  <section id="start">
+    <div class="grid">
+      <div class="card">
+        <h3>اليوم 1 (دلوقتي)</h3>
+        <p>اتفرج على Greg Isenberg — Reddit + AI to find startup ideas. اطلع بـ 20 فكرة في <code>ideas.md</code>.</p>
+      </div>
+      <div class="card">
+        <h3>اليوم 2-3</h3>
+        <p>Greg's FULL Blueprint + Amardeep + FLAME → Top 3 ideas validated.</p>
+      </div>
+      <div class="card">
+        <h3>اليوم 4</h3>
+        <p>Access Genie + AI/Google Maps → Competitor spreadsheet كامل.</p>
+      </div>
+      <div class="card">
+        <h3>اليوم 5</h3>
+        <p>Marty Neumeier + Shopify Brand Overview → brand-context.md.</p>
+      </div>
+      <div class="card">
+        <h3>اليوم 6-8</h3>
+        <p>Caleb Ralston Full Course (5h على 3 جلسات) + Workbook = البراند جاهز.</p>
+      </div>
+      <div class="card">
+        <h3>اليوم 9+</h3>
+        <p>Claude tooling → Content engine → Data/Analytics → Git → 3D site → Launch.</p>
+      </div>
+    </div>
+
+    <details open>
+      <summary>الفيديو الأول دلوقتي 👇</summary>
+      <p style="margin-top:8px">
+        <b>Greg Isenberg — How I use Reddit and AI to find winning startup ideas</b><br/>
+        ⏱️ ~20 دقيقة · 👁️ 530K+ مشاهدة · 📅 يوليو 2024<br/>
+        🔗 <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">https://www.youtube.com/watch?v=8vXoI7lUroQ</a>
+      </p>
+    </details>
+
+    <details>
+      <summary>قالب <code>ideas.md</code> اللي تشتغل عليه اليوم 1</summary>
+<pre># ideas.md
+
+| # | الفكرة (1-line) | Pain Point | Source | Audience | Severity 1-5 | Date |
+|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |
+| ... |  |  |  |  |  |  |
+| 20 |  |  |  |  |  |  |
+
+## Google search hacks I ran
+- site:reddit.com "is there an app for" [niche]
+- site:reddit.com "wish there was" [niche]
+- site:reddit.com "is there a tool" [niche]
+- site:reddit.com "why is there no" [niche]
+
+## Subreddits monitored (10K-100K members sweet spot)
+- /r/...
+- /r/...
+</pre>
+    </details>
+  </section>
+
+  <!-- الخطة اليومية -->
+  <section id="plan" class="hide">
+    <div class="toolbar">
+      <input type="search" id="planSearch" placeholder="ابحث في الخطة..." />
+      <select id="planPhase"><option value="">كل الـ Phases</option></select>
+      <select id="planDay"><option value="">كل الأيام</option></select>
+    </div>
+    <div class="panel">
+      <h2>📅 خطة تنفيذ يوم بيوم</h2>
+      <div class="meta" id="planMeta"></div>
+      <div class="table-wrap"><table id="planTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- الفيديوهات -->
+  <section id="videos" class="hide">
+    <div class="toolbar">
+      <input type="search" id="vidSearch" placeholder="ابحث (creator / title / topic)..." />
+      <select id="vidStage"><option value="">كل المراحل</option></select>
+      <select id="vidPriority"><option value="">كل الأولويات</option></select>
+    </div>
+    <div class="panel">
+      <h2>🎬 مكتبة أقوى الفيديوهات (Foreign content)</h2>
+      <div class="meta" id="vidMeta"></div>
+      <div class="table-wrap"><table id="vidTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- الأدوات -->
+  <section id="tools" class="hide">
+    <div class="toolbar">
+      <input type="search" id="toolSearch" placeholder="ابحث في الأدوات..." />
+      <select id="toolCategory"><option value="">كل الأقسام</option></select>
+      <select id="toolPriority"><option value="">كل الأولويات</option></select>
+    </div>
+    <div class="panel">
+      <h2>🛠️ الأدوات والحسابات والريبوهات</h2>
+      <div class="meta" id="toolMeta"></div>
+      <div class="table-wrap"><table id="toolTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- البرومبتس -->
+  <section id="prompts" class="hide">
+    <div class="toolbar">
+      <input type="search" id="promptSearch" placeholder="ابحث (phase / name / text)..." />
+      <select id="promptPhase"><option value="">كل المراحل</option></select>
+    </div>
+    <div class="panel">
+      <h2>🧠 مكتبة Prompts جاهزة للنسخ-اللصق</h2>
+      <div class="meta" id="promptMeta"></div>
+      <div id="promptList" style="padding:8px 14px"></div>
+    </div>
+  </section>
+
+  <!-- التوصية -->
+  <section id="reco" class="hide">
+    <div class="panel" style="padding:20px">
+      <h2 style="border:0;padding:0 0 8px">⭐ التوصية النهائية</h2>
+      <p>أفضل اقتراح بناءً على الأبحاث الكاملة وبدون أي إضاعة وقت:</p>
+      <ol>
+        <li><b>اليوم 1 — افتح اللينك ده</b> دلوقتي قبل أي حاجة تانية: <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">Greg Isenberg — Reddit + AI</a>. 20 فكرة في ملف <code>ideas.md</code>.</li>
+        <li><b>اليوم 2-3</b> — FULL Blueprint + Amardeep + FLAME = Top 3 validated ideas.</li>
+        <li><b>اليوم 4</b> — Access Genie + AI/Google Maps = competitor spreadsheet.</li>
+        <li><b>اليوم 5</b> — Marty Neumeier (لازم) + Shopify (Overview) = <code>brand-context.md</code>.</li>
+        <li><b>اليوم 6-8</b> — Caleb Ralston Full Course + workbook = البراند الكامل.</li>
+        <li><b>اليوم 9-10</b> — Claude Pro + Skills + GitHub MCP = الموتور الذكي.</li>
+        <li><b>اليوم 11-12</b> — Content engine + Analytics stack.</li>
+        <li><b>اليوم 13-14</b> — Git/GitHub + GitHub Actions + Claude GitHub Action.</li>
+        <li><b>اليوم 15-18</b> — Three.js → R3F → 3D site (JS Mastery 5h ثم 10h).</li>
+        <li><b>اليوم 19</b> — Deploy على Vercel + Search Console + Analytics + Launch.</li>
+        <li><b>أسبوعياً بعد كده</b> — Claude يطلع تقرير ويفتح PRs بتحسينات تلقائي.</li>
+      </ol>
+      <p style="margin-top:14px">📥 الشيتس CSV (تقدر تستوردهم في Excel أو Google Sheets):</p>
+      <ul>
+        <li><a href="01-execution-plan.csv">01-execution-plan.csv</a></li>
+        <li><a href="02-videos-library.csv">02-videos-library.csv</a></li>
+        <li><a href="03-tools-accounts.csv">03-tools-accounts.csv</a></li>
+        <li><a href="04-prompts-library.csv">04-prompts-library.csv</a></li>
+      </ul>
+      <p style="margin-top:14px">📚 الـ Roadmap الكامل: <a href="../local-brand-with-claude-roadmap.md">research/local-brand-with-claude-roadmap.md</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>كل المصادر أجنبية (English) كما طُلب · حُدّث في 2026 · لا تُعتبر هذه نصائح قانونية أو مالية.</footer>
+
+<script>
+const FILES = {
+  plan:   '01-execution-plan.csv',
+  videos: '02-videos-library.csv',
+  tools:  '03-tools-accounts.csv',
+  prompts:'04-prompts-library.csv',
+};
+
+// minimal CSV parser supporting quoted fields with commas + escaped quotes ""
+function parseCSV(text){
+  const rows=[]; let row=[]; let cur=''; let q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i], n=text[i+1];
+    if(q){
+      if(c==='"' && n==='"'){cur+='"';i++;}
+      else if(c==='"'){q=false;}
+      else cur+=c;
+    } else {
+      if(c==='"'){q=true;}
+      else if(c===','){row.push(cur);cur='';}
+      else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';}
+      else if(c==='\r'){/*skip*/}
+      else cur+=c;
+    }
+  }
+  if(cur!==''||row.length){row.push(cur);rows.push(row);}
+  return rows;
+}
+
+function toObjects(rows){
+  if(!rows.length) return [];
+  const head=rows[0].map(h=>h.trim());
+  return rows.slice(1).filter(r=>r.length && r.some(v=>v && v.trim().length)).map(r=>{
+    const o={}; head.forEach((h,i)=>o[h]=(r[i]??'').trim()); return o;
+  });
+}
+
+async function loadCSV(path){
+  const res=await fetch(path);
+  const txt=await res.text();
+  return toObjects(parseCSV(txt));
+}
+
+function linkify(s){
+  if(!s) return '';
+  const urlRe=/(https?:\/\/[^\s,]+)/g;
+  return s.replace(urlRe,(u)=>`<a href="${u}" target="_blank" rel="noopener">${u.replace(/^https?:\/\//,'').slice(0,42)}${u.length>50?'…':''}</a>`);
+}
+
+function pillFor(value){
+  if(!value) return '';
+  const v=value.toLowerCase();
+  if(v.includes('start here')||v.includes('#1 start')) return `<span class="pill start">▶ START</span>`;
+  if(v.includes('must')) return `<span class="pill must">Must</span>`;
+  if(v.includes('recommended')) return `<span class="pill rec">Recommended</span>`;
+  if(v.includes('optional')) return `<span class="pill opt">Optional</span>`;
+  return `<span class="pill">${value}</span>`;
+}
+
+function renderTable(target, rows, opts={}){
+  const head=Object.keys(rows[0]||{});
+  const t=document.querySelector(target);
+  const thead=t.querySelector('thead'); const tbody=t.querySelector('tbody');
+  thead.innerHTML='<tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr>';
+  tbody.innerHTML=rows.length?rows.map(r=>{
+    return '<tr>'+head.map(h=>{
+      let v=r[h]||'';
+      if(/url|link/i.test(h)) v=linkify(v);
+      else if(/priority/i.test(h)) v=pillFor(v);
+      else if(/^day$/i.test(h)) v=`<span class="day">D${v}</span>`;
+      else if(/^status$/i.test(h)) v=v||'☐';
+      else v=linkify(v);
+      return `<td class="${/title|why|prompt|action/i.test(h)?'truncate':''}">${v}</td>`;
+    }).join('')+'</tr>';
+  }).join(''):'<tr><td class="empty" colspan="'+head.length+'">No matches.</td></tr>';
+}
+
+function fillSelect(sel, vals){
+  const el=document.querySelector(sel);
+  const cur=el.value;
+  const seen=new Set();
+  el.innerHTML='<option value="">'+el.options[0].textContent+'</option>'+vals.filter(v=>v && !seen.has(v) && seen.add(v)).sort().map(v=>`<option>${v}</option>`).join('');
+  el.value=cur;
+}
+
+const state={plan:[],videos:[],tools:[],prompts:[]};
+
+function applyPlan(){
+  const q=document.getElementById('planSearch').value.toLowerCase();
+  const ph=document.getElementById('planPhase').value;
+  const dy=document.getElementById('planDay').value;
+  const rows=state.plan.filter(r=>{
+    if(ph && r.Phase!==ph) return false;
+    if(dy && r.Day!==dy) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  document.getElementById('planMeta').innerHTML=`<span><b>${rows.length}</b> tasks</span><span><b>~${Math.round(rows.reduce((a,r)=>a+(parseInt(r['Time (min)'])||0),0)/60)}h</b> total</span>`;
+  renderTable('#planTable',rows);
+}
+function applyVids(){
+  const q=document.getElementById('vidSearch').value.toLowerCase();
+  const st=document.getElementById('vidStage').value;
+  const pr=document.getElementById('vidPriority').value;
+  const rows=state.videos.filter(r=>{
+    if(st && r.Stage!==st) return false;
+    if(pr && r.Priority!==pr) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  document.getElementById('vidMeta').innerHTML=`<span><b>${rows.length}</b> videos</span>`;
+  renderTable('#vidTable',rows);
+}
+function applyTools(){
+  const q=document.getElementById('toolSearch').value.toLowerCase();
+  const c=document.getElementById('toolCategory').value;
+  const pr=document.getElementById('toolPriority').value;
+  const rows=state.tools.filter(r=>{
+    if(c && r.Category!==c) return false;
+    if(pr && r.Priority!==pr) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  document.getElementById('toolMeta').innerHTML=`<span><b>${rows.length}</b> tools/accounts</span>`;
+  renderTable('#toolTable',rows);
+}
+function applyPrompts(){
+  const q=document.getElementById('promptSearch').value.toLowerCase();
+  const ph=document.getElementById('promptPhase').value;
+  const rows=state.prompts.filter(r=>{
+    if(ph && r.Phase!==ph) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  document.getElementById('promptMeta').innerHTML=`<span><b>${rows.length}</b> prompts</span>`;
+  document.getElementById('promptList').innerHTML=rows.length?rows.map(r=>`
+    <details>
+      <summary>${r.Phase} — ${r['Prompt Name']} <span class="pill">${r['Use With']||''}</span></summary>
+      <pre>${(r.Prompt||'').replace(/</g,'&lt;')}</pre>
+      <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)" style="margin-top:8px;background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:6px 10px;border-radius:8px;cursor:pointer">Copy</button>
+    </details>
+  `).join(''):'<div class="empty">No matches.</div>';
+}
+
+async function boot(){
+  state.plan=await loadCSV(FILES.plan);
+  state.videos=await loadCSV(FILES.videos);
+  state.tools=await loadCSV(FILES.tools);
+  state.prompts=await loadCSV(FILES.prompts);
+
+  fillSelect('#planPhase',state.plan.map(r=>r.Phase));
+  fillSelect('#planDay',state.plan.map(r=>r.Day));
+  fillSelect('#vidStage',state.videos.map(r=>r.Stage));
+  fillSelect('#vidPriority',state.videos.map(r=>r.Priority));
+  fillSelect('#toolCategory',state.tools.map(r=>r.Category));
+  fillSelect('#toolPriority',state.tools.map(r=>r.Priority));
+  fillSelect('#promptPhase',state.prompts.map(r=>r.Phase));
+
+  ['planSearch','planPhase','planDay'].forEach(id=>document.getElementById(id).addEventListener('input',applyPlan));
+  ['vidSearch','vidStage','vidPriority'].forEach(id=>document.getElementById(id).addEventListener('input',applyVids));
+  ['toolSearch','toolCategory','toolPriority'].forEach(id=>document.getElementById(id).addEventListener('input',applyTools));
+  ['promptSearch','promptPhase'].forEach(id=>document.getElementById(id).addEventListener('input',applyPrompts));
+
+  applyPlan();applyVids();applyTools();applyPrompts();
+}
+
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const tab=b.dataset.tab;
+  document.querySelectorAll('main > section').forEach(s=>s.classList.add('hide'));
+  document.getElementById(tab).classList.remove('hide');
+}));
+
+boot().catch(e=>{document.querySelector('main').innerHTML='<div class="empty">Failed to load CSV files. If you opened this file directly with file:// open it via a small server: <pre>npx http-server research/sheets</pre></div>';console.error(e);});
+</script>
+</body>
+</html>

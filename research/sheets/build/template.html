@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Local Brand Roadmap — Offline Dashboard</title>
+<style>
+  :root{
+    --bg:#0b0f17;--panel:#11182a;--panel2:#0e1422;--ink:#e9eef9;--muted:#8aa0c2;
+    --accent:#7c5cff;--accent2:#22d3ee;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;
+    --ring:#1d2840;--row:#0f1729;--rowAlt:#0b1322;--chip:#1a2440;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Cairo","Tajawal",sans-serif}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{padding:28px 28px 8px;background:radial-gradient(1200px 400px at 70% -10%,rgba(124,92,255,.25),transparent 60%),radial-gradient(900px 300px at 10% 0,rgba(34,211,238,.15),transparent 60%);border-bottom:1px solid var(--ring)}
+  h1{margin:0 0 6px;font-size:26px;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:14px}
+  .cta{display:inline-flex;gap:8px;align-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;font-weight:700;padding:10px 14px;border-radius:10px;margin-top:14px}
+  .cta:hover{text-decoration:none;filter:brightness(1.08)}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:var(--panel2);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--ring)}
+  nav.tabs button{background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  nav.tabs button.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;border-color:transparent}
+  main{padding:18px 24px 60px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+  .toolbar input,.toolbar select{background:var(--panel);color:var(--ink);border:1px solid var(--ring);border-radius:10px;padding:9px 12px;min-width:200px}
+  .toolbar button{background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+  .toolbar button:hover{background:#1f2a47}
+  .panel{background:var(--panel);border:1px solid var(--ring);border-radius:14px;overflow:hidden}
+  .panel h2{margin:0;padding:14px 16px;border-bottom:1px solid var(--ring);font-size:16px;background:var(--panel2)}
+  .meta{padding:10px 16px;color:var(--muted);font-size:12.5px;border-bottom:1px solid var(--ring);display:flex;gap:14px;flex-wrap:wrap}
+  .meta b{color:var(--ink)}
+  .table-wrap{overflow:auto;max-height:75vh}
+  table{width:100%;border-collapse:collapse;direction:ltr;text-align:left}
+  thead th{position:sticky;top:0;background:#0a1426;color:#cfe0ff;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--ring);white-space:nowrap;cursor:pointer;user-select:none}
+  thead th:hover{color:#fff}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--ring);vertical-align:top;font-size:13.5px}
+  tbody tr:nth-child(odd){background:var(--row)}
+  tbody tr:nth-child(even){background:var(--rowAlt)}
+  tbody tr:hover{background:#142036}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--chip);font-size:12px;color:#cfe0ff;border:1px solid var(--ring);white-space:nowrap}
+  .pill.must{background:rgba(248,113,113,.12);color:#fecaca;border-color:rgba(248,113,113,.4)}
+  .pill.rec{background:rgba(52,211,153,.12);color:#bbf7d0;border-color:rgba(52,211,153,.4)}
+  .pill.opt{background:rgba(251,191,36,.12);color:#fde68a;border-color:rgba(251,191,36,.4)}
+  .pill.start{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;border:0;font-weight:800}
+  .day{font-weight:800;color:#cfe0ff}
+  .truncate{max-width:520px}
+  .check{cursor:pointer;font-size:18px;text-align:center;user-select:none}
+  details{background:var(--panel2);border:1px solid var(--ring);border-radius:12px;padding:10px 14px;margin:10px 0}
+  details>summary{cursor:pointer;font-weight:700;color:#cfe0ff}
+  pre{background:#070b14;color:#cfe0ff;padding:12px;border-radius:10px;overflow:auto;font-size:12.5px;border:1px solid var(--ring);white-space:pre-wrap;word-break:break-word}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
+  .card{background:var(--panel);border:1px solid var(--ring);border-radius:14px;padding:16px}
+  .card h3{margin:0 0 6px;font-size:15px}
+  .card p{margin:0;color:var(--muted);font-size:13px}
+  .empty{padding:18px;color:var(--muted);text-align:center}
+  .hide{display:none}
+  .copybtn{margin-top:8px;background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:600}
+  .copybtn:hover{background:#1f2a47}
+  footer{color:var(--muted);font-size:12.5px;padding:18px 24px}
+  .progress{height:6px;background:#0a1426;border-radius:999px;overflow:hidden;margin-top:8px}
+  .progress > div{height:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));width:0%;transition:width .3s}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  @media print{
+    nav.tabs, .toolbar, .cta, .copybtn{display:none}
+    .table-wrap{max-height:none}
+    section.hide{display:block !important}
+    body{background:#fff;color:#000}
+    table tbody tr{background:#fff !important}
+    thead th{background:#eee !important;color:#000}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 Local Brand Roadmap — Offline Dashboard</h1>
+  <div class="sub">كل اللي تحتاجه لإطلاق Local Brand باستخدام Claude — في ملف واحد بدون انترنت ولا سيرفر.</div>
+  <a class="cta" href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">▶ ابدأ دلوقتي بالفيديو الأول (Greg Isenberg)</a>
+</header>
+
+<nav class="tabs">
+  <button data-tab="start" class="active">🚀 ابدأ هنا</button>
+  <button data-tab="plan">📅 الخطة اليومية</button>
+  <button data-tab="videos">🎬 الفيديوهات</button>
+  <button data-tab="tools">🛠️ الأدوات</button>
+  <button data-tab="prompts">🧠 الـ Prompts</button>
+  <button data-tab="reco">⭐ التوصية</button>
+</nav>
+
+<main>
+  <!-- ابدأ هنا -->
+  <section id="start">
+    <div class="grid">
+      <div class="card"><h3>اليوم 1 (دلوقتي)</h3><p>Greg Isenberg — Reddit + AI to find startup ideas. اطلع بـ 20 فكرة في <code>ideas.md</code>.</p></div>
+      <div class="card"><h3>اليوم 2-3</h3><p>FULL Blueprint + Amardeep + FLAME → Top 3 ideas validated.</p></div>
+      <div class="card"><h3>اليوم 4</h3><p>Access Genie + AI/Google Maps → Competitor spreadsheet.</p></div>
+      <div class="card"><h3>اليوم 5</h3><p>Marty Neumeier + Shopify Overview → brand-context.md.</p></div>
+      <div class="card"><h3>اليوم 6-8</h3><p>Caleb Ralston Full Course (5h على 3 جلسات) + Workbook.</p></div>
+      <div class="card"><h3>اليوم 9+</h3><p>Claude tooling → Content engine → Data → Git → 3D site → Launch.</p></div>
+    </div>
+
+    <div class="panel" style="padding:14px 16px;margin-top:8px">
+      <div class="legend">
+        <span class="pill start">▶ START</span>
+        <span class="pill must">Must</span>
+        <span class="pill rec">Recommended</span>
+        <span class="pill opt">Optional</span>
+        <span style="color:var(--muted);font-size:12.5px">— استخدم البحث والفلاتر في كل تاب لتلاقي أي حاجة فوراً.</span>
+      </div>
+      <div class="progress" id="progressBar"><div></div></div>
+      <div class="meta" id="progressMeta" style="border:0;padding:6px 0 0"></div>
+    </div>
+
+    <details open>
+      <summary>الفيديو الأول دلوقتي 👇</summary>
+      <p style="margin-top:8px">
+        <b>Greg Isenberg — How I use Reddit and AI to find winning startup ideas</b><br/>
+        ⏱️ ~20 دقيقة · 👁️ 530K+ مشاهدة · 📅 يوليو 2024<br/>
+        🔗 <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">https://www.youtube.com/watch?v=8vXoI7lUroQ</a>
+      </p>
+    </details>
+
+    <details open>
+      <summary>🔥 Greg Isenberg's 5-Step Idea Discovery Method (مهم جداً)</summary>
+      <div style="margin-top:10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 1 — Find trending subreddits</h3>
+          <p>
+            استخدم <a href="https://ideabrowser.com/join" target="_blank"><b>IdeaBrowser</b></a> (بديل Gummy Search اللي اتقفل).<br/><br/>
+            • ركّز على communities من <b>10K-100K member</b> — تجاوب على سؤال "Why now?".<br/>
+            • شوف نمو daily / weekly / monthly.<br/>
+            • اختار niches فيها unfair advantage عندك.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 2 — Analyze problems & solutions</h3>
+          <p>
+            ضيف الـ subreddits لـ "audience" واحد في IdeaBrowser، ثم افحص:<br/><br/>
+            • <b>Pain &amp; Anger</b> — أنماط الشكاوى المتكررة.<br/>
+            • <b>Advice Requests</b> — اللي الناس بتسأل عنه.<br/>
+            • <b>Solution Requests</b> — المنافسة + الأدوات اللي الناس عايزة موجودة.<br/><br/>
+            🔑 <b>Key:</b> دوّن الـ themes المتكررة، مش الـ one-offs.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 3 — Find creators in the niche</h3>
+          <p>
+            استخدم <a href="https://perplexity.ai" target="_blank"><b>Perplexity.ai</b></a> تلاقي top influencers.<br/><br/>
+            • ابحث عن أشهر فيديوهاتهم على YouTube.<br/>
+            • <b>اقرأ الكومنتات</b> عشان تفهم احتياجات الجمهور.<br/>
+            • طبّق على <b>20-25 فيديو</b> عشان تاخد deep insights.<br/><br/>
+            النتيجة: تفكر زي جمهورك المستهدف.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 4 — Wireframe your solution</h3>
+          <p>
+            على أساس الـ insights، اعمل sketch للمنتج/الخدمة.<br/><br/>
+            • استخدم <a href="https://framer.com" target="_blank"><b>Framer</b></a> للـ prototyping السريع.<br/>
+            • اختار اسم catchy و relevant.<br/><br/>
+            مثال Greg: <b>DesignScientist.com</b> — تصميم مركّز على conversion.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 5 — Create content that resonates</h3>
+          <p>
+            استخدم خاصية "Top Content" في IdeaBrowser.<br/><br/>
+            • حلّل اللي بيشتغل في الـ community.<br/>
+            • اسأل AI عن content preferences (مثلاً: "Do they love memes?").<br/><br/>
+            🤖 عامل Claude/ChatGPT كـ <b>"Entrepreneurial Assistant"</b>.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(34,211,238,.4);background:linear-gradient(135deg,rgba(124,92,255,.1),rgba(34,211,238,.1))">
+          <h3>📺 الفيديو الأصلي</h3>
+          <p>
+            الـ 5 خطوات دي مأخوذة من فيديو Greg Isenberg.<br/><br/>
+            <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">▶ Watch the original (530K+ views)</a><br/><br/>
+            للتعمق: <a href="https://www.gregisenberg.com/" target="_blank">gregisenberg.com</a>
+          </p>
+        </div>
+      </div>
+      <p style="margin-top:14px;color:var(--muted);font-size:13px">
+        💡 كل خطوة من الـ 5 موجودة كتاسكات منفصلة في تاب <b>"📅 الخطة اليومية"</b> — فلتر على <code>Phase</code> بـ "Greg Step 1/2/3/4/5".
+      </p>
+    </details>
+
+    <details>
+      <summary>قالب <code>ideas.md</code> اللي تشتغل عليه اليوم 1 (انسخه)</summary>
+<pre id="ideasTemplate"># ideas.md
+
+| # | الفكرة (1-line) | Pain Point | Source | Audience | Severity 1-5 | Date |
+|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |
+| ... |  |  |  |  |  |  |
+| 20 |  |  |  |  |  |  |
+
+## Google search hacks I ran
+- site:reddit.com "is there an app for" [niche]
+- site:reddit.com "wish there was" [niche]
+- site:reddit.com "is there a tool" [niche]
+- site:reddit.com "why is there no" [niche]
+
+## Subreddits monitored (10K-100K members sweet spot)
+- /r/...
+- /r/...
+</pre>
+      <button class="copybtn" onclick="copyText(document.getElementById('ideasTemplate').innerText)">📋 Copy ideas.md template</button>
+    </details>
+
+    <details>
+      <summary>📥 Export / Backup data</summary>
+      <p style="margin-top:8px">حفظ التقدم بتاعك (الـ checkboxes) كـ JSON — ترجعه في أي وقت.</p>
+      <button class="copybtn" onclick="exportProgress()">⬇️ Export progress</button>
+      <button class="copybtn" onclick="document.getElementById('importInput').click()">⬆️ Import progress</button>
+      <button class="copybtn" onclick="resetProgress()" style="border-color:rgba(248,113,113,.4);color:#fecaca">🗑️ Reset all</button>
+      <input type="file" id="importInput" accept=".json" style="display:none" onchange="importProgress(event)" />
+      <p style="margin-top:8px;color:var(--muted);font-size:12.5px">التقدم محفوظ تلقائياً في المتصفح (localStorage). الزرار ده عشان لو غيرت جهاز.</p>
+    </details>
+  </section>
+
+  <!-- الخطة اليومية -->
+  <section id="plan" class="hide">
+    <div class="toolbar">
+      <input type="search" id="planSearch" placeholder="ابحث في الخطة..." />
+      <select id="planPhase"><option value="">كل الـ Phases</option></select>
+      <select id="planDay"><option value="">كل الأيام</option></select>
+      <button onclick="exportCSV('plan')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>📅 خطة تنفيذ يوم بيوم</h2>
+      <div class="meta" id="planMeta"></div>
+      <div class="table-wrap"><table id="planTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- الفيديوهات -->
+  <section id="videos" class="hide">
+    <div class="toolbar">
+      <input type="search" id="vidSearch" placeholder="ابحث (creator / title / topic)..." />
+      <select id="vidStage"><option value="">كل المراحل</option></select>
+      <select id="vidPriority"><option value="">كل الأولويات</option></select>
+      <button onclick="exportCSV('videos')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>🎬 مكتبة أقوى الفيديوهات (Foreign content)</h2>
+      <div class="meta" id="vidMeta"></div>
+      <div class="table-wrap"><table id="vidTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- الأدوات -->
+  <section id="tools" class="hide">
+    <div class="toolbar">
+      <input type="search" id="toolSearch" placeholder="ابحث في الأدوات..." />
+      <select id="toolCategory"><option value="">كل الأقسام</option></select>
+      <select id="toolPriority"><option value="">كل الأولويات</option></select>
+      <button onclick="exportCSV('tools')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>🛠️ الأدوات والحسابات والريبوهات</h2>
+      <div class="meta" id="toolMeta"></div>
+      <div class="table-wrap"><table id="toolTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- البرومبتس -->
+  <section id="prompts" class="hide">
+    <div class="toolbar">
+      <input type="search" id="promptSearch" placeholder="ابحث (phase / name / text)..." />
+      <select id="promptPhase"><option value="">كل المراحل</option></select>
+      <button onclick="exportCSV('prompts')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>🧠 مكتبة Prompts جاهزة للنسخ</h2>
+      <div class="meta" id="promptMeta"></div>
+      <div id="promptList" style="padding:8px 14px"></div>
+    </div>
+  </section>
+
+  <!-- التوصية -->
+  <section id="reco" class="hide">
+    <div class="panel" style="padding:20px">
+      <h2 style="border:0;padding:0 0 8px">⭐ التوصية النهائية</h2>
+      <p>أفضل اقتراح بناءً على البحث الكامل وبدون أي إضاعة وقت:</p>
+      <ol>
+        <li><b>اليوم 1 — افتح اللينك ده</b> دلوقتي قبل أي حاجة تانية: <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">Greg Isenberg — Reddit + AI</a>. 20 فكرة في ملف <code>ideas.md</code>.</li>
+        <li><b>اليوم 2-3</b> — FULL Blueprint + Amardeep + FLAME = Top 3 validated ideas.</li>
+        <li><b>اليوم 4</b> — Access Genie + AI/Google Maps = competitor spreadsheet.</li>
+        <li><b>اليوم 5</b> — Marty Neumeier (لازم) + Shopify (Overview) = <code>brand-context.md</code>.</li>
+        <li><b>اليوم 6-8</b> — Caleb Ralston Full Course + workbook = البراند الكامل.</li>
+        <li><b>اليوم 9-10</b> — Claude Pro + Skills + GitHub MCP = الموتور الذكي.</li>
+        <li><b>اليوم 11-12</b> — Content engine + Analytics stack.</li>
+        <li><b>اليوم 13-14</b> — Git/GitHub + GitHub Actions + Claude GitHub Action.</li>
+        <li><b>اليوم 15-18</b> — Three.js → R3F → 3D site (JS Mastery 5h ثم 10h).</li>
+        <li><b>اليوم 19</b> — Deploy على Vercel + Search Console + Analytics + Launch.</li>
+        <li><b>أسبوعياً بعد كده</b> — Claude يطلع تقرير ويفتح PRs بتحسينات تلقائي.</li>
+      </ol>
+      <p style="margin-top:14px"><b>أعلى 5 قرارات هتحسم النجاح:</b></p>
+      <ul>
+        <li>متبدأش بناء البراند قبل ما تلاقي الفكرة. الفكرة الأول.</li>
+        <li>اختار subreddits 10K-100K members بس — الـ Sweet Spot.</li>
+        <li>اشترك في Claude Pro/Max — توفير ساعات يومياً.</li>
+        <li>اشتغل بالـ workbook بتاع Caleb فعلياً مش بس تتفرج.</li>
+        <li><code>CLAUDE.md</code> في كل ريبو — هو الـ rules اللي Claude يتبعها.</li>
+      </ul>
+      <p style="margin-top:14px">💸 <b>التكلفة التقديرية:</b> الحد الأدنى $25/شهر (Claude Pro + domain) — مع كل الـ paid tools $300/شهر.</p>
+    </div>
+  </section>
+</main>
+
+<footer>كل المصادر أجنبية (English) كما طُلب · حُدّث في 2026 · Self-contained — اشتغل بدون انترنت.</footer>
+
+<script>
+/*__DATA__*/
+const DATA = window.__DATA__;
+
+// ----------- helpers -----------
+function $(sel){return document.querySelector(sel);}
+function escapeHtml(s){if(s==null) return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function linkify(s){
+  if(!s) return '';
+  const safe = escapeHtml(s);
+  return safe.replace(/(https?:\/\/[^\s,<]+)/g,(u)=>`<a href="${u}" target="_blank" rel="noopener">${u.replace(/^https?:\/\//,'').slice(0,42)}${u.length>50?'…':''}</a>`);
+}
+function pillFor(value){
+  if(!value) return '';
+  const v=value.toLowerCase();
+  if(v.includes('start here')||v.includes('#1 start')) return `<span class="pill start">▶ START</span>`;
+  if(v.includes('must')) return `<span class="pill must">Must</span>`;
+  if(v.includes('recommended')) return `<span class="pill rec">Recommended</span>`;
+  if(v.includes('optional')) return `<span class="pill opt">Optional</span>`;
+  return `<span class="pill">${escapeHtml(value)}</span>`;
+}
+function copyText(t){
+  navigator.clipboard.writeText(t).then(()=>{
+    const n=document.createElement('div');
+    n.textContent='✓ Copied';
+    n.style.cssText='position:fixed;bottom:20px;left:20px;background:var(--ok);color:#0b0f17;padding:10px 14px;border-radius:8px;font-weight:700;z-index:99';
+    document.body.appendChild(n);setTimeout(()=>n.remove(),1200);
+  });
+}
+
+// ---------- progress (localStorage) ----------
+const STORAGE_KEY='lbr.progress.v1';
+function loadProgress(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');}catch(e){return {};}}
+function saveProgress(p){localStorage.setItem(STORAGE_KEY, JSON.stringify(p));}
+let progress = loadProgress();
+function toggleTask(id){
+  progress[id]=!progress[id];
+  saveProgress(progress);
+  updateProgressBar();
+}
+function updateProgressBar(){
+  const total = DATA.plan.length;
+  const done = DATA.plan.filter(r=>progress[r['Task #']]).length;
+  const pct = total ? Math.round(done*100/total) : 0;
+  const bar = document.querySelector('#progressBar > div');
+  if(bar) bar.style.width = pct+'%';
+  const meta = document.getElementById('progressMeta');
+  if(meta) meta.innerHTML = `<span><b>${done}</b> / ${total} tasks done</span><span><b>${pct}%</b> complete</span>`;
+}
+function resetProgress(){if(confirm('Reset all progress?')){progress={};saveProgress(progress);updateProgressBar();applyPlan();}}
+function exportProgress(){
+  const blob=new Blob([JSON.stringify(progress,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='local-brand-progress-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+}
+function importProgress(ev){
+  const f=ev.target.files[0];if(!f) return;
+  const r=new FileReader();r.onload=e=>{try{progress=JSON.parse(e.target.result);saveProgress(progress);updateProgressBar();applyPlan();alert('Imported ✓');}catch(err){alert('Invalid file');}};
+  r.readAsText(f);
+}
+
+// ---------- table renderer ----------
+let sortState = {};
+function renderTable(target, rows, opts={}){
+  const head = rows.length ? Object.keys(rows[0]) : [];
+  const t=document.querySelector(target);
+  const thead=t.querySelector('thead'); const tbody=t.querySelector('tbody');
+  thead.innerHTML='<tr>'+head.map(h=>{
+    const arrow = sortState[target]?.col===h ? (sortState[target].dir>0?' ▲':' ▼') : '';
+    return `<th data-col="${escapeHtml(h)}">${escapeHtml(h)}${arrow}</th>`;
+  }).join('')+'</tr>';
+  thead.querySelectorAll('th').forEach(th=>th.addEventListener('click',()=>{
+    const col=th.dataset.col;
+    const cur=sortState[target]||{};
+    sortState[target] = (cur.col===col) ? {col, dir: -cur.dir} : {col, dir: 1};
+    if(opts.refresh) opts.refresh();
+  }));
+  let r2 = rows.slice();
+  if(sortState[target]){
+    const {col, dir} = sortState[target];
+    r2.sort((a,b)=>{
+      const A=(a[col]||'')+'', B=(b[col]||'')+'';
+      const nA=parseFloat(A), nB=parseFloat(B);
+      if(!isNaN(nA) && !isNaN(nB)) return (nA-nB)*dir;
+      return A.localeCompare(B)*dir;
+    });
+  }
+  tbody.innerHTML = r2.length ? r2.map(r=>{
+    return '<tr>'+head.map(h=>{
+      let v = r[h] ?? '';
+      const lh=h.toLowerCase();
+      if(lh==='status' && r['Task #']){
+        const id=r['Task #'];
+        const checked = progress[id] ? '☑' : '☐';
+        return `<td class="check" onclick="toggleTask('${escapeHtml(id)}');this.innerHTML=this.innerHTML==='☑'?'☐':'☑';">${checked}</td>`;
+      } else if(lh==='priority'){
+        return `<td>${pillFor(v)}</td>`;
+      } else if(lh==='day'){
+        return `<td><span class="day">D${escapeHtml(v)}</span></td>`;
+      } else if(/url|link/.test(lh)){
+        return `<td>${linkify(v)}</td>`;
+      } else if(/title|why|prompt|action|action steps/.test(lh)){
+        return `<td class="truncate">${linkify(v)}</td>`;
+      } else {
+        return `<td>${linkify(v)}</td>`;
+      }
+    }).join('')+'</tr>';
+  }).join('') : `<tr><td class="empty" colspan="${head.length||1}">No matches.</td></tr>`;
+}
+
+// ---------- selects ----------
+function fillSelect(sel, vals){
+  const el=$(sel);
+  const cur=el.value;
+  const seen=new Set();
+  el.innerHTML = '<option value="">'+el.options[0].textContent+'</option>'
+    + vals.filter(v=>v && !seen.has(v) && seen.add(v)).sort().map(v=>`<option>${escapeHtml(v)}</option>`).join('');
+  el.value=cur;
+}
+
+// ---------- filtering per tab ----------
+function applyPlan(){
+  const q=$('#planSearch').value.toLowerCase();
+  const ph=$('#planPhase').value;
+  const dy=$('#planDay').value;
+  const rows = DATA.plan.filter(r=>{
+    if(ph && r.Phase!==ph) return false;
+    if(dy && r.Day!==dy) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  const totalMin = rows.reduce((a,r)=>a+(parseInt(r['Time (min)'])||0),0);
+  $('#planMeta').innerHTML=`<span><b>${rows.length}</b> tasks</span><span><b>~${Math.round(totalMin/60)}h</b> filtered total</span>`;
+  renderTable('#planTable', rows, {refresh: applyPlan});
+  updateProgressBar();
+}
+function applyVids(){
+  const q=$('#vidSearch').value.toLowerCase();
+  const st=$('#vidStage').value;
+  const pr=$('#vidPriority').value;
+  const rows = DATA.videos.filter(r=>{
+    if(st && r.Stage!==st) return false;
+    if(pr && r.Priority!==pr) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  $('#vidMeta').innerHTML=`<span><b>${rows.length}</b> videos</span>`;
+  renderTable('#vidTable', rows, {refresh: applyVids});
+}
+function applyTools(){
+  const q=$('#toolSearch').value.toLowerCase();
+  const c=$('#toolCategory').value;
+  const pr=$('#toolPriority').value;
+  const rows = DATA.tools.filter(r=>{
+    if(c && r.Category!==c) return false;
+    if(pr && r.Priority!==pr) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  $('#toolMeta').innerHTML=`<span><b>${rows.length}</b> tools/accounts</span>`;
+  renderTable('#toolTable', rows, {refresh: applyTools});
+}
+function applyPrompts(){
+  const q=$('#promptSearch').value.toLowerCase();
+  const ph=$('#promptPhase').value;
+  const rows = DATA.prompts.filter(r=>{
+    if(ph && r.Phase!==ph) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  $('#promptMeta').innerHTML=`<span><b>${rows.length}</b> prompts</span>`;
+  $('#promptList').innerHTML = rows.length ? rows.map((r,i)=>`
+    <details>
+      <summary>${escapeHtml(r.Phase||'')} — ${escapeHtml(r['Prompt Name']||'')} <span class="pill">${escapeHtml(r['Use With']||'')}</span></summary>
+      <pre id="prompt_${i}">${escapeHtml(r.Prompt||'')}</pre>
+      <button class="copybtn" onclick="copyText(document.getElementById('prompt_${i}').innerText)">📋 Copy prompt</button>
+    </details>
+  `).join('') : '<div class="empty">No matches.</div>';
+}
+
+// ---------- CSV export ----------
+function exportCSV(key){
+  const rows = DATA[key]; if(!rows.length) return;
+  const head = Object.keys(rows[0]);
+  const esc=(v)=>{const s=(v??'')+'';return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  const csv = [head.join(','), ...rows.map(r=>head.map(h=>esc(r[h])).join(','))].join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=key+'.csv';a.click();
+}
+
+// ---------- tabs ----------
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const tab=b.dataset.tab;
+  document.querySelectorAll('main > section').forEach(s=>s.classList.add('hide'));
+  document.getElementById(tab).classList.remove('hide');
+}));
+
+// ---------- boot ----------
+fillSelect('#planPhase',  DATA.plan.map(r=>r.Phase));
+fillSelect('#planDay',    DATA.plan.map(r=>r.Day));
+fillSelect('#vidStage',   DATA.videos.map(r=>r.Stage));
+fillSelect('#vidPriority',DATA.videos.map(r=>r.Priority));
+fillSelect('#toolCategory',DATA.tools.map(r=>r.Category));
+fillSelect('#toolPriority',DATA.tools.map(r=>r.Priority));
+fillSelect('#promptPhase', DATA.prompts.map(r=>r.Phase));
+
+['planSearch','planPhase','planDay'].forEach(id=>document.getElementById(id).addEventListener('input',applyPlan));
+['vidSearch','vidStage','vidPriority'].forEach(id=>document.getElementById(id).addEventListener('input',applyVids));
+['toolSearch','toolCategory','toolPriority'].forEach(id=>document.getElementById(id).addEventListener('input',applyTools));
+['promptSearch','promptPhase'].forEach(id=>document.getElementById(id).addEventListener('input',applyPrompts));
+
+applyPlan(); applyVids(); applyTools(); applyPrompts();
+updateProgressBar();
+</script>
+</body>
+</html>

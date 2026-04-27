@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<title>Local Brand Roadmap — كل الخطوات</title>
+<style>
+@page { size: A4; margin: 18mm 14mm; }
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  font-family: "Cairo", "Tajawal", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10.5pt;
+  color: #0d1424;
+  line-height: 1.55;
+}
+
+h1, h2, h3, h4 { color: #0b1530; margin: 0 0 8pt; }
+h1 { font-size: 28pt; line-height: 1.15; }
+h2 { font-size: 18pt; border-bottom: 2px solid #7c5cff; padding-bottom: 4pt; margin-top: 24pt; page-break-before: always; }
+h2:first-of-type { page-break-before: auto; }
+h3 { font-size: 13pt; color: #2a3658; margin-top: 16pt; }
+small { color: #6b7a99; font-weight: 500; }
+a { color: #2563eb; text-decoration: none; word-break: break-word; }
+a:hover { text-decoration: underline; }
+code { background:#eef1f8; padding: 1pt 4pt; border-radius: 3pt; font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 9.5pt; }
+
+.cover {
+  text-align: center;
+  padding: 60pt 20pt 40pt;
+  background: linear-gradient(135deg, #7c5cff 0%, #22d3ee 100%);
+  color: white;
+  border-radius: 18pt;
+  margin-bottom: 30pt;
+}
+.cover h1 { color: white; font-size: 32pt; margin-bottom: 12pt; }
+.cover .sub { font-size: 14pt; opacity: 0.95; margin-bottom: 18pt; }
+.cover .stats {
+  display: flex; justify-content: center; gap: 24pt; flex-wrap: wrap;
+  margin-top: 16pt;
+}
+.cover .stat { background: rgba(255,255,255,0.18); padding: 10pt 16pt; border-radius: 10pt; min-width: 100pt; }
+.cover .stat b { display: block; font-size: 22pt; }
+.cover .stat span { font-size: 10pt; opacity: 0.95; }
+
+.toc { padding: 14pt 18pt; background: #f4f6fc; border-right: 4px solid #7c5cff; border-radius: 8pt; margin: 20pt 0; }
+.toc h2 { border: 0; margin: 0 0 8pt; padding: 0; page-break-before: auto; }
+.toc ol { margin: 0; padding-right: 18pt; }
+.toc li { margin: 3pt 0; }
+
+.callout {
+  background: #fffbeb;
+  border-right: 4px solid #f59e0b;
+  padding: 12pt 16pt;
+  border-radius: 8pt;
+  margin: 14pt 0;
+}
+.callout.start { background: linear-gradient(135deg, #f0fdfa, #ecfeff); border-color: #22d3ee; }
+.callout.success { background: #f0fdf4; border-color: #16a34a; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8pt 0 14pt;
+  page-break-inside: auto;
+  font-size: 9.5pt;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; page-break-after: auto; }
+th, td {
+  border: 1px solid #d8dde8;
+  padding: 5pt 7pt;
+  text-align: right;
+  vertical-align: top;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+th {
+  background: #1e293b;
+  color: white;
+  font-weight: 600;
+  font-size: 9pt;
+}
+tbody tr:nth-child(even) { background: #f8fafc; }
+
+.day-block { page-break-inside: avoid; margin-bottom: 12pt; }
+
+.steps-grid { display: block; margin: 12pt 0; }
+.step-card {
+  border: 1px solid #d8dde8;
+  border-right: 4px solid #7c5cff;
+  border-radius: 8pt;
+  padding: 10pt 14pt;
+  margin: 8pt 0;
+  background: white;
+  page-break-inside: avoid;
+}
+.step-card h4 { color: #4f46e5; font-size: 12pt; margin: 0 0 4pt; }
+
+.prompt-card {
+  border: 1px solid #d8dde8;
+  border-radius: 8pt;
+  padding: 10pt 14pt;
+  margin: 8pt 0 14pt;
+  background: #fafbfd;
+  page-break-inside: avoid;
+}
+.prompt-title { margin-bottom: 4pt; font-size: 11pt; }
+.prompt-card pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 10pt;
+  border-radius: 6pt;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 8.5pt;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 4pt 0 0;
+  direction: ltr;
+  text-align: left;
+}
+
+.pill {
+  display: inline-block;
+  padding: 1pt 7pt;
+  border-radius: 999pt;
+  font-size: 8.5pt;
+  background: #e0e7ff;
+  color: #312e81;
+  margin-right: 4pt;
+}
+
+ul, ol { margin: 6pt 0 6pt 0; padding-right: 18pt; }
+li { margin: 3pt 0; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10pt;
+  margin: 14pt 0;
+}
+.kpi { background: #f4f6fc; border-radius: 8pt; padding: 10pt 14pt; text-align: center; }
+.kpi b { display:block; font-size: 22pt; color: #4f46e5; }
+.kpi span { font-size: 9.5pt; color: #6b7a99; }
+
+footer.page-footer {
+  position: running(footer);
+  text-align: center;
+  font-size: 8pt;
+  color: #6b7a99;
+}
+@page { @bottom-center { content: "Local Brand Roadmap · صفحة " counter(page) " من " counter(pages); font-size: 8pt; color: #6b7a99; } }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>🚀 Local Brand Roadmap</h1>
+  <div class="sub">دليل شامل من A إلى Z لإطلاق Local Brand باستخدام Claude</div>
+  <div class="stats">
+    <div class="stat"><b>86</b><span>تاسك يوم بيوم</span></div>
+    <div class="stat"><b>43</b><span>فيديو موثوق</span></div>
+    <div class="stat"><b>57</b><span>أداة وحساب</span></div>
+    <div class="stat"><b>23</b><span>Prompt جاهز</span></div>
+  </div>
+  <div style="margin-top:18pt;font-size:11pt;opacity:0.9">حُدّث في 2026 · مصادر أجنبية فقط</div>
+</div>
+
+<div class="toc">
+  <h2 style="page-break-before:auto !important">📑 جدول المحتويات</h2>
+  <ol>
+    <li>القرار الأول — افتح ده دلوقتي</li>
+    <li>Greg Isenberg's 5-Step Idea Discovery Method</li>
+    <li>الجدول الزمني الكامل (20 يوم)</li>
+    <li>الخطة اليومية بالتفصيل (86 تاسك)</li>
+    <li>مكتبة الفيديوهات (43 فيديو)</li>
+    <li>الأدوات والحسابات والريبوهات (57)</li>
+    <li>مكتبة الـ Prompts (23)</li>
+    <li>التوصية النهائية + Checklist اليوم 1</li>
+  </ol>
+</div>
+
+<h2>1️⃣ القرار الأول — افتح ده دلوقتي</h2>
+
+<div class="callout start">
+  <h3 style="margin-top:0">🎬 الفيديو الأول والوحيد اللي تبدأ بيه النهارده</h3>
+  <p><b>Greg Isenberg — How I use Reddit and AI to find winning startup ideas</b></p>
+  <ul>
+    <li>📅 يوليو 2024 · ⏱️ ~20 دقيقة · 👁️ <b>530,000+</b> مشاهدة</li>
+    <li>🏆 الأكثر مشاهدة عالمياً في الموضوع ده</li>
+    <li>👤 Greg Isenberg — صاحب Late Checkout · Podcast اسمه Startup Ideas · باع شركات بملايين</li>
+    <li>🔗 <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ">https://www.youtube.com/watch?v=8vXoI7lUroQ</a></li>
+  </ul>
+  <p><b>الناتج المطلوب آخر اليوم:</b> ملف <code>ideas.md</code> فيه على الأقل 20 فكرة براند مستخرجة من شكاوى حقيقية في Reddit.</p>
+</div>
+
+<h2>2️⃣ Greg Isenberg's 5-Step Idea Discovery Method</h2>
+
+<p><b>ملحوظة مهمة:</b> Gummy Search اتقفل، البديل الرسمي هو <a href="https://ideabrowser.com/join">IdeaBrowser</a>.</p>
+
+<div class="step-card">
+  <h4>Step 1 — Find Trending Subreddits via IdeaBrowser</h4>
+  <ul>
+    <li>استخدم <a href="https://ideabrowser.com/join">IdeaBrowser</a> (بديل Gummy Search).</li>
+    <li>ركّز على communities من <b>10K-100K member</b> — تجاوب على سؤال "Why now?".</li>
+    <li>راقب daily / weekly / monthly growth trends.</li>
+    <li>اختار niches فيها <b>unfair advantage</b> عندك.</li>
+  </ul>
+</div>
+
+<div class="step-card">
+  <h4>Step 2 — Analyze Subreddit for Problems & Solutions</h4>
+  <ul>
+    <li>ضيف الـ subreddits لـ "audience" واحد في IdeaBrowser.</li>
+    <li><b>Pain & Anger</b> — افحص الشكاوى الأكثر تكراراً.</li>
+    <li><b>Advice Requests</b> — اللي الناس بتسأل عنه = blind spots في السوق.</li>
+    <li><b>Solution Requests</b> — المنافسة الموجودة + الأدوات اللي الناس عايزة تكون موجودة.</li>
+    <li><b>🔑 Key:</b> دوّن الـ themes المتكررة، مش الـ one-offs.</li>
+  </ul>
+</div>
+
+<div class="step-card">
+  <h4>Step 3 — Identify Creators in the Niche</h4>
+  <ul>
+    <li>استخدم <a href="https://perplexity.ai">Perplexity.ai</a> تلاقي top influencers.</li>
+    <li>ابحث على YouTube عن أشهر فيديوهاتهم.</li>
+    <li><b>اقرأ الكومنتات</b> — هي اللي هتفهمك احتياجات الجمهور.</li>
+    <li>طبّق على <b>20-25 فيديو</b> عشان تاخد deep insights.</li>
+    <li>النتيجة: تفكر زي جمهورك المستهدف.</li>
+  </ul>
+</div>
+
+<div class="step-card">
+  <h4>Step 4 — Wireframe Your Solution</h4>
+  <ul>
+    <li>على أساس الـ insights، اعمل sketch للمنتج/الخدمة.</li>
+    <li>استخدم <a href="https://framer.com">Framer</a> للـ prototyping السريع.</li>
+    <li>اختار اسم catchy + relevant + .com-able.</li>
+    <li>مثال Greg: <b>DesignScientist.com</b> — تصميم مركّز على conversion.</li>
+  </ul>
+</div>
+
+<div class="step-card">
+  <h4>Step 5 — Create Content That Resonates</h4>
+  <ul>
+    <li>استخدم خاصية "Top Content" في IdeaBrowser.</li>
+    <li>حلّل اللي بيشتغل في الـ community (Memes? Long-form? Lists?).</li>
+    <li>اسأل AI عن content preferences.</li>
+    <li>🤖 عامل Claude/ChatGPT كـ <b>"Entrepreneurial Assistant"</b>.</li>
+  </ul>
+</div>
+
+<h2>3️⃣ الجدول الزمني الكامل — 20 يوم</h2>
+
+<table>
+  <thead><tr><th>الأسبوع</th><th>المرحلة</th><th>الناتج</th></tr></thead>
+  <tbody>
+    <tr><td><b>الأسبوع 1</b><br/>(يوم 1-8)</td><td>الفكرة + التحقق + المنافسين + بناء البراند</td><td>brand-context.md, brand-voice.md, content-pillars.md, competitor spreadsheet, top 3 ideas validated</td></tr>
+    <tr><td><b>الأسبوع 2</b><br/>(يوم 9-14)</td><td>الموتور التقني — Claude + Skills + GitHub</td><td>Claude Project + 32 Marketing Skill + GitHub MCP + Content calendar + GitHub Action</td></tr>
+    <tr><td><b>الأسبوع 3</b><br/>(يوم 15-19)</td><td>موقع 3D + الإطلاق</td><td>Three.js → R3F → Custom 3D website live على Vercel + Search Console + Analytics</td></tr>
+    <tr><td><b>بعد ذلك</b><br/>(يوم 20+)</td><td>iterate أسبوعياً وشهرياً</td><td>Claude يطلع PRs بتحسينات تلقائياً + شهرياً re-scan للمنافسين</td></tr>
+  </tbody>
+</table>
+
+<h2>4️⃣ الخطة اليومية بالتفصيل (86 تاسك)</h2>
+
+  <div class="day-block">
+    <h3>📅 يوم 1 — Idea Discovery <small>(~4.1 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>1.1</b></td>
+          <td><b>Watch Greg Isenberg #1</b></td>
+          <td>Watch the full ~20m video on Reddit + AI to find startup ideas</td>
+          <td>20</td>
+          <td><a href="https://www.youtube.com/watch?v=8vXoI7lUroQ">www.youtube.com/watch?v=8vXoI7lUroQ</a></td>
+          <td>Notes file on Greg's 5-step method</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.2</b></td>
+          <td><b>Set up ideas.md file</b></td>
+          <td>Create ideas.md with columns: Idea | Pain Point | Source (Subreddit/URL) | Audience | Severity 1-5 | Date</td>
+          <td>5</td>
+          <td>VS Code or Notion</td>
+          <td>Empty ideas.md ready</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.3</b></td>
+          <td><b>Find trending subreddits via IdeaBrowser</b></td>
+          <td>Use <a href="https://ideabrowser.com/join">ideabrowser.com/join</a> (replaces the discontinued Gummy Search). Focus on 10K-100K member communities — they answer 'why now'. Check daily / weekly / monthly growth trends. Pick niches where you have an unfair advantage.</td>
+          <td>30</td>
+          <td><a href="https://ideabrowser.com/join">ideabrowser.com/join</a></td>
+          <td>5-10 trending subreddits in your niche</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.4</b></td>
+          <td><b>Run Google Reddit hacks (parallel to IdeaBrowser)</b></td>
+          <td>Search 'site:reddit.com &quot;is there an app for&quot; [your niche]', 'site:reddit.com &quot;wish there was&quot; [your niche]', 'site:reddit.com &quot;is there a tool&quot; [your niche]', 'site:reddit.com &quot;why is there no&quot; [your niche]'</td>
+          <td>30</td>
+          <td>Google Search</td>
+          <td>List of 5-10 explicit unmet needs</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.5</b></td>
+          <td><b>Add subreddits to an 'audience' in IdeaBrowser</b></td>
+          <td>Group your 5-10 subreddits into one IdeaBrowser audience so you can analyze them as a cohort.</td>
+          <td>10</td>
+          <td><a href="https://ideabrowser.com/join">ideabrowser.com/join</a></td>
+          <td>Audience configured</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.6</b></td>
+          <td><b>Mine 'Pain &amp; Anger' patterns</b></td>
+          <td>Open the Pain &amp; Anger section. Read the top 30-50 posts. Log every recurring complaint. KEY: write down recurring THEMES, not one-offs.</td>
+          <td>60</td>
+          <td>IdeaBrowser audience</td>
+          <td>List of recurring frustrations</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.7</b></td>
+          <td><b>Mine 'Advice Requests' patterns</b></td>
+          <td>Open Advice Requests. Capture what people are asking — these reveal blind spots in the niche.</td>
+          <td>30</td>
+          <td>IdeaBrowser audience</td>
+          <td>Top 10 question themes</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.8</b></td>
+          <td><b>Mine 'Solution Requests' patterns</b></td>
+          <td>Open Solution Requests. These reveal the competitive landscape and tools people wish existed = direct idea fuel.</td>
+          <td>30</td>
+          <td>IdeaBrowser audience</td>
+          <td>Top 10 'I wish a tool existed for X' themes</td>
+        </tr>
+      
+        <tr>
+          <td><b>1.9</b></td>
+          <td><b>Convert pain points to ideas</b></td>
+          <td>Turn each pain point / advice / solution request into a 1-line brand idea</td>
+          <td>30</td>
+          <td>Your brain + ideas.md</td>
+          <td>At least 20 ideas in ideas.md</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 2 — Idea Discovery <small>(~7.6 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>2.1</b></td>
+          <td><b>Watch Greg Isenberg #2 (FULL Blueprint)</b></td>
+          <td>Watch the June 2025 deep-dive (covers ChatGPT history audit + Google Reddit hack + friction-point audit)</td>
+          <td>30</td>
+          <td><a href="https://www.youtube.com/watch?v=F7MxPxNbFUw">www.youtube.com/watch?v=F7MxPxNbFUw</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>2.2</b></td>
+          <td><b>ChatGPT/Claude history audit</b></td>
+          <td>Open your AI chat history; mark any question/topic you repeated 3+ times</td>
+          <td>30</td>
+          <td>ChatGPT/Claude history</td>
+          <td>5-10 recurring problems</td>
+        </tr>
+      
+        <tr>
+          <td><b>2.3</b></td>
+          <td><b>Friction-point audit</b></td>
+          <td>For 1 day, log every time you copy-paste between two tools/apps</td>
+          <td>continuous</td>
+          <td>Notes app</td>
+          <td>List of automation opportunities</td>
+        </tr>
+      
+        <tr>
+          <td><b>2.4</b></td>
+          <td><b>Find creators in the niche via Perplexity</b></td>
+          <td>Use <a href="https://perplexity.ai">perplexity.ai</a> to find the top influencers in your niche. Ask: 'Who are the top 10 YouTube creators in [niche] in 2026?'</td>
+          <td>20</td>
+          <td><a href="https://perplexity.ai">perplexity.ai</a></td>
+          <td>List of 10-15 creators</td>
+        </tr>
+      
+        <tr>
+          <td><b>2.5</b></td>
+          <td><b>Watch top videos in the niche</b></td>
+          <td>For each creator, find their 2-3 most popular videos. Aim for 20-25 videos total across the creators.</td>
+          <td>240 (split)</td>
+          <td>YouTube</td>
+          <td>Notes per video</td>
+        </tr>
+      
+        <tr>
+          <td><b>2.6</b></td>
+          <td><b>Read comments for audience insight</b></td>
+          <td>On each of the 20-25 videos, read the top 30 comments. Capture: What are people praising? Complaining about? Asking for? This makes you THINK like your audience.</td>
+          <td>120</td>
+          <td>YouTube comments</td>
+          <td>Audience insight log</td>
+        </tr>
+      
+        <tr>
+          <td><b>2.7</b></td>
+          <td><b>Add new ideas to ideas.md</b></td>
+          <td>Combine new ideas from comments + ChatGPT history + friction audit. Aim for total 30-40 ideas.</td>
+          <td>15</td>
+          <td>ideas.md</td>
+          <td>30-40 ideas total</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 3 — Validation <small>(~4.9 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>3.1</b></td>
+          <td><b>Watch Amardeep Parmar</b></td>
+          <td>Step-by-step validation guide</td>
+          <td>25</td>
+          <td><a href="https://www.youtube.com/watch?v=iTZIM4AlGZQ">www.youtube.com/watch?v=iTZIM4AlGZQ</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>3.2</b></td>
+          <td><b>Watch FLAME 4-Pillar</b></td>
+          <td>Quick scoring framework</td>
+          <td>4</td>
+          <td><a href="https://www.youtube.com/watch?v=MwfrxWVtshg">www.youtube.com/watch?v=MwfrxWVtshg</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>3.3</b></td>
+          <td><b>Score every idea</b></td>
+          <td>Score each idea 1-10 on: Market Demand, Ease to Build, Revenue Potential, Personal Fit</td>
+          <td>90</td>
+          <td>Spreadsheet</td>
+          <td>All ideas scored</td>
+        </tr>
+      
+        <tr>
+          <td><b>3.4</b></td>
+          <td><b>Pick Top 3</b></td>
+          <td>Sort by total score; pick top 3</td>
+          <td>15</td>
+          <td>Spreadsheet</td>
+          <td>Top 3 ideas</td>
+        </tr>
+      
+        <tr>
+          <td><b>3.5</b></td>
+          <td><b>Demand check</b></td>
+          <td>For Top 3: search Google Trends, count 1-star competitor reviews, browse complaint posts</td>
+          <td>60</td>
+          <td>trends.google.com, competitor reviews</td>
+          <td>Demand evidence per idea</td>
+        </tr>
+      
+        <tr>
+          <td><b>3.6</b></td>
+          <td><b>Wireframe your solution</b></td>
+          <td>Sketch out your product / service. Use Framer (<a href="https://framer.com)">framer.com)</a> for fast prototypes. Come up with a catchy relevant name (Greg's example: DesignScientist.com).</td>
+          <td>90</td>
+          <td><a href="https://framer.com">framer.com</a></td>
+          <td>1-page wireframe + working name</td>
+        </tr>
+      
+        <tr>
+          <td><b>3.7</b></td>
+          <td><b>Pick #1 idea</b></td>
+          <td>Commit to one idea to research deeper</td>
+          <td>10</td>
+          <td>Yourself</td>
+          <td>One chosen idea</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 4 — Competitor Research <small>(~4.6 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>4.1</b></td>
+          <td><b>Watch Access Genie</b></td>
+          <td>22m step-by-step competitor analysis with Osum + SEMrush</td>
+          <td>22</td>
+          <td><a href="https://www.youtube.com/watch?v=9QcRcRuVCfI">www.youtube.com/watch?v=9QcRcRuVCfI</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.2</b></td>
+          <td><b>Watch Local Market AI</b></td>
+          <td>Local market analysis with AI + Google Maps</td>
+          <td>15</td>
+          <td><a href="https://www.youtube.com/watch?v=RVQSTZJLrUw">www.youtube.com/watch?v=RVQSTZJLrUw</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.3</b></td>
+          <td><b>List 5-10 competitors</b></td>
+          <td>Direct + indirect + SEO competitors (search Google, Maps, marketplaces, social)</td>
+          <td>60</td>
+          <td>Search</td>
+          <td>Competitors list</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.4</b></td>
+          <td><b>Spreadsheet template</b></td>
+          <td>Create columns: Competitor | Type | Website | Pricing | USP | Strengths | Weaknesses | Marketing Channels | Reviews Sentiment | Backlinks</td>
+          <td>15</td>
+          <td>Sheets</td>
+          <td>Template ready</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.5</b></td>
+          <td><b>Run Osum reports</b></td>
+          <td>Free trial; generate report per top 3 competitors</td>
+          <td>30</td>
+          <td><a href="https://osum.com">osum.com</a></td>
+          <td>3 competitor SWOTs</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.6</b></td>
+          <td><b>Run SEMrush</b></td>
+          <td>Free trial; check traffic, keywords, ads</td>
+          <td>30</td>
+          <td><a href="https://semrush.com">semrush.com</a></td>
+          <td>Traffic &amp; keyword data</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.7</b></td>
+          <td><b>Facebook Ad Library</b></td>
+          <td>Pull every active competitor ad</td>
+          <td>30</td>
+          <td><a href="https://www.facebook.com/ads/library">www.facebook.com/ads/library</a></td>
+          <td>Ad inventory</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.8</b></td>
+          <td><b>Identify gaps</b></td>
+          <td>Document: features they all have, features none have, complaints customers repeat</td>
+          <td>45</td>
+          <td>Sheets</td>
+          <td>Gaps + opportunities</td>
+        </tr>
+      
+        <tr>
+          <td><b>4.9</b></td>
+          <td><b>Refine your idea</b></td>
+          <td>Adjust your idea/positioning based on the gap</td>
+          <td>30</td>
+          <td>ideas.md</td>
+          <td>Sharper idea</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 5 — Brand Mindset <small>(~2.5 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>5.1</b></td>
+          <td><b>Watch Marty Neumeier</b></td>
+          <td>'What is Branding?' deep dive</td>
+          <td>30</td>
+          <td><a href="https://www.youtube.com/watch?v=dpZfNNYUZEc">www.youtube.com/watch?v=dpZfNNYUZEc</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>5.2</b></td>
+          <td><b>Watch Learn With Shopify</b></td>
+          <td>7-step branding overview</td>
+          <td>10</td>
+          <td><a href="https://www.youtube.com/watch?v=4xnLp9A8G_U">www.youtube.com/watch?v=4xnLp9A8G_U</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>5.3</b></td>
+          <td><b>Answer Neumeier's 5 questions</b></td>
+          <td>Who are we? What do we do? Why does it matter? Who is it for? What's our Zag?</td>
+          <td>30</td>
+          <td>brand-context.md</td>
+          <td>brand-context.md draft</td>
+        </tr>
+      
+        <tr>
+          <td><b>5.4</b></td>
+          <td><b>Decide Personal vs Business brand</b></td>
+          <td>Apply: 'If I removed the products/services, would people still follow me?'</td>
+          <td>15</td>
+          <td>brand-context.md</td>
+          <td>Brand type decided</td>
+        </tr>
+      
+        <tr>
+          <td><b>5.5</b></td>
+          <td><b>Analyze 'Top Content' in the community</b></td>
+          <td>Use IdeaBrowser's top-content view (or scan top Reddit posts of all time in your subreddits). What format wins? Memes? Long-form? Polls? Stories? Capture patterns.</td>
+          <td>45</td>
+          <td><a href="https://ideabrowser.com/join">ideabrowser.com/join</a></td>
+          <td>Content patterns log</td>
+        </tr>
+      
+        <tr>
+          <td><b>5.6</b></td>
+          <td><b>Ask AI about content preferences</b></td>
+          <td>Ask Claude/ChatGPT: 'Given these top-performing posts in [niche], what content style does this audience love? Do they prefer memes, long-form essays, listicles, or screenshots? Why?'</td>
+          <td>20</td>
+          <td>Claude/ChatGPT</td>
+          <td>Content style guide</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 6 — Brand Build (Caleb 1/3) <small>(~2.6 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>6.1</b></td>
+          <td><b>Caleb Ralston 0:00-1:30</b></td>
+          <td>Sections: Brand Journey Framework, Positioning, Why people listen, Differentiation</td>
+          <td>90</td>
+          <td><a href="https://www.youtube.com/watch?v=uJ8Pg6t_iho">www.youtube.com/watch?v=uJ8Pg6t_iho</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>6.2</b></td>
+          <td><b>Download workbook</b></td>
+          <td>Get Caleb's free workbook</td>
+          <td>5</td>
+          <td><a href="https://calebralston.com/startyourbrand">calebralston.com/startyourbrand</a></td>
+          <td>Workbook PDF</td>
+        </tr>
+      
+        <tr>
+          <td><b>6.3</b></td>
+          <td><b>Fill: Credibility Bank</b></td>
+          <td>List your wins/proof</td>
+          <td>30</td>
+          <td>Workbook</td>
+          <td>Credibility Bank done</td>
+        </tr>
+      
+        <tr>
+          <td><b>6.4</b></td>
+          <td><b>Fill: Differentiation</b></td>
+          <td>Identify your contrarian (not controversial) belief</td>
+          <td>30</td>
+          <td>Workbook</td>
+          <td>Differentiation done</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 7 — Brand Build (Caleb 2/3) <small>(~2.8 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>7.1</b></td>
+          <td><b>Caleb Ralston 1:30-3:00</b></td>
+          <td>Sections: Content Strategy, Cadence, First 3 Videos</td>
+          <td>90</td>
+          <td>Same video</td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>7.2</b></td>
+          <td><b>Pick 1-2 platforms</b></td>
+          <td>Choose where to publish (mistake = picking 5)</td>
+          <td>20</td>
+          <td>Workbook</td>
+          <td>Platforms decided</td>
+        </tr>
+      
+        <tr>
+          <td><b>7.3</b></td>
+          <td><b>Plan first 3 videos/posts</b></td>
+          <td>Use Caleb's 4Cs + Wrapping Paper framework + the content style from Day 5.6</td>
+          <td>60</td>
+          <td>Workbook</td>
+          <td>3 content drafts</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 8 — Brand Build (Caleb 3/3) <small>(~3.3 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>8.1</b></td>
+          <td><b>Caleb Ralston 3:00-5:05</b></td>
+          <td>Month-by-month case study + Operating System</td>
+          <td>120</td>
+          <td>Same video</td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>8.2</b></td>
+          <td><b>Build brand-voice.md</b></td>
+          <td>3 adjectives + 5 do's + 5 don'ts + before/after examples</td>
+          <td>45</td>
+          <td>brand-voice.md</td>
+          <td>Voice guide</td>
+        </tr>
+      
+        <tr>
+          <td><b>8.3</b></td>
+          <td><b>Build content-pillars.md</b></td>
+          <td>3-5 content pillars; aligns to brand-context.md</td>
+          <td>30</td>
+          <td>content-pillars.md</td>
+          <td>Pillars defined</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 9 — Tooling Setup <small>(~1.8 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>9.1</b></td>
+          <td><b>Install Node.js + Git + VS Code</b></td>
+          <td>Latest stable; configure git user.name &amp; user.email</td>
+          <td>30</td>
+          <td>nodejs.org / git-scm.com</td>
+          <td>Toolchain ready</td>
+        </tr>
+      
+        <tr>
+          <td><b>9.2</b></td>
+          <td><b>Install Claude Desktop + CLI</b></td>
+          <td>Sign up Claude Pro/Max if affordable</td>
+          <td>30</td>
+          <td><a href="https://claude.ai/download">claude.ai/download</a></td>
+          <td>Claude installed</td>
+        </tr>
+      
+        <tr>
+          <td><b>9.3</b></td>
+          <td><b>Install Docker Desktop</b></td>
+          <td>Required for MCP servers</td>
+          <td>20</td>
+          <td><a href="https://docker.com">docker.com</a></td>
+          <td>Docker running</td>
+        </tr>
+      
+        <tr>
+          <td><b>9.4</b></td>
+          <td><b>Create GitHub PAT</b></td>
+          <td>Scopes: repo, workflow, read:org</td>
+          <td>10</td>
+          <td>github.com/settings/tokens</td>
+          <td>PAT saved securely</td>
+        </tr>
+      
+        <tr>
+          <td><b>9.5</b></td>
+          <td><b>Create [BrandName]-hq repo</b></td>
+          <td>Initialize git repo with brand-context.md / brand-voice.md / CLAUDE.md</td>
+          <td>15</td>
+          <td>GitHub</td>
+          <td>Repo live</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 10 — Claude Setup <small>(~1.7 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>10.1</b></td>
+          <td><b>Build Claude Project</b></td>
+          <td>Project: '[Brand] HQ'. Upload: brand-context.md, brand-voice.md, content-pillars.md, competitor analysis sheet, wireframe from Day 3.6</td>
+          <td>30</td>
+          <td>Claude</td>
+          <td>Project ready</td>
+        </tr>
+      
+        <tr>
+          <td><b>10.2</b></td>
+          <td><b>Install Anthropic Skills</b></td>
+          <td>Run /plugin marketplace add anthropics/skills</td>
+          <td>15</td>
+          <td>Claude Code CLI</td>
+          <td>Skills installed</td>
+        </tr>
+      
+        <tr>
+          <td><b>10.3</b></td>
+          <td><b>Install Marketing Skills</b></td>
+          <td>npx skills add coreyhaines31/marketingskills (page-cro / copywriting / seo-audit / ai-seo / social-content)</td>
+          <td>20</td>
+          <td>GitHub coreyhaines31/marketingskills</td>
+          <td>Skills installed</td>
+        </tr>
+      
+        <tr>
+          <td><b>10.4</b></td>
+          <td><b>Add GitHub MCP</b></td>
+          <td>Run claude mcp add github with PAT</td>
+          <td>20</td>
+          <td>github/github-mcp-server</td>
+          <td>GitHub MCP working</td>
+        </tr>
+      
+        <tr>
+          <td><b>10.5</b></td>
+          <td><b>Add Firecrawl MCP</b></td>
+          <td>For ethical web scraping</td>
+          <td>15</td>
+          <td>firecrawl.dev</td>
+          <td>Firecrawl MCP active</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 11 — Content Engine <small>(~4.3 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>11.1</b></td>
+          <td><b>Watch Tech With Tim Claude Code</b></td>
+          <td>Skills + MCP + Subagents</td>
+          <td>90</td>
+          <td><a href="https://www.youtube.com/watch?v=uogzSxOw4LU">www.youtube.com/watch?v=uogzSxOw4LU</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>11.2</b></td>
+          <td><b>Build content calendar</b></td>
+          <td>Use Master Prompt 'Content Calendar' with Claude (incorporates style from Day 5.6)</td>
+          <td>60</td>
+          <td>Claude + content-pillars.md</td>
+          <td>30-day calendar</td>
+        </tr>
+      
+        <tr>
+          <td><b>11.3</b></td>
+          <td><b>Generate first batch</b></td>
+          <td>Produce 5 posts/scripts with brand voice</td>
+          <td>60</td>
+          <td>Claude</td>
+          <td>5 ready-to-publish pieces</td>
+        </tr>
+      
+        <tr>
+          <td><b>11.4</b></td>
+          <td><b>Schedule weekly competitor monitoring</b></td>
+          <td>Set up Octoparse/Apify MCP + /schedule weekly report</td>
+          <td>45</td>
+          <td>mcp.octoparse.com / apify.com</td>
+          <td>Auto-monitoring on</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 12 — Data &amp; Analytics <small>(~1.8 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>12.1</b></td>
+          <td><b>Pick analytics stack</b></td>
+          <td>Plausible/Umami + GA4 + Search Console + PostHog (heatmaps)</td>
+          <td>30</td>
+          <td>Each tool's site</td>
+          <td>Accounts created</td>
+        </tr>
+      
+        <tr>
+          <td><b>12.2</b></td>
+          <td><b>Watch Claude Data Analysis</b></td>
+          <td>Without spreadsheet: claude code data analysis</td>
+          <td>20</td>
+          <td><a href="https://www.youtube.com/watch?v=we4J_JgPeQA">www.youtube.com/watch?v=we4J_JgPeQA</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>12.3</b></td>
+          <td><b>Connect data to Claude</b></td>
+          <td>Postgres/Supabase MCP or upload CSV exports weekly</td>
+          <td>60</td>
+          <td>Claude</td>
+          <td>Data flows in</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 13 — Git Skills <small>(~4 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>13.1</b></td>
+          <td><b>Watch freeCodeCamp Git/GitHub</b></td>
+          <td>2026 crash course</td>
+          <td>180</td>
+          <td><a href="https://www.youtube.com/watch?v=mAFoROnOfHs">www.youtube.com/watch?v=mAFoROnOfHs</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>13.2</b></td>
+          <td><b>Practice 10 commands</b></td>
+          <td>init, clone, add, commit, push, branch, checkout, merge, rebase, pull</td>
+          <td>60</td>
+          <td>Terminal</td>
+          <td>Comfortable</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 14 — GitHub Actions <small>(~4.5 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>14.1</b></td>
+          <td><b>Watch DevOps Directive</b></td>
+          <td>Complete GitHub Actions course</td>
+          <td>180</td>
+          <td><a href="https://www.youtube.com/watch?v=Xwpi0ITkL3U">www.youtube.com/watch?v=Xwpi0ITkL3U</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>14.2</b></td>
+          <td><b>Add Claude GitHub Action</b></td>
+          <td>/install-github-app inside Claude Code</td>
+          <td>30</td>
+          <td>code.claude.com/docs/en/github-actions</td>
+          <td>@claude works in PRs</td>
+        </tr>
+      
+        <tr>
+          <td><b>14.3</b></td>
+          <td><b>Add CI workflow</b></td>
+          <td>build.yml + deploy.yml for your site repo</td>
+          <td>60</td>
+          <td>.github/workflows/</td>
+          <td>CI green</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 15 — 3D Site (Day 1) <small>(~2 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>15.1</b></td>
+          <td><b>Watch Three.js 101</b></td>
+          <td>Crash course</td>
+          <td>90</td>
+          <td><a href="https://www.youtube.com/watch?v=KM64t3pA4fs">www.youtube.com/watch?v=KM64t3pA4fs</a></td>
+          <td>Notes</td>
+        </tr>
+      
+        <tr>
+          <td><b>15.2</b></td>
+          <td><b>Scaffold project</b></td>
+          <td>npm create vite@latest brand-3d --template react-ts; install three @react-three/fiber @react-three/drei gsap tailwindcss</td>
+          <td>30</td>
+          <td>Terminal</td>
+          <td>Project running</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 16 — 3D Site (Day 2) <small>(~6.5 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>16.1</b></td>
+          <td><b>Watch JS Mastery 3D Portfolio</b></td>
+          <td>Free 5h tutorial</td>
+          <td>300</td>
+          <td><a href="https://www.youtube.com/watch?v=kt0FrkQgw8w">www.youtube.com/watch?v=kt0FrkQgw8w</a></td>
+          <td>Notes + sample built</td>
+        </tr>
+      
+        <tr>
+          <td><b>16.2</b></td>
+          <td><b>Add Hero with 3D logo</b></td>
+          <td>R3F + Drei &lt;Float&gt;, &lt;Environment&gt;, &lt;OrbitControls&gt;</td>
+          <td>90</td>
+          <td>VS Code + Claude Code</td>
+          <td>Hero working</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 17 — 3D Site (Day 3) <small>(~12 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>17.1</b></td>
+          <td><b>Watch JS Mastery Creative Frontend</b></td>
+          <td>10h GSAP + Three.js + React</td>
+          <td>600 (split over 2-3 days)</td>
+          <td><a href="https://www.youtube.com/watch?v=ATdaYQw0ptk">www.youtube.com/watch?v=ATdaYQw0ptk</a></td>
+          <td>Notes + components built</td>
+        </tr>
+      
+        <tr>
+          <td><b>17.2</b></td>
+          <td><b>Add scroll-driven animations</b></td>
+          <td>GSAP ScrollTrigger camera dolly + section reveals</td>
+          <td>120</td>
+          <td>VS Code + Claude Code</td>
+          <td>Scroll animations live</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 18 — 3D Site (Day 4) <small>(~6 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>18.1</b></td>
+          <td><b>Build remaining sections</b></td>
+          <td>Story / Products / Local Proof / Contact</td>
+          <td>240</td>
+          <td>VS Code + Claude Code</td>
+          <td>Sections built</td>
+        </tr>
+      
+        <tr>
+          <td><b>18.2</b></td>
+          <td><b>Optimize performance</b></td>
+          <td>Compress models, lazy-load, mobile test, Lighthouse run</td>
+          <td>120</td>
+          <td>gltf-pipeline + Lighthouse</td>
+          <td>Lighthouse score &gt;= 75</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 19 — Launch <small>(~2.8 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>19.1</b></td>
+          <td><b>Connect domain</b></td>
+          <td>Buy domain; point to Vercel/Netlify</td>
+          <td>30</td>
+          <td>Namecheap/Cloudflare</td>
+          <td>Domain live</td>
+        </tr>
+      
+        <tr>
+          <td><b>19.2</b></td>
+          <td><b>Deploy to Vercel</b></td>
+          <td>git push -&gt; Vercel auto-deploys; add ANTHROPIC_API_KEY secret</td>
+          <td>30</td>
+          <td>vercel.com</td>
+          <td>Live URL</td>
+        </tr>
+      
+        <tr>
+          <td><b>19.3</b></td>
+          <td><b>Add analytics tags</b></td>
+          <td>Plausible script + GA4 + PostHog snippet</td>
+          <td>30</td>
+          <td>Each provider</td>
+          <td>Analytics flowing</td>
+        </tr>
+      
+        <tr>
+          <td><b>19.4</b></td>
+          <td><b>Submit to Search Console</b></td>
+          <td>Verify ownership; submit sitemap.xml</td>
+          <td>20</td>
+          <td>search.google.com</td>
+          <td>Indexing started</td>
+        </tr>
+      
+        <tr>
+          <td><b>19.5</b></td>
+          <td><b>Publish first content</b></td>
+          <td>Post the 5 pieces from Day 11; announce launch</td>
+          <td>60</td>
+          <td>Each platform</td>
+          <td>Launch post live</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="day-block">
+    <h3>📅 يوم 20 — Iterate <small>(~4.5 ساعة)</small></h3>
+    <table>
+      <thead><tr><th style="width:36px">#</th><th>التاسك</th><th>الخطوات</th><th style="width:70px">⏱️</th><th>الأداة</th><th>الناتج</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td><b>20.1</b></td>
+          <td><b>Weekly Claude analytics report</b></td>
+          <td>Claude reads PostHog/GSC via MCP and ships PR with 3 improvements</td>
+          <td>60 (weekly)</td>
+          <td>Claude + GitHub MCP</td>
+          <td>Auto-report PR</td>
+        </tr>
+      
+        <tr>
+          <td><b>20.2</b></td>
+          <td><b>Monthly competitor re-scan</b></td>
+          <td>Re-run Octoparse/Apify scrape; compare to baseline</td>
+          <td>90 (monthly)</td>
+          <td>Claude + scraping MCP</td>
+          <td>Diff report</td>
+        </tr>
+      
+        <tr>
+          <td><b>20.3</b></td>
+          <td><b>Quarterly brand review</b></td>
+          <td>Revisit brand-context.md and brand-voice.md; update if positioning evolved</td>
+          <td>120 (quarterly)</td>
+          <td>Workbook</td>
+          <td>Updated docs</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+<h2>5️⃣ مكتبة الفيديوهات (43 فيديو)</h2>
+
+  <h3>🎬 Idea Discovery</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1 START HERE</b></td>
+        <td>Greg Isenberg</td>
+        <td><b>How I use Reddit and AI to find winning startup ideas</b><br/><small>Most-watched globally on this topic. Greg sold companies for millions; founder of Late Checkout; host of Startup Ideas podcast.</small></td>
+        <td>~20m</td>
+        <td>Jul 2024</td>
+        <td>530K+</td>
+        <td><a href="https://www.youtube.com/watch?v=8vXoI7lUroQ">www.youtube.com/watch?v=8vXoI7lUroQ</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>Greg Isenberg</td>
+        <td><b>How I Use AI &amp; Reddit to Find $1M+ Startup Ideas (FULL Blueprint)</b><br/><small>Most recent and complete blueprint. Adds ChatGPT history audit + Google Reddit hack + friction-point audit.</small></td>
+        <td>~30m</td>
+        <td>Jun 2025</td>
+        <td>64K+</td>
+        <td><a href="https://www.youtube.com/watch?v=F7MxPxNbFUw">www.youtube.com/watch?v=F7MxPxNbFUw</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>Adam Erhart</td>
+        <td><b>How To Find PROFITABLE Business Niches Everyone Ignores</b><br/><small>Practical small-business niche-finding from a top marketing strategist.</small></td>
+        <td>Mid</td>
+        <td>2024-2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=VxIEKIvzjE4">www.youtube.com/watch?v=VxIEKIvzjE4</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Validation</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>Amardeep Parmar</td>
+        <td><b>How to Find and Validate Startup Ideas in 2025 (Step-by-Step Guide)</b><br/><small>UK-based; comprehensive validation breakdown + shortlisting + founder fit.</small></td>
+        <td>~25m</td>
+        <td>2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=iTZIM4AlGZQ">www.youtube.com/watch?v=iTZIM4AlGZQ</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>FLAME / Rev</td>
+        <td><b>How to Validate a Business Idea in 2026 | 4-Pillar Framework</b><br/><small>Fastest validation framework: Demand / Ease / Revenue / Personal Fit. Score any idea in 2 minutes.</small></td>
+        <td>3:25</td>
+        <td>Feb 2026</td>
+        <td>New</td>
+        <td><a href="https://www.youtube.com/watch?v=MwfrxWVtshg">www.youtube.com/watch?v=MwfrxWVtshg</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Competitor Analysis</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>Ancillar Nombewu</td>
+        <td><b>How to Do Competitor Analysis Like a Pro (Step-by-Step Guide)</b><br/><small>Walks through Osum + SEMrush on a real example (Pet Dental brand). Includes SWOT + spreadsheet template.</small></td>
+        <td>22:14</td>
+        <td>Mar 2025</td>
+        <td>High-quality</td>
+        <td><a href="https://www.youtube.com/watch?v=9QcRcRuVCfI">www.youtube.com/watch?v=9QcRcRuVCfI</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>Various</td>
+        <td><b>How to Conduct a Local Market Analysis Using AI and Google Maps</b><br/><small>Specifically tailored to LOCAL brands using free tools.</small></td>
+        <td>Mid</td>
+        <td>2025</td>
+        <td>Mid</td>
+        <td><a href="https://www.youtube.com/watch?v=RVQSTZJLrUw">www.youtube.com/watch?v=RVQSTZJLrUw</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>LYFE Marketing</td>
+        <td><b>7 Easy Steps on How to Perform a Competitor Analysis</b><br/><small>Concise reference framework from a marketing agency.</small></td>
+        <td>8:00</td>
+        <td>Reference</td>
+        <td>—</td>
+        <td><a href="https://www.my-mooc.com/en/video/7-easy-steps-on-how-to-perform-a-competitor-analysis-63d77592-dc9f-428d-ad15-48fde1be371d">www.my-mooc.com/en/video/7-easy-steps-on-how-to-perform-a-co…</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Brand Mindset</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>Marty Neumeier</td>
+        <td><b>What is Branding? — A deep dive</b><br/><small>Father of 'The Brand Gap' and 'Zag'. Defines branding as a gut feeling — non-negotiable foundation.</small></td>
+        <td>Mid</td>
+        <td>Classic</td>
+        <td>Very high</td>
+        <td><a href="https://www.youtube.com/watch?v=dpZfNNYUZEc">www.youtube.com/watch?v=dpZfNNYUZEc</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>Michelle Bali</td>
+        <td><b>How to Build a Brand from Scratch in 2026</b><br/><small>7-step branding overview in 10 minutes. Perfect first overview.</small></td>
+        <td>9:45</td>
+        <td>Nov 2025</td>
+        <td>15K+</td>
+        <td><a href="https://www.youtube.com/watch?v=4xnLp9A8G_U">www.youtube.com/watch?v=4xnLp9A8G_U</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Brand Build</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1 PRIMARY</b></td>
+        <td>Caleb Ralston</td>
+        <td><b>How to START a Personal Brand (Full Course)</b><br/><small>Ex-strategist behind Hormozi &amp; Gary Vee. The world's gold-standard course on this. Free workbook included.</small></td>
+        <td>5h 5m</td>
+        <td>Jan 2026</td>
+        <td>159K+ / 8.7K likes</td>
+        <td><a href="https://www.youtube.com/watch?v=uJ8Pg6t_iho">www.youtube.com/watch?v=uJ8Pg6t_iho</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>Caleb Ralston</td>
+        <td><b>How To Build A $1M Personal Brand (FULL COURSE)</b><br/><small>Earlier full course; deeper on monetization &amp; team-building.</small></td>
+        <td>Long</td>
+        <td>Apr 2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=Ch4Sl0POBhU">www.youtube.com/watch?v=Ch4Sl0POBhU</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>Renee</td>
+        <td><b>Start a Brand From Scratch — Branding Masterclass for Beginners</b><br/><small>Distinguishes Personal vs Business brand cleanly + audience-in-one-sentence formula.</small></td>
+        <td>14:41</td>
+        <td>Jan 2026</td>
+        <td>2.7K</td>
+        <td><a href="https://www.youtube.com/watch?v=m9_1YI495HY">www.youtube.com/watch?v=m9_1YI495HY</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#4</b></td>
+        <td>Patrick Dang</td>
+        <td><b>How to Launch Your Personal Brand in 2026 (Full Course)</b><br/><small>Combines AI/Claude into the brand-launch workflow.</small></td>
+        <td>Long</td>
+        <td>2026</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=kiVTc92Ez0k">www.youtube.com/watch?v=kiVTc92Ez0k</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#5</b></td>
+        <td>Marshall Crews</td>
+        <td><b>Starting a Clothing Brand in 2026 is Simple Actually (FREE COURSE)</b><br/><small>If your brand is apparel/lifestyle. Demystifies MOQs and manufacturing.</small></td>
+        <td>Long</td>
+        <td>Feb 2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=KRRIL_FerrI">www.youtube.com/watch?v=KRRIL_FerrI</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#6</b></td>
+        <td>Yadster</td>
+        <td><b>How To Start a Clothing Brand (Full Guide 2025)</b><br/><small>E-commerce + Shopify + email/SMS + paid ads.</small></td>
+        <td>Long</td>
+        <td>Apr 2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=4D_1AQDmHB8">www.youtube.com/watch?v=4D_1AQDmHB8</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#7</b></td>
+        <td>Chris Do</td>
+        <td><b>Brand Strategy For Designers (Part 1)</b><br/><small>Industry-leading brand-strategy thinking for creatives.</small></td>
+        <td>Mid</td>
+        <td>Ongoing</td>
+        <td>Very high</td>
+        <td><a href="https://www.youtube.com/watch?v=tgDjT6G5VZo">www.youtube.com/watch?v=tgDjT6G5VZo</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Marketing</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>Adam Erhart</td>
+        <td><b>Channel: Marketing Strategies playlists</b><br/><small>Best practical small-business marketing channel.</small></td>
+        <td>—</td>
+        <td>Ongoing</td>
+        <td>—</td>
+        <td><a href="https://www.youtube.com/@Adamerhartvideo">www.youtube.com/@Adamerhartvideo</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>Alex Hormozi</td>
+        <td><b>Offer creation videos</b><br/><small>Rule of 100 / offer creation / lead gen.</small></td>
+        <td>—</td>
+        <td>Ongoing</td>
+        <td>—</td>
+        <td><a href="https://www.youtube.com/@AlexHormozi">www.youtube.com/@AlexHormozi</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>Daniel Priestley</td>
+        <td><b>Waitlist validation strategy</b><br/><small>Credibility Bank + Waitlist before product.</small></td>
+        <td>—</td>
+        <td>Ongoing</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+    
+      <tr>
+        <td><b>#4</b></td>
+        <td>Gary Vaynerchuk</td>
+        <td><b>Content distribution videos</b><br/><small>Content-first growth &amp; social distribution.</small></td>
+        <td>—</td>
+        <td>Ongoing</td>
+        <td>—</td>
+        <td><a href="https://www.youtube.com/@garyvee">www.youtube.com/@garyvee</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Claude Tooling</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>Tech With Tim</td>
+        <td><b>The Ultimate Claude Code Guide | MCP Skills &amp; More</b><br/><small>Most complete Claude Code + MCP + Skills tutorial.</small></td>
+        <td>Long</td>
+        <td>2025-2026</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=uogzSxOw4LU">www.youtube.com/watch?v=uogzSxOw4LU</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>Leon van Zyl</td>
+        <td><b>The Only Claude Code Tutorial You Need (2026 Update)</b><br/><small>CLI install + Permission modes + Planning mode + CLAUDE.md.</small></td>
+        <td>Long</td>
+        <td>2026</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=Q0bsphUTLtw">www.youtube.com/watch?v=Q0bsphUTLtw</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>Various</td>
+        <td><b>Claude Code + GitHub MCP Setup in 5 mins</b><br/><small>Quick GitHub MCP install for Claude.</small></td>
+        <td>~5m</td>
+        <td>2025</td>
+        <td>Mid</td>
+        <td><a href="https://www.youtube.com/watch?v=YSGepb9GD28">www.youtube.com/watch?v=YSGepb9GD28</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#4</b></td>
+        <td>—</td>
+        <td><b>FULL Claude Tutorial For Beginners 2026 (FULL COURSE)</b><br/><small>Beginner-friendly Claude foundations.</small></td>
+        <td>Long</td>
+        <td>2026</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=Xg55nTrbYYY">www.youtube.com/watch?v=Xg55nTrbYYY</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#5</b></td>
+        <td>Grace Leung</td>
+        <td><b>Claude Design + Claude Skills: Automate Your Marketing</b><br/><small>Builds Brand Voice Skill + Campaign Manager Agent.</small></td>
+        <td>Long</td>
+        <td>2025-2026</td>
+        <td>Mid-high</td>
+        <td><a href="https://www.youtube.com/watch?v=Ph-maUAiSU8">www.youtube.com/watch?v=Ph-maUAiSU8</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#6</b></td>
+        <td>—</td>
+        <td><b>8 Claude Code Skills Every Developer Needs in 2026</b><br/><small>Practical day-to-day skills.</small></td>
+        <td>Mid</td>
+        <td>2026</td>
+        <td>Mid</td>
+        <td><a href="https://www.youtube.com/watch?v=Va-U1dqhwzk">www.youtube.com/watch?v=Va-U1dqhwzk</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Data Analysis</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>—</td>
+        <td><b>Claude Code: Data Analysis Without the Spreadsheet</b><br/><small>Raw data → full business analysis with Claude Code.</small></td>
+        <td>Mid</td>
+        <td>2025</td>
+        <td>Mid</td>
+        <td><a href="https://www.youtube.com/watch?v=we4J_JgPeQA">www.youtube.com/watch?v=we4J_JgPeQA</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>—</td>
+        <td><b>How To Use Claude For Data Analysis 2026! Tutorial</b><br/><small>Beginner Claude data analysis basics.</small></td>
+        <td>Mid</td>
+        <td>2026</td>
+        <td>Mid</td>
+        <td><a href="https://www.youtube.com/watch?v=REDqq8tQi78">www.youtube.com/watch?v=REDqq8tQi78</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>Alex The Analyst</td>
+        <td><b>Channel — Data Analyst Bootcamp</b><br/><small>Best free SQL/Python/Power BI/Tableau path with portfolio projects.</small></td>
+        <td>—</td>
+        <td>Ongoing</td>
+        <td>Very high</td>
+        <td><a href="https://www.youtube.com/@AlexTheAnalyst">www.youtube.com/@AlexTheAnalyst</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#4</b></td>
+        <td>—</td>
+        <td><b>Channel — Project-based Python/Pandas/Power BI</b><br/><small>Real-world projects.</small></td>
+        <td>—</td>
+        <td>Ongoing</td>
+        <td>Very high</td>
+        <td><a href="https://www.youtube.com/@codebasics">www.youtube.com/@codebasics</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#5</b></td>
+        <td>Mosh</td>
+        <td><b>The Complete Data Analyst Roadmap</b><br/><small>Clear roadmap from zero to job-ready.</small></td>
+        <td>Mid</td>
+        <td>2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=YRJbhFLLPyE">www.youtube.com/watch?v=YRJbhFLLPyE</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 Git/GitHub</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>freeCodeCamp</td>
+        <td><b>Git &amp; GitHub Crash Course for Beginners [2026]</b><br/><small>Most comprehensive free course.</small></td>
+        <td>Long</td>
+        <td>2026</td>
+        <td>Very high</td>
+        <td><a href="https://www.youtube.com/watch?v=mAFoROnOfHs">www.youtube.com/watch?v=mAFoROnOfHs</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>Traversy Media</td>
+        <td><b>Git &amp; GitHub Crash Course 2025</b><br/><small>SSH keys + CI/CD with Vercel.</small></td>
+        <td>Mid</td>
+        <td>2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=vA5TTz6BXhY">www.youtube.com/watch?v=vA5TTz6BXhY</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>Simplilearn</td>
+        <td><b>Git &amp; GitHub Full Course 2026 (Beginner to Advanced)</b><br/><small>Comprehensive incl. GitHub Actions.</small></td>
+        <td>Long</td>
+        <td>2026</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=slFRfhAwKcs">www.youtube.com/watch?v=slFRfhAwKcs</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 GitHub Actions</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1</b></td>
+        <td>DevOps Directive</td>
+        <td><b>Complete GitHub Actions Course - From BEGINNER to PRO</b><br/><small>Includes companion repo + capstone.</small></td>
+        <td>Long</td>
+        <td>2024-2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=Xwpi0ITkL3U">www.youtube.com/watch?v=Xwpi0ITkL3U</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>—</td>
+        <td><b>GitHub Actions Tutorial: Zero to Hero in 90 minutes</b><br/><small>Condensed deep-dive: environments + secrets + runners.</small></td>
+        <td>90m</td>
+        <td>2024-2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=TLB5MY9BBa4">www.youtube.com/watch?v=TLB5MY9BBa4</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🎬 3D Web</h3>
+  <table>
+    <thead><tr><th>الأولوية</th><th>الصانع</th><th>الفيديو</th><th>المدة</th><th>تاريخ النشر</th><th>المشاهدات</th><th>اللينك</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>#1 START</b></td>
+        <td>Zero To Mastery</td>
+        <td><b>Three.js 101 Crash Course — Beginner's Guide</b><br/><small>Best beginner foundation: Scene/Camera/Geometry/Materials.</small></td>
+        <td>~1.5h</td>
+        <td>2024-2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=KM64t3pA4fs">www.youtube.com/watch?v=KM64t3pA4fs</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#2</b></td>
+        <td>JavaScript Mastery</td>
+        <td><b>Build &amp; Deploy an Amazing 3D Portfolio with React.js &amp; Three.js</b><br/><small>Free best-in-class 3D portfolio build (with companion repo adrianhajdin/3d-portfolio).</small></td>
+        <td>~5h</td>
+        <td>2025</td>
+        <td>Very high</td>
+        <td><a href="https://www.youtube.com/watch?v=kt0FrkQgw8w">www.youtube.com/watch?v=kt0FrkQgw8w</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#3</b></td>
+        <td>JavaScript Mastery</td>
+        <td><b>Creative Frontend Course — GSAP + Three.js + React (10 Hours)</b><br/><small>The most comprehensive 2025 free course. 3 projects.</small></td>
+        <td>10h</td>
+        <td>Dec 2025</td>
+        <td>Very high</td>
+        <td><a href="https://www.youtube.com/watch?v=ATdaYQw0ptk">www.youtube.com/watch?v=ATdaYQw0ptk</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#4</b></td>
+        <td>—</td>
+        <td><b>React Three Fiber/Three.js Tutorial for Beginners</b><br/><small>First R3F project + GSAP scroll animations.</small></td>
+        <td>~2h</td>
+        <td>2024-2025</td>
+        <td>High</td>
+        <td><a href="https://www.youtube.com/watch?v=52sTNIJs78A">www.youtube.com/watch?v=52sTNIJs78A</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#5</b></td>
+        <td>Bruno Simon</td>
+        <td><b>Three.js Journey (paid)</b><br/><small>World standard for 3D web. Paid but lifetime + Discord.</small></td>
+        <td>Massive</td>
+        <td>Updated regularly</td>
+        <td>Industry standard</td>
+        <td><a href="https://threejs-journey.com/">threejs-journey.com/</a></td>
+      </tr>
+    
+      <tr>
+        <td><b>#6</b></td>
+        <td>Wawa Sensei</td>
+        <td><b>React Three Fiber: The Ultimate Guide (paid)</b><br/><small>Best dedicated R3F course for React devs.</small></td>
+        <td>Long</td>
+        <td>Updated regularly</td>
+        <td>High</td>
+        <td><a href="https://wawasensei.dev/courses/react-three-fiber">wawasensei.dev/courses/react-three-fiber</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+<h2>6️⃣ الأدوات والحسابات والريبوهات (57)</h2>
+
+  <h3>🛠️ Idea Discovery</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Reddit</b></td>
+        <td><a href="https://reddit.com">reddit.com</a></td>
+        <td>Mining pain points &amp; unmet needs</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 1</td>
+      </tr>
+    
+      <tr>
+        <td><b>IdeaBrowser (Gummy Search successor)</b></td>
+        <td><a href="https://ideabrowser.com/join">ideabrowser.com/join</a></td>
+        <td>Replaces the discontinued Gummy Search. AI surfaces trending Subreddits + 'Pain &amp; Anger', 'Advice Requests', 'Solution Requests', 'Top Content' views. Greg Isenberg's primary tool.</td>
+        <td>Free trial / paid</td>
+        <td>Must</td>
+        <td>Day 1</td>
+      </tr>
+    
+      <tr>
+        <td><b>Perplexity AI</b></td>
+        <td><a href="https://perplexity.ai">perplexity.ai</a></td>
+        <td>Find top creators / influencers in any niche. Step 3 of Greg's framework: 'Who are the top 10 YouTube creators in [niche]?'</td>
+        <td>Free tier / paid</td>
+        <td>Recommended</td>
+        <td>Day 2</td>
+      </tr>
+    
+      <tr>
+        <td><b>Framer</b></td>
+        <td><a href="https://framer.com">framer.com</a></td>
+        <td>Quick wireframes / prototypes. Step 4 of Greg's framework: turn the idea into a 1-page mock + landing page.</td>
+        <td>Free tier / paid</td>
+        <td>Recommended</td>
+        <td>Day 3</td>
+      </tr>
+    
+      <tr>
+        <td><b>Google Trends</b></td>
+        <td><a href="https://trends.google.com">trends.google.com</a></td>
+        <td>Demand validation</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 3</td>
+      </tr>
+    
+      <tr>
+        <td><b>subredditstats.com</b></td>
+        <td><a href="https://subredditstats.com">subredditstats.com</a></td>
+        <td>Find subreddits by size (10K-100K sweet spot)</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 1</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Validation</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>FLAME</b></td>
+        <td><a href="https://goflame.ai">goflame.ai</a></td>
+        <td>4-pillar idea scoring</td>
+        <td>Free first score</td>
+        <td>Optional</td>
+        <td>Day 3</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Competitor Analysis</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Osum</b></td>
+        <td><a href="https://osum.com">osum.com</a></td>
+        <td>Auto-generates competitor SWOT in minutes</td>
+        <td>Free trial / paid</td>
+        <td>Must</td>
+        <td>Day 4</td>
+      </tr>
+    
+      <tr>
+        <td><b>SEMrush</b></td>
+        <td><a href="https://semrush.com">semrush.com</a></td>
+        <td>Traffic / keywords / ads</td>
+        <td>Free trial / paid</td>
+        <td>Recommended</td>
+        <td>Day 4</td>
+      </tr>
+    
+      <tr>
+        <td><b>Ubersuggest</b></td>
+        <td><a href="https://neilpatel.com/ubersuggest/">neilpatel.com/ubersuggest/</a></td>
+        <td>Cheap SEO data</td>
+        <td>Free tier / cheap</td>
+        <td>Optional</td>
+        <td>Day 4</td>
+      </tr>
+    
+      <tr>
+        <td><b>SimilarWeb</b></td>
+        <td><a href="https://similarweb.com">similarweb.com</a></td>
+        <td>Traffic estimates</td>
+        <td>Free tier</td>
+        <td>Recommended</td>
+        <td>Day 4</td>
+      </tr>
+    
+      <tr>
+        <td><b>Facebook Ad Library</b></td>
+        <td><a href="https://www.facebook.com/ads/library">www.facebook.com/ads/library</a></td>
+        <td>All competitor ads</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 4</td>
+      </tr>
+    
+      <tr>
+        <td><b>Google Maps</b></td>
+        <td><a href="https://maps.google.com">maps.google.com</a></td>
+        <td>Local competitor reviews &amp; locations</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 4</td>
+      </tr>
+    
+      <tr>
+        <td><b>SE Ranking</b></td>
+        <td><a href="https://seranking.com">seranking.com</a></td>
+        <td>SEO + has Claude MCP integration</td>
+        <td>Paid</td>
+        <td>Optional</td>
+        <td>Day 11</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Brand Mindset</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Marty Neumeier book — The Brand Gap</b></td>
+        <td><a href="https://www.martyneumeier.com/the-brand-gap">www.martyneumeier.com/the-brand-gap</a></td>
+        <td>Foundation reading</td>
+        <td>Paid book</td>
+        <td>Recommended</td>
+        <td>Day 5</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Brand Build</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Caleb Ralston Workbook</b></td>
+        <td><a href="https://calebralston.com/startyourbrand">calebralston.com/startyourbrand</a></td>
+        <td>All frameworks from the 5h course</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 6</td>
+      </tr>
+    
+      <tr>
+        <td><b>Notion</b></td>
+        <td><a href="https://notion.so">notion.so</a></td>
+        <td>Brand HQ document workspace</td>
+        <td>Free tier</td>
+        <td>Recommended</td>
+        <td>Day 5</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ AI / Claude</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Anthropic Claude Pro/Max</b></td>
+        <td><a href="https://claude.ai">claude.ai</a></td>
+        <td>Pro = projects + skills | Max = best for heavy use</td>
+        <td>$20-200/mo</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>Claude Desktop</b></td>
+        <td><a href="https://claude.ai/download">claude.ai/download</a></td>
+        <td>Local app for MCP servers</td>
+        <td>Free with Claude account</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>Claude Code CLI</b></td>
+        <td>npm i -g @anthropic-ai/claude-code</td>
+        <td>Best agentic AI on terminal</td>
+        <td>Free + API usage</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>Anthropic Skills repo</b></td>
+        <td><a href="https://github.com/anthropics/skills">github.com/anthropics/skills</a></td>
+        <td>Official skills (PDF/DOCX/PPTX/XLSX)</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 10</td>
+      </tr>
+    
+      <tr>
+        <td><b>Corey Haines Marketing Skills</b></td>
+        <td><a href="https://github.com/coreyhaines31/marketingskills">github.com/coreyhaines31/marketingskills</a></td>
+        <td>32 marketing skills (CRO/SEO/copywriting)</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 10</td>
+      </tr>
+    
+      <tr>
+        <td><b>skills.sh</b></td>
+        <td><a href="https://skills.sh">skills.sh</a></td>
+        <td>Vercel-curated Skills directory</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 10</td>
+      </tr>
+    
+      <tr>
+        <td><b>MCP Market</b></td>
+        <td><a href="https://mcpmarket.com">mcpmarket.com</a></td>
+        <td>Marketplace for MCP/Skills</td>
+        <td>Free / paid skills</td>
+        <td>Recommended</td>
+        <td>Day 10</td>
+      </tr>
+    
+      <tr>
+        <td><b>MCP Directory</b></td>
+        <td><a href="https://mcp.directory">mcp.directory</a></td>
+        <td>Skills directory</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 10</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Scraping / MCP</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Octoparse MCP</b></td>
+        <td><a href="https://mcp.octoparse.com">mcp.octoparse.com</a></td>
+        <td>No-code scraping via Claude</td>
+        <td>Free tier / paid</td>
+        <td>Recommended</td>
+        <td>Day 11</td>
+      </tr>
+    
+      <tr>
+        <td><b>Apify</b></td>
+        <td><a href="https://apify.com">apify.com</a></td>
+        <td>Pre-built actors (Meta Ads / TikTok / IG)</td>
+        <td>Free tier / paid</td>
+        <td>Recommended</td>
+        <td>Day 11</td>
+      </tr>
+    
+      <tr>
+        <td><b>Firecrawl</b></td>
+        <td><a href="https://firecrawl.dev">firecrawl.dev</a></td>
+        <td>AI-friendly web scraping MCP</td>
+        <td>Free tier / paid</td>
+        <td>Recommended</td>
+        <td>Day 11</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Dev</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Node.js 20+</b></td>
+        <td><a href="https://nodejs.org">nodejs.org</a></td>
+        <td>Required runtime</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>VS Code</b></td>
+        <td><a href="https://code.visualstudio.com">code.visualstudio.com</a></td>
+        <td>Editor; install GitLens / ESLint / Prettier / Tailwind IntelliSense</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>Git</b></td>
+        <td><a href="https://git-scm.com">git-scm.com</a></td>
+        <td>Version control</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>Docker Desktop</b></td>
+        <td><a href="https://www.docker.com/products/docker-desktop">www.docker.com/products/docker-desktop</a></td>
+        <td>Run MCP servers locally</td>
+        <td>Free for personal</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>GitHub</b></td>
+        <td><a href="https://github.com">github.com</a></td>
+        <td>Source hosting</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>GitHub Personal Access Token</b></td>
+        <td>github.com/settings/tokens</td>
+        <td>Scopes: repo, workflow, read:org</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 9</td>
+      </tr>
+    
+      <tr>
+        <td><b>GitHub Desktop (optional)</b></td>
+        <td><a href="https://desktop.github.com">desktop.github.com</a></td>
+        <td>GUI for git</td>
+        <td>Free</td>
+        <td>Optional</td>
+        <td>Day 9</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ 3D</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Sketchfab</b></td>
+        <td><a href="https://sketchfab.com">sketchfab.com</a></td>
+        <td>Free .glb 3D models</td>
+        <td>Free tier</td>
+        <td>Recommended</td>
+        <td>Day 15</td>
+      </tr>
+    
+      <tr>
+        <td><b>Poly Pizza</b></td>
+        <td><a href="https://poly.pizza">poly.pizza</a></td>
+        <td>CC0 free 3D models</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 15</td>
+      </tr>
+    
+      <tr>
+        <td><b>Spline</b></td>
+        <td><a href="https://spline.design">spline.design</a></td>
+        <td>Visual 3D editor (Figma for 3D)</td>
+        <td>Free tier</td>
+        <td>Optional</td>
+        <td>Day 15</td>
+      </tr>
+    
+      <tr>
+        <td><b>gltfjsx</b></td>
+        <td><a href="https://github.com/pmndrs/gltfjsx">github.com/pmndrs/gltfjsx</a></td>
+        <td>Convert .glb -&gt; R3F components</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 16</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Hosting</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Vercel</b></td>
+        <td><a href="https://vercel.com">vercel.com</a></td>
+        <td>Easiest Vite/Next deploys; auto from GitHub</td>
+        <td>Free hobby tier</td>
+        <td>Must</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>Netlify</b></td>
+        <td><a href="https://netlify.com">netlify.com</a></td>
+        <td>Alternative</td>
+        <td>Free hobby tier</td>
+        <td>Optional</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>Cloudflare Pages</b></td>
+        <td><a href="https://pages.cloudflare.com">pages.cloudflare.com</a></td>
+        <td>Fastest globally</td>
+        <td>Free generous tier</td>
+        <td>Optional</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>GitHub Pages</b></td>
+        <td><a href="https://pages.github.com">pages.github.com</a></td>
+        <td>Static-site hosting</td>
+        <td>Free</td>
+        <td>Optional</td>
+        <td>Day 19</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Domain</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Namecheap</b></td>
+        <td><a href="https://namecheap.com">namecheap.com</a></td>
+        <td>Affordable domains</td>
+        <td>~$10/yr</td>
+        <td>Must</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>Cloudflare Registrar</b></td>
+        <td><a href="https://www.cloudflare.com/products/registrar/">www.cloudflare.com/products/registrar/</a></td>
+        <td>At-cost domains</td>
+        <td>~$8/yr</td>
+        <td>Optional</td>
+        <td>Day 19</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Analytics</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>Google Search Console</b></td>
+        <td><a href="https://search.google.com/search-console">search.google.com/search-console</a></td>
+        <td>Free SEO insights — REQUIRED</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>GA4</b></td>
+        <td><a href="https://analytics.google.com">analytics.google.com</a></td>
+        <td>Standard analytics</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>Plausible</b></td>
+        <td><a href="https://plausible.io">plausible.io</a></td>
+        <td>Privacy-friendly analytics</td>
+        <td>Paid (~$9/mo)</td>
+        <td>Recommended</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>Umami</b></td>
+        <td><a href="https://umami.is">umami.is</a></td>
+        <td>Open-source alternative</td>
+        <td>Self-host free / paid</td>
+        <td>Optional</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>Vercel Analytics</b></td>
+        <td>Built into Vercel</td>
+        <td>Easy when on Vercel</td>
+        <td>Free tier</td>
+        <td>Optional</td>
+        <td>Day 19</td>
+      </tr>
+    
+      <tr>
+        <td><b>PostHog</b></td>
+        <td><a href="https://posthog.com">posthog.com</a></td>
+        <td>Heatmaps + funnels + product analytics</td>
+        <td>Free tier (1M events)</td>
+        <td>Recommended</td>
+        <td>Day 19</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+  <h3>🛠️ Repos to Star</h3>
+  <table>
+    <thead><tr><th>الأداة</th><th>اللينك</th><th>ليه</th><th>التسعيرة</th><th>الأولوية</th><th>اليوم</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td><b>anthropics/skills</b></td>
+        <td><a href="https://github.com/anthropics/skills">github.com/anthropics/skills</a></td>
+        <td>Official Skills</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 10</td>
+      </tr>
+    
+      <tr>
+        <td><b>coreyhaines31/marketingskills</b></td>
+        <td><a href="https://github.com/coreyhaines31/marketingskills">github.com/coreyhaines31/marketingskills</a></td>
+        <td>Marketing skills</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 10</td>
+      </tr>
+    
+      <tr>
+        <td><b>github/github-mcp-server</b></td>
+        <td><a href="https://github.com/github/github-mcp-server">github.com/github/github-mcp-server</a></td>
+        <td>Official GitHub MCP</td>
+        <td>Free</td>
+        <td>Must</td>
+        <td>Day 14</td>
+      </tr>
+    
+      <tr>
+        <td><b>adrianhajdin/3d-portfolio</b></td>
+        <td><a href="https://github.com/adrianhajdin/3d-portfolio">github.com/adrianhajdin/3d-portfolio</a></td>
+        <td>JS Mastery 3D Portfolio source</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 16</td>
+      </tr>
+    
+      <tr>
+        <td><b>TechnoBlogger14o3/react-three-fiber-tutorials</b></td>
+        <td><a href="https://github.com/TechnoBlogger14o3/react-three-fiber-tutorials">github.com/TechnoBlogger14o3/react-three-fiber-tutorials</a></td>
+        <td>7 R3F courses + 41 examples</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 16</td>
+      </tr>
+    
+      <tr>
+        <td><b>sidpalas/devops-directive-github-actions-course</b></td>
+        <td><a href="https://github.com/sidpalas/devops-directive-github-actions-course">github.com/sidpalas/devops-directive-github-actions-course</a></td>
+        <td>GitHub Actions companion</td>
+        <td>Free</td>
+        <td>Recommended</td>
+        <td>Day 14</td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+<h2>7️⃣ مكتبة الـ Prompts (23)</h2>
+<p>كل Prompt جاهز للنسخ-اللصق في Claude أو ChatGPT. بدّل [النصوص بين الأقواس] بمحتواك.</p>
+
+  <h3>🧠 Idea Discovery</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Reddit Pain-Point Mining</b> <span class="pill">Claude / ChatGPT</span></div>
+      <pre>You are an idea-discovery analyst. I'll paste 50 Reddit posts from [subreddit name]. For each post: 1) extract the explicit pain point, 2) categorize it (workflow / tool / cost / quality / experience / other), 3) score severity 1-5, 4) note if the user mentioned a willingness to pay. Output a Markdown table sorted by severity desc.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>IdeaBrowser Three-Section Synthesis (Greg Step 2)</b> <span class="pill">Claude / ChatGPT</span></div>
+      <pre>I'll paste 3 lists from IdeaBrowser for the audience [audience name]: (A) Pain &amp; Anger top 30 posts, (B) Advice Requests top 30, (C) Solution Requests top 30. Tasks: 1) cluster recurring themes ACROSS all three lists; 2) for each cluster: severity 1-5 + frequency + 'why now' (timing trigger); 3) propose 5 brand/product ideas that solve the highest-scoring cluster; 4) flag the cluster with the LOWEST competition (most solution-requests, fewest existing tools).</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Creator-Comments Insight Extractor (Greg Step 3)</b> <span class="pill">Claude / ChatGPT</span></div>
+      <pre>I'll paste the top 30 comments from [N] popular YouTube videos by creators in [niche]. For each video: 1) what is the audience PRAISING (works); 2) what are they COMPLAINING about (gap); 3) what are they ASKING for that the creator hasn't covered (idea fuel). Then synthesize across all videos: 5 unmet needs the audience repeatedly expresses, ranked by frequency. End with 3 brand angles that would resonate.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Wireframe Spec (Greg Step 4)</b> <span class="pill">Claude</span></div>
+      <pre>Idea: [paste 1-line idea]. Audience pain points: [paste top 5 from Greg Step 2]. Output a wireframe spec for a 1-page Framer prototype: 1) Hero (headline + subhead + CTA + visual concept); 2) Problem section (3 bullet pains in audience's exact language); 3) Solution section (how it works in 3 steps); 4) Social proof section (placeholder); 5) Pricing teaser; 6) Final CTA. Also propose 5 brand-name candidates that are catchy + relevant + .com-able.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Top-Content Style Analysis (Greg Step 5)</b> <span class="pill">Claude / ChatGPT</span></div>
+      <pre>Here are the top 20 posts of all time in [subreddit/audience]: [paste]. Analyze: 1) format mix (memes / long-form / lists / screenshots / polls / videos); 2) tone (irreverent / earnest / educational / story); 3) hook patterns; 4) average length; 5) common visual styles. End with: 'For a brand entering this audience, the content style that will resonate is X because Y.' Be specific.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>ChatGPT/Claude History Audit</b> <span class="pill">Claude</span></div>
+      <pre>Below is a sample of my last 200 prompts to ChatGPT/Claude: [paste]. Group repeated themes. For each theme: 1) the recurring problem I face, 2) why no existing tool fully solves it for me, 3) a brand/product idea that would solve it, 4) who else likely shares this problem (audience size guess).</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Friction Point Audit</b> <span class="pill">Claude</span></div>
+      <pre>Here are entries from my friction log: [paste]. For each, identify: 1) the manual workflow, 2) the inefficiency, 3) a 1-line product idea that automates or removes it, 4) ease-to-build score 1-5.</pre>
+    </div>
+  
+
+
+  <h3>🧠 Validation</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>4-Pillar Idea Scoring</b> <span class="pill">Claude</span></div>
+      <pre>Score this idea: '[idea]'. For each pillar give a number 1-10 + 1-paragraph reasoning. Pillars: 1) Market Demand (search volume / Reddit complaints / 1-star competitor reviews); 2) Ease to Build (MVP in 30 days?); 3) Revenue Potential (price x audience size); 4) Personal Fit (interest + unfair advantage). End with: total /40, verdict, 3-step next action.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Onlyness Statement</b> <span class="pill">Claude</span></div>
+      <pre>Using brand-context.md, draft 5 'onlyness' statements in the format: 'We're the only [category] that [unique mechanism] for [audience] who want [outcome].' Then critique each one for clarity, differentiation, and memorability, and recommend the top one with reasoning.</pre>
+    </div>
+  
+
+
+  <h3>🧠 Competitor Analysis</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Content Gap Analysis</b> <span class="pill">Claude + scraped competitor blogs/pages</span></div>
+      <pre>You are a senior content strategist for [BrandName] (see brand-context.md). I scraped the following competitor blog/landing pages: [paste]. Tasks: 1) topic coverage map (Topic | Competitor | Depth 1-5); 2) 10 missing angles nobody covers well; 3) for each: working title / search intent / format / primary keyword / why it fits our brand voice; 4) rank by ROI (impact/effort).</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Ad Intelligence</b> <span class="pill">Claude + Apify Meta Ad scrape</span></div>
+      <pre>Here are competitor ads from Meta Ad Library [paste]: 1) extract headline / primary text / CTA / format for each; 2) group by messaging theme; 3) identify the 3 ads running longest = winning ads; 4) reverse-engineer the winning formula; 5) propose 5 ad angles for [BrandName].</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Social Listening</b> <span class="pill">Claude + Reddit/X scrape</span></div>
+      <pre>Search Reddit/X mentions of [Competitor] in last 30 days. 1) Extract top 20 high-engagement posts; 2) list top 10 user frustrations; 3) generate 5 content ideas that solve those frustrations from [BrandName]'s angle (in our brand voice).</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Competitor Teardown</b> <span class="pill">Claude + Osum / SEMrush export</span></div>
+      <pre>Here is competitor data: [paste]. Produce: 1) feature matrix (us vs them); 2) messaging hierarchy comparison; 3) pricing strategy analysis; 4) 5 weaknesses we can exploit; 5) 3 features they have that we MUST add; 6) 3 features they have that we should DELIBERATELY refuse to add (Zag).</pre>
+    </div>
+  
+
+
+  <h3>🧠 Brand Strategy</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Brand Strategist (Neumeier school)</b> <span class="pill">Claude with brand-context.md</span></div>
+      <pre>Act as a senior brand strategist (Marty Neumeier school). Using brand-context.md, generate: 1) Positioning statement (1 sentence); 2) Onlyness statement; 3) 3 Zag opportunities ignored by competitors; 4) Brand archetype (Jung's 12) + reasoning; 5) Brand voice in 3 adjectives + 5 do's + 5 don'ts.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Brand Voice Skill</b> <span class="pill">Claude Skill</span></div>
+      <pre>Skill: brand-voice. Always read brand-voice.md before writing. Apply: tone = [3 adjectives]. Always: [do's]. Never: [don'ts]. Before returning text, run a self-check: does it sound like a sentence we'd say? If not, rewrite. Output: final version + 1-sentence note on what you changed.</pre>
+    </div>
+  
+
+
+  <h3>🧠 Local SEO</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Local SEO Plan</b> <span class="pill">Claude</span></div>
+      <pre>Act as an SEO expert specializing in local search. Our brand is [name] in [city]. Generate: 1) 30 long-tail keywords with local intent; 2) top 10 Google Business Profile categories; 3) 5 schema markup recommendations (LocalBusiness / FAQ / Product etc.); 4) outline for a 'Best [service] in [city]' pillar page; 5) 10 outreach targets for local backlinks.</pre>
+    </div>
+  
+
+
+  <h3>🧠 Content</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Content Calendar</b> <span class="pill">Claude with brand-context.md + content-pillars.md</span></div>
+      <pre>Build a 30-day content calendar. Channels: Instagram / TikTok / LinkedIn / Blog. Format mix: 40% educational / 30% storytelling / 20% promo / 10% community. For each item: hook + body + CTA + hashtag set + posting time. Tied to brand pillars.</pre>
+    </div>
+  
+
+
+  <h3>🧠 Data</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>CSV Profile + Insights</b> <span class="pill">Claude Code</span></div>
+      <pre>Read [data.csv]. 1) Profile (shape / dtypes / null % / unique values). 2) Sanity checks; flag anomalies. 3) Hypothesis-driven analysis: top 3 drivers of [metric]; where do we lose users? 4) Output: markdown report + 5 charts (matplotlib).</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Market Research Synthesis</b> <span class="pill">Claude (long context)</span></div>
+      <pre>I've uploaded 10 PDF reports / podcast transcripts. Produce: 1) trends ranked 1-10; 2) emerging vocabulary; 3) quote bank (10 quotes with sources); 4) 5 strategic implications for our local brand.</pre>
+    </div>
+  
+
+
+  <h3>🧠 3D Site</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>3D Site Spec</b> <span class="pill">Claude Code</span></div>
+      <pre>You're a creative developer. Design a 3-section Hero for a [industry] local brand. Section 1: 3D brand mark, floating, mouse-reactive lighting. Section 2: scroll-triggered timeline of brand story. Section 3: 3D product carousel. Output: 1) component tree (R3F); 2) asset list (.glb / textures); 3) performance budget; 4) code skeleton in TypeScript.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Hero Component</b> <span class="pill">Claude Code</span></div>
+      <pre>You are a senior R3F developer. Read brand-context.md and brand-voice.md. Build a Hero component: floating 3D logo with subtle bobbing + scroll-triggered camera dolly-in + light follows mouse. Use TypeScript / R3F / Drei / GSAP.</pre>
+    </div>
+  
+
+
+  <h3>🧠 Iterate</h3>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Weekly Analytics Report</b> <span class="pill">Claude with PostHog/GSC MCP</span></div>
+      <pre>Pull last 7 days from PostHog and Google Search Console. Output: 1) top 10 pages by traffic; 2) top 10 search queries with impressions vs clicks; 3) drop-off funnels; 4) 3 specific improvements ranked by impact/effort; 5) draft a PR description for the top fix.</pre>
+    </div>
+  
+    <div class="prompt-card">
+      <div class="prompt-title"><b>Monthly Competitor Re-Scan</b> <span class="pill">Claude + scraping MCPs</span></div>
+      <pre>Re-run scrape of [list of competitor URLs]. Compare to baseline in /data/competitors-baseline.json. Output: 1) what changed (pricing / messaging / features / blog cadence); 2) any new ad themes; 3) 3 implications for us; 4) 1-page exec summary.</pre>
+    </div>
+  
+
+
+<h2>8️⃣ التوصية النهائية + Checklist اليوم 1</h2>
+
+<div class="callout success">
+  <h3 style="margin-top:0">✅ Checklist لو هتبدأ النهارده فعلياً</h3>
+  <ul>
+    <li>☐ سجلت في <a href="https://ideabrowser.com/join">IdeaBrowser</a> (Free trial).</li>
+    <li>☐ فتحت Greg Isenberg #1 (https://www.youtube.com/watch?v=8vXoI7lUroQ) واتفرجت عليه كامل.</li>
+    <li>☐ عملت ملف <code>ideas.md</code> على جهازي.</li>
+    <li>☐ جربت 4 من Google Reddit hacks على مجالي.</li>
+    <li>☐ لقيت 5-10 subreddits بحجم 10K-100K member.</li>
+    <li>☐ ضفتهم في "audience" واحد في IdeaBrowser.</li>
+    <li>☐ راجعت Pain & Anger / Advice Requests / Solution Requests.</li>
+    <li>☐ عندي <b>20 فكرة على الأقل</b> قبل ما أنام.</li>
+  </ul>
+</div>
+
+<h3>💡 أعلى 5 قرارات هتحسم النجاح</h3>
+<ol>
+  <li><b>متبدأش بناء البراند قبل ما تلاقي الفكرة.</b> Greg Isenberg الأول، مش Caleb Ralston.</li>
+  <li><b>Subreddits 10K-100K members بس.</b> الـ Sweet Spot الذهبي.</li>
+  <li><b>اشترك في Claude Pro/Max.</b> توفير ساعات يومياً — مش ترف.</li>
+  <li><b>اشتغل بالـ workbook بتاع Caleb فعلياً.</b> الفرق بين النجاح والفشل = هل خلصته ولا لأ.</li>
+  <li><b><code>CLAUDE.md</code> في كل ريبو.</b> هو الـ rules اللي Claude يتبعها.</li>
+</ol>
+
+<h3>💸 التكلفة التقريبية (USD/شهر)</h3>
+<table>
+  <tbody>
+    <tr><td>Claude Pro</td><td>$20</td></tr>
+    <tr><td>Claude Max (لو heavy user)</td><td>$100-200</td></tr>
+    <tr><td>Domain</td><td>~$10/سنة</td></tr>
+    <tr><td>Vercel/Netlify</td><td>$0 (Hobby)</td></tr>
+    <tr><td>IdeaBrowser</td><td>Free trial → ~$30/mo</td></tr>
+    <tr><td>Plausible (analytics)</td><td>$9</td></tr>
+    <tr><td><b>الحد الأدنى</b></td><td><b>~$25/شهر</b></td></tr>
+    <tr><td><b>كل الـ paid tools</b></td><td><b>~$300/شهر</b></td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <h3 style="margin-top:0">📦 الملفات الكاملة للـ Roadmap</h3>
+  <ul>
+    <li><b>الداشبورد التفاعلي offline:</b> local-brand-roadmap-offline.html (90 KB · يفتح بدون انترنت)</li>
+    <li><b>الـ CSVs:</b> 4 ملفات تستوردهم في Excel/Google Sheets</li>
+    <li><b>المراجع:</b> local-brand-with-claude-roadmap.md + FINAL-RECOMMENDATION.md</li>
+    <li><b>الحزمة الكاملة:</b> local-brand-roadmap-bundle.zip</li>
+  </ul>
+  <p>كلهم في مستودع GitHub: <a href="https://github.com/ahmedhany-dotcom/shopflow-dashboard/pull/1">PR #1</a></p>
+</div>
+
+</body>
+</html>

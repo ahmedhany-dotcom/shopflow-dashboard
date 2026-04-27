@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Local Brand Roadmap — Offline Dashboard</title>
+<style>
+  :root{
+    --bg:#0b0f17;--panel:#11182a;--panel2:#0e1422;--ink:#e9eef9;--muted:#8aa0c2;
+    --accent:#7c5cff;--accent2:#22d3ee;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;
+    --ring:#1d2840;--row:#0f1729;--rowAlt:#0b1322;--chip:#1a2440;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Cairo","Tajawal",sans-serif}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{padding:28px 28px 8px;background:radial-gradient(1200px 400px at 70% -10%,rgba(124,92,255,.25),transparent 60%),radial-gradient(900px 300px at 10% 0,rgba(34,211,238,.15),transparent 60%);border-bottom:1px solid var(--ring)}
+  h1{margin:0 0 6px;font-size:26px;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:14px}
+  .cta{display:inline-flex;gap:8px;align-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;font-weight:700;padding:10px 14px;border-radius:10px;margin-top:14px}
+  .cta:hover{text-decoration:none;filter:brightness(1.08)}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:var(--panel2);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--ring)}
+  nav.tabs button{background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  nav.tabs button.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;border-color:transparent}
+  main{padding:18px 24px 60px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+  .toolbar input,.toolbar select{background:var(--panel);color:var(--ink);border:1px solid var(--ring);border-radius:10px;padding:9px 12px;min-width:200px}
+  .toolbar button{background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+  .toolbar button:hover{background:#1f2a47}
+  .panel{background:var(--panel);border:1px solid var(--ring);border-radius:14px;overflow:hidden}
+  .panel h2{margin:0;padding:14px 16px;border-bottom:1px solid var(--ring);font-size:16px;background:var(--panel2)}
+  .meta{padding:10px 16px;color:var(--muted);font-size:12.5px;border-bottom:1px solid var(--ring);display:flex;gap:14px;flex-wrap:wrap}
+  .meta b{color:var(--ink)}
+  .table-wrap{overflow:auto;max-height:75vh}
+  table{width:100%;border-collapse:collapse;direction:ltr;text-align:left}
+  thead th{position:sticky;top:0;background:#0a1426;color:#cfe0ff;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--ring);white-space:nowrap;cursor:pointer;user-select:none}
+  thead th:hover{color:#fff}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--ring);vertical-align:top;font-size:13.5px}
+  tbody tr:nth-child(odd){background:var(--row)}
+  tbody tr:nth-child(even){background:var(--rowAlt)}
+  tbody tr:hover{background:#142036}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--chip);font-size:12px;color:#cfe0ff;border:1px solid var(--ring);white-space:nowrap}
+  .pill.must{background:rgba(248,113,113,.12);color:#fecaca;border-color:rgba(248,113,113,.4)}
+  .pill.rec{background:rgba(52,211,153,.12);color:#bbf7d0;border-color:rgba(52,211,153,.4)}
+  .pill.opt{background:rgba(251,191,36,.12);color:#fde68a;border-color:rgba(251,191,36,.4)}
+  .pill.start{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0f17;border:0;font-weight:800}
+  .day{font-weight:800;color:#cfe0ff}
+  .truncate{max-width:520px}
+  .check{cursor:pointer;font-size:18px;text-align:center;user-select:none}
+  details{background:var(--panel2);border:1px solid var(--ring);border-radius:12px;padding:10px 14px;margin:10px 0}
+  details>summary{cursor:pointer;font-weight:700;color:#cfe0ff}
+  pre{background:#070b14;color:#cfe0ff;padding:12px;border-radius:10px;overflow:auto;font-size:12.5px;border:1px solid var(--ring);white-space:pre-wrap;word-break:break-word}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
+  .card{background:var(--panel);border:1px solid var(--ring);border-radius:14px;padding:16px}
+  .card h3{margin:0 0 6px;font-size:15px}
+  .card p{margin:0;color:var(--muted);font-size:13px}
+  .empty{padding:18px;color:var(--muted);text-align:center}
+  .hide{display:none}
+  .copybtn{margin-top:8px;background:var(--chip);color:var(--ink);border:1px solid var(--ring);padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:600}
+  .copybtn:hover{background:#1f2a47}
+  footer{color:var(--muted);font-size:12.5px;padding:18px 24px}
+  .progress{height:6px;background:#0a1426;border-radius:999px;overflow:hidden;margin-top:8px}
+  .progress > div{height:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));width:0%;transition:width .3s}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  @media print{
+    nav.tabs, .toolbar, .cta, .copybtn{display:none}
+    .table-wrap{max-height:none}
+    section.hide{display:block !important}
+    body{background:#fff;color:#000}
+    table tbody tr{background:#fff !important}
+    thead th{background:#eee !important;color:#000}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 Local Brand Roadmap — Offline Dashboard</h1>
+  <div class="sub">كل اللي تحتاجه لإطلاق Local Brand باستخدام Claude — في ملف واحد بدون انترنت ولا سيرفر.</div>
+  <a class="cta" href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">▶ ابدأ دلوقتي بالفيديو الأول (Greg Isenberg)</a>
+</header>
+
+<nav class="tabs">
+  <button data-tab="start" class="active">🚀 ابدأ هنا</button>
+  <button data-tab="plan">📅 الخطة اليومية</button>
+  <button data-tab="videos">🎬 الفيديوهات</button>
+  <button data-tab="tools">🛠️ الأدوات</button>
+  <button data-tab="prompts">🧠 الـ Prompts</button>
+  <button data-tab="reco">⭐ التوصية</button>
+</nav>
+
+<main>
+  <!-- ابدأ هنا -->
+  <section id="start">
+    <div class="grid">
+      <div class="card"><h3>اليوم 1 (دلوقتي)</h3><p>Greg Isenberg — Reddit + AI to find startup ideas. اطلع بـ 20 فكرة في <code>ideas.md</code>.</p></div>
+      <div class="card"><h3>اليوم 2-3</h3><p>FULL Blueprint + Amardeep + FLAME → Top 3 ideas validated.</p></div>
+      <div class="card"><h3>اليوم 4</h3><p>Access Genie + AI/Google Maps → Competitor spreadsheet.</p></div>
+      <div class="card"><h3>اليوم 5</h3><p>Marty Neumeier + Shopify Overview → brand-context.md.</p></div>
+      <div class="card"><h3>اليوم 6-8</h3><p>Caleb Ralston Full Course (5h على 3 جلسات) + Workbook.</p></div>
+      <div class="card"><h3>اليوم 9+</h3><p>Claude tooling → Content engine → Data → Git → 3D site → Launch.</p></div>
+    </div>
+
+    <div class="panel" style="padding:14px 16px;margin-top:8px">
+      <div class="legend">
+        <span class="pill start">▶ START</span>
+        <span class="pill must">Must</span>
+        <span class="pill rec">Recommended</span>
+        <span class="pill opt">Optional</span>
+        <span style="color:var(--muted);font-size:12.5px">— استخدم البحث والفلاتر في كل تاب لتلاقي أي حاجة فوراً.</span>
+      </div>
+      <div class="progress" id="progressBar"><div></div></div>
+      <div class="meta" id="progressMeta" style="border:0;padding:6px 0 0"></div>
+    </div>
+
+    <details open>
+      <summary>الفيديو الأول دلوقتي 👇</summary>
+      <p style="margin-top:8px">
+        <b>Greg Isenberg — How I use Reddit and AI to find winning startup ideas</b><br/>
+        ⏱️ ~20 دقيقة · 👁️ 530K+ مشاهدة · 📅 يوليو 2024<br/>
+        🔗 <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">https://www.youtube.com/watch?v=8vXoI7lUroQ</a>
+      </p>
+    </details>
+
+    <details open>
+      <summary>🔥 Greg Isenberg's 5-Step Idea Discovery Method (مهم جداً)</summary>
+      <div style="margin-top:10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 1 — Find trending subreddits</h3>
+          <p>
+            استخدم <a href="https://ideabrowser.com/join" target="_blank"><b>IdeaBrowser</b></a> (بديل Gummy Search اللي اتقفل).<br/><br/>
+            • ركّز على communities من <b>10K-100K member</b> — تجاوب على سؤال "Why now?".<br/>
+            • شوف نمو daily / weekly / monthly.<br/>
+            • اختار niches فيها unfair advantage عندك.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 2 — Analyze problems & solutions</h3>
+          <p>
+            ضيف الـ subreddits لـ "audience" واحد في IdeaBrowser، ثم افحص:<br/><br/>
+            • <b>Pain &amp; Anger</b> — أنماط الشكاوى المتكررة.<br/>
+            • <b>Advice Requests</b> — اللي الناس بتسأل عنه.<br/>
+            • <b>Solution Requests</b> — المنافسة + الأدوات اللي الناس عايزة موجودة.<br/><br/>
+            🔑 <b>Key:</b> دوّن الـ themes المتكررة، مش الـ one-offs.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 3 — Find creators in the niche</h3>
+          <p>
+            استخدم <a href="https://perplexity.ai" target="_blank"><b>Perplexity.ai</b></a> تلاقي top influencers.<br/><br/>
+            • ابحث عن أشهر فيديوهاتهم على YouTube.<br/>
+            • <b>اقرأ الكومنتات</b> عشان تفهم احتياجات الجمهور.<br/>
+            • طبّق على <b>20-25 فيديو</b> عشان تاخد deep insights.<br/><br/>
+            النتيجة: تفكر زي جمهورك المستهدف.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 4 — Wireframe your solution</h3>
+          <p>
+            على أساس الـ insights، اعمل sketch للمنتج/الخدمة.<br/><br/>
+            • استخدم <a href="https://framer.com" target="_blank"><b>Framer</b></a> للـ prototyping السريع.<br/>
+            • اختار اسم catchy و relevant.<br/><br/>
+            مثال Greg: <b>DesignScientist.com</b> — تصميم مركّز على conversion.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,.4)">
+          <h3>Step 5 — Create content that resonates</h3>
+          <p>
+            استخدم خاصية "Top Content" في IdeaBrowser.<br/><br/>
+            • حلّل اللي بيشتغل في الـ community.<br/>
+            • اسأل AI عن content preferences (مثلاً: "Do they love memes?").<br/><br/>
+            🤖 عامل Claude/ChatGPT كـ <b>"Entrepreneurial Assistant"</b>.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(34,211,238,.4);background:linear-gradient(135deg,rgba(124,92,255,.1),rgba(34,211,238,.1))">
+          <h3>📺 الفيديو الأصلي</h3>
+          <p>
+            الـ 5 خطوات دي مأخوذة من فيديو Greg Isenberg.<br/><br/>
+            <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">▶ Watch the original (530K+ views)</a><br/><br/>
+            للتعمق: <a href="https://www.gregisenberg.com/" target="_blank">gregisenberg.com</a>
+          </p>
+        </div>
+      </div>
+      <p style="margin-top:14px;color:var(--muted);font-size:13px">
+        💡 كل خطوة من الـ 5 موجودة كتاسكات منفصلة في تاب <b>"📅 الخطة اليومية"</b> — فلتر على <code>Phase</code> بـ "Greg Step 1/2/3/4/5".
+      </p>
+    </details>
+
+    <details>
+      <summary>قالب <code>ideas.md</code> اللي تشتغل عليه اليوم 1 (انسخه)</summary>
+<pre id="ideasTemplate"># ideas.md
+
+| # | الفكرة (1-line) | Pain Point | Source | Audience | Severity 1-5 | Date |
+|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |
+| ... |  |  |  |  |  |  |
+| 20 |  |  |  |  |  |  |
+
+## Google search hacks I ran
+- site:reddit.com "is there an app for" [niche]
+- site:reddit.com "wish there was" [niche]
+- site:reddit.com "is there a tool" [niche]
+- site:reddit.com "why is there no" [niche]
+
+## Subreddits monitored (10K-100K members sweet spot)
+- /r/...
+- /r/...
+</pre>
+      <button class="copybtn" onclick="copyText(document.getElementById('ideasTemplate').innerText)">📋 Copy ideas.md template</button>
+    </details>
+
+    <details>
+      <summary>📥 Export / Backup data</summary>
+      <p style="margin-top:8px">حفظ التقدم بتاعك (الـ checkboxes) كـ JSON — ترجعه في أي وقت.</p>
+      <button class="copybtn" onclick="exportProgress()">⬇️ Export progress</button>
+      <button class="copybtn" onclick="document.getElementById('importInput').click()">⬆️ Import progress</button>
+      <button class="copybtn" onclick="resetProgress()" style="border-color:rgba(248,113,113,.4);color:#fecaca">🗑️ Reset all</button>
+      <input type="file" id="importInput" accept=".json" style="display:none" onchange="importProgress(event)" />
+      <p style="margin-top:8px;color:var(--muted);font-size:12.5px">التقدم محفوظ تلقائياً في المتصفح (localStorage). الزرار ده عشان لو غيرت جهاز.</p>
+    </details>
+  </section>
+
+  <!-- الخطة اليومية -->
+  <section id="plan" class="hide">
+    <div class="toolbar">
+      <input type="search" id="planSearch" placeholder="ابحث في الخطة..." />
+      <select id="planPhase"><option value="">كل الـ Phases</option></select>
+      <select id="planDay"><option value="">كل الأيام</option></select>
+      <button onclick="exportCSV('plan')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>📅 خطة تنفيذ يوم بيوم</h2>
+      <div class="meta" id="planMeta"></div>
+      <div class="table-wrap"><table id="planTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- الفيديوهات -->
+  <section id="videos" class="hide">
+    <div class="toolbar">
+      <input type="search" id="vidSearch" placeholder="ابحث (creator / title / topic)..." />
+      <select id="vidStage"><option value="">كل المراحل</option></select>
+      <select id="vidPriority"><option value="">كل الأولويات</option></select>
+      <button onclick="exportCSV('videos')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>🎬 مكتبة أقوى الفيديوهات (Foreign content)</h2>
+      <div class="meta" id="vidMeta"></div>
+      <div class="table-wrap"><table id="vidTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- الأدوات -->
+  <section id="tools" class="hide">
+    <div class="toolbar">
+      <input type="search" id="toolSearch" placeholder="ابحث في الأدوات..." />
+      <select id="toolCategory"><option value="">كل الأقسام</option></select>
+      <select id="toolPriority"><option value="">كل الأولويات</option></select>
+      <button onclick="exportCSV('tools')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>🛠️ الأدوات والحسابات والريبوهات</h2>
+      <div class="meta" id="toolMeta"></div>
+      <div class="table-wrap"><table id="toolTable"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- البرومبتس -->
+  <section id="prompts" class="hide">
+    <div class="toolbar">
+      <input type="search" id="promptSearch" placeholder="ابحث (phase / name / text)..." />
+      <select id="promptPhase"><option value="">كل المراحل</option></select>
+      <button onclick="exportCSV('prompts')">⬇️ Export CSV</button>
+    </div>
+    <div class="panel">
+      <h2>🧠 مكتبة Prompts جاهزة للنسخ</h2>
+      <div class="meta" id="promptMeta"></div>
+      <div id="promptList" style="padding:8px 14px"></div>
+    </div>
+  </section>
+
+  <!-- التوصية -->
+  <section id="reco" class="hide">
+    <div class="panel" style="padding:20px">
+      <h2 style="border:0;padding:0 0 8px">⭐ التوصية النهائية</h2>
+      <p>أفضل اقتراح بناءً على البحث الكامل وبدون أي إضاعة وقت:</p>
+      <ol>
+        <li><b>اليوم 1 — افتح اللينك ده</b> دلوقتي قبل أي حاجة تانية: <a href="https://www.youtube.com/watch?v=8vXoI7lUroQ" target="_blank">Greg Isenberg — Reddit + AI</a>. 20 فكرة في ملف <code>ideas.md</code>.</li>
+        <li><b>اليوم 2-3</b> — FULL Blueprint + Amardeep + FLAME = Top 3 validated ideas.</li>
+        <li><b>اليوم 4</b> — Access Genie + AI/Google Maps = competitor spreadsheet.</li>
+        <li><b>اليوم 5</b> — Marty Neumeier (لازم) + Shopify (Overview) = <code>brand-context.md</code>.</li>
+        <li><b>اليوم 6-8</b> — Caleb Ralston Full Course + workbook = البراند الكامل.</li>
+        <li><b>اليوم 9-10</b> — Claude Pro + Skills + GitHub MCP = الموتور الذكي.</li>
+        <li><b>اليوم 11-12</b> — Content engine + Analytics stack.</li>
+        <li><b>اليوم 13-14</b> — Git/GitHub + GitHub Actions + Claude GitHub Action.</li>
+        <li><b>اليوم 15-18</b> — Three.js → R3F → 3D site (JS Mastery 5h ثم 10h).</li>
+        <li><b>اليوم 19</b> — Deploy على Vercel + Search Console + Analytics + Launch.</li>
+        <li><b>أسبوعياً بعد كده</b> — Claude يطلع تقرير ويفتح PRs بتحسينات تلقائي.</li>
+      </ol>
+      <p style="margin-top:14px"><b>أعلى 5 قرارات هتحسم النجاح:</b></p>
+      <ul>
+        <li>متبدأش بناء البراند قبل ما تلاقي الفكرة. الفكرة الأول.</li>
+        <li>اختار subreddits 10K-100K members بس — الـ Sweet Spot.</li>
+        <li>اشترك في Claude Pro/Max — توفير ساعات يومياً.</li>
+        <li>اشتغل بالـ workbook بتاع Caleb فعلياً مش بس تتفرج.</li>
+        <li><code>CLAUDE.md</code> في كل ريبو — هو الـ rules اللي Claude يتبعها.</li>
+      </ul>
+      <p style="margin-top:14px">💸 <b>التكلفة التقديرية:</b> الحد الأدنى $25/شهر (Claude Pro + domain) — مع كل الـ paid tools $300/شهر.</p>
+    </div>
+  </section>
+</main>
+
+<footer>كل المصادر أجنبية (English) كما طُلب · حُدّث في 2026 · Self-contained — اشتغل بدون انترنت.</footer>
+
+<script>
+window.__DATA__ = {"plan":[{"Day":"1","Phase":"Idea Discovery","Task #":"1.1","Task Title":"Watch Greg Isenberg #1","Action Steps":"Watch the full ~20m video on Reddit + AI to find startup ideas","Time (min)":"20","Tool / Resource":"https://www.youtube.com/watch?v=8vXoI7lUroQ","Output / Deliverable":"Notes file on Greg's 5-step method","Status":"☐"},{"Day":"1","Phase":"Idea Discovery","Task #":"1.2","Task Title":"Set up ideas.md file","Action Steps":"Create ideas.md with columns: Idea | Pain Point | Source (Subreddit/URL) | Audience | Severity 1-5 | Date","Time (min)":"5","Tool / Resource":"VS Code or Notion","Output / Deliverable":"Empty ideas.md ready","Status":"☐"},{"Day":"1","Phase":"Idea Discovery (Greg Step 1)","Task #":"1.3","Task Title":"Find trending subreddits via IdeaBrowser","Action Steps":"Use https://ideabrowser.com/join (replaces the discontinued Gummy Search). Focus on 10K-100K member communities — they answer 'why now'. Check daily / weekly / monthly growth trends. Pick niches where you have an unfair advantage.","Time (min)":"30","Tool / Resource":"https://ideabrowser.com/join","Output / Deliverable":"5-10 trending subreddits in your niche","Status":"☐"},{"Day":"1","Phase":"Idea Discovery (Greg Step 1)","Task #":"1.4","Task Title":"Run Google Reddit hacks (parallel to IdeaBrowser)","Action Steps":"Search 'site:reddit.com \"is there an app for\" [your niche]', 'site:reddit.com \"wish there was\" [your niche]', 'site:reddit.com \"is there a tool\" [your niche]', 'site:reddit.com \"why is there no\" [your niche]'","Time (min)":"30","Tool / Resource":"Google Search","Output / Deliverable":"List of 5-10 explicit unmet needs","Status":"☐"},{"Day":"1","Phase":"Idea Discovery (Greg Step 2)","Task #":"1.5","Task Title":"Add subreddits to an 'audience' in IdeaBrowser","Action Steps":"Group your 5-10 subreddits into one IdeaBrowser audience so you can analyze them as a cohort.","Time (min)":"10","Tool / Resource":"https://ideabrowser.com/join","Output / Deliverable":"Audience configured","Status":"☐"},{"Day":"1","Phase":"Idea Discovery (Greg Step 2)","Task #":"1.6","Task Title":"Mine 'Pain & Anger' patterns","Action Steps":"Open the Pain & Anger section. Read the top 30-50 posts. Log every recurring complaint. KEY: write down recurring THEMES, not one-offs.","Time (min)":"60","Tool / Resource":"IdeaBrowser audience","Output / Deliverable":"List of recurring frustrations","Status":"☐"},{"Day":"1","Phase":"Idea Discovery (Greg Step 2)","Task #":"1.7","Task Title":"Mine 'Advice Requests' patterns","Action Steps":"Open Advice Requests. Capture what people are asking — these reveal blind spots in the niche.","Time (min)":"30","Tool / Resource":"IdeaBrowser audience","Output / Deliverable":"Top 10 question themes","Status":"☐"},{"Day":"1","Phase":"Idea Discovery (Greg Step 2)","Task #":"1.8","Task Title":"Mine 'Solution Requests' patterns","Action Steps":"Open Solution Requests. These reveal the competitive landscape and tools people wish existed = direct idea fuel.","Time (min)":"30","Tool / Resource":"IdeaBrowser audience","Output / Deliverable":"Top 10 'I wish a tool existed for X' themes","Status":"☐"},{"Day":"1","Phase":"Idea Discovery","Task #":"1.9","Task Title":"Convert pain points to ideas","Action Steps":"Turn each pain point / advice / solution request into a 1-line brand idea","Time (min)":"30","Tool / Resource":"Your brain + ideas.md","Output / Deliverable":"At least 20 ideas in ideas.md","Status":"☐"},{"Day":"2","Phase":"Idea Discovery","Task #":"2.1","Task Title":"Watch Greg Isenberg #2 (FULL Blueprint)","Action Steps":"Watch the June 2025 deep-dive (covers ChatGPT history audit + Google Reddit hack + friction-point audit)","Time (min)":"30","Tool / Resource":"https://www.youtube.com/watch?v=F7MxPxNbFUw","Output / Deliverable":"Notes","Status":"☐"},{"Day":"2","Phase":"Idea Discovery","Task #":"2.2","Task Title":"ChatGPT/Claude history audit","Action Steps":"Open your AI chat history; mark any question/topic you repeated 3+ times","Time (min)":"30","Tool / Resource":"ChatGPT/Claude history","Output / Deliverable":"5-10 recurring problems","Status":"☐"},{"Day":"2","Phase":"Idea Discovery","Task #":"2.3","Task Title":"Friction-point audit","Action Steps":"For 1 day, log every time you copy-paste between two tools/apps","Time (min)":"continuous","Tool / Resource":"Notes app","Output / Deliverable":"List of automation opportunities","Status":"☐"},{"Day":"2","Phase":"Idea Discovery (Greg Step 3)","Task #":"2.4","Task Title":"Find creators in the niche via Perplexity","Action Steps":"Use https://perplexity.ai to find the top influencers in your niche. Ask: 'Who are the top 10 YouTube creators in [niche] in 2026?'","Time (min)":"20","Tool / Resource":"https://perplexity.ai","Output / Deliverable":"List of 10-15 creators","Status":"☐"},{"Day":"2","Phase":"Idea Discovery (Greg Step 3)","Task #":"2.5","Task Title":"Watch top videos in the niche","Action Steps":"For each creator, find their 2-3 most popular videos. Aim for 20-25 videos total across the creators.","Time (min)":"240 (split)","Tool / Resource":"YouTube","Output / Deliverable":"Notes per video","Status":"☐"},{"Day":"2","Phase":"Idea Discovery (Greg Step 3)","Task #":"2.6","Task Title":"Read comments for audience insight","Action Steps":"On each of the 20-25 videos, read the top 30 comments. Capture: What are people praising? Complaining about? Asking for? This makes you THINK like your audience.","Time (min)":"120","Tool / Resource":"YouTube comments","Output / Deliverable":"Audience insight log","Status":"☐"},{"Day":"2","Phase":"Idea Discovery","Task #":"2.7","Task Title":"Add new ideas to ideas.md","Action Steps":"Combine new ideas from comments + ChatGPT history + friction audit. Aim for total 30-40 ideas.","Time (min)":"15","Tool / Resource":"ideas.md","Output / Deliverable":"30-40 ideas total","Status":"☐"},{"Day":"3","Phase":"Validation","Task #":"3.1","Task Title":"Watch Amardeep Parmar","Action Steps":"Step-by-step validation guide","Time (min)":"25","Tool / Resource":"https://www.youtube.com/watch?v=iTZIM4AlGZQ","Output / Deliverable":"Notes","Status":"☐"},{"Day":"3","Phase":"Validation","Task #":"3.2","Task Title":"Watch FLAME 4-Pillar","Action Steps":"Quick scoring framework","Time (min)":"4","Tool / Resource":"https://www.youtube.com/watch?v=MwfrxWVtshg","Output / Deliverable":"Notes","Status":"☐"},{"Day":"3","Phase":"Validation","Task #":"3.3","Task Title":"Score every idea","Action Steps":"Score each idea 1-10 on: Market Demand, Ease to Build, Revenue Potential, Personal Fit","Time (min)":"90","Tool / Resource":"Spreadsheet","Output / Deliverable":"All ideas scored","Status":"☐"},{"Day":"3","Phase":"Validation","Task #":"3.4","Task Title":"Pick Top 3","Action Steps":"Sort by total score; pick top 3","Time (min)":"15","Tool / Resource":"Spreadsheet","Output / Deliverable":"Top 3 ideas","Status":"☐"},{"Day":"3","Phase":"Validation","Task #":"3.5","Task Title":"Demand check","Action Steps":"For Top 3: search Google Trends, count 1-star competitor reviews, browse complaint posts","Time (min)":"60","Tool / Resource":"trends.google.com, competitor reviews","Output / Deliverable":"Demand evidence per idea","Status":"☐"},{"Day":"3","Phase":"Validation (Greg Step 4)","Task #":"3.6","Task Title":"Wireframe your solution","Action Steps":"Sketch out your product / service. Use Framer (https://framer.com) for fast prototypes. Come up with a catchy relevant name (Greg's example: DesignScientist.com).","Time (min)":"90","Tool / Resource":"https://framer.com","Output / Deliverable":"1-page wireframe + working name","Status":"☐"},{"Day":"3","Phase":"Validation","Task #":"3.7","Task Title":"Pick #1 idea","Action Steps":"Commit to one idea to research deeper","Time (min)":"10","Tool / Resource":"Yourself","Output / Deliverable":"One chosen idea","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.1","Task Title":"Watch Access Genie","Action Steps":"22m step-by-step competitor analysis with Osum + SEMrush","Time (min)":"22","Tool / Resource":"https://www.youtube.com/watch?v=9QcRcRuVCfI","Output / Deliverable":"Notes","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.2","Task Title":"Watch Local Market AI","Action Steps":"Local market analysis with AI + Google Maps","Time (min)":"15","Tool / Resource":"https://www.youtube.com/watch?v=RVQSTZJLrUw","Output / Deliverable":"Notes","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.3","Task Title":"List 5-10 competitors","Action Steps":"Direct + indirect + SEO competitors (search Google, Maps, marketplaces, social)","Time (min)":"60","Tool / Resource":"Search","Output / Deliverable":"Competitors list","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.4","Task Title":"Spreadsheet template","Action Steps":"Create columns: Competitor | Type | Website | Pricing | USP | Strengths | Weaknesses | Marketing Channels | Reviews Sentiment | Backlinks","Time (min)":"15","Tool / Resource":"Sheets","Output / Deliverable":"Template ready","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.5","Task Title":"Run Osum reports","Action Steps":"Free trial; generate report per top 3 competitors","Time (min)":"30","Tool / Resource":"https://osum.com","Output / Deliverable":"3 competitor SWOTs","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.6","Task Title":"Run SEMrush","Action Steps":"Free trial; check traffic, keywords, ads","Time (min)":"30","Tool / Resource":"https://semrush.com","Output / Deliverable":"Traffic & keyword data","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.7","Task Title":"Facebook Ad Library","Action Steps":"Pull every active competitor ad","Time (min)":"30","Tool / Resource":"https://www.facebook.com/ads/library","Output / Deliverable":"Ad inventory","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.8","Task Title":"Identify gaps","Action Steps":"Document: features they all have, features none have, complaints customers repeat","Time (min)":"45","Tool / Resource":"Sheets","Output / Deliverable":"Gaps + opportunities","Status":"☐"},{"Day":"4","Phase":"Competitor Research","Task #":"4.9","Task Title":"Refine your idea","Action Steps":"Adjust your idea/positioning based on the gap","Time (min)":"30","Tool / Resource":"ideas.md","Output / Deliverable":"Sharper idea","Status":"☐"},{"Day":"5","Phase":"Brand Mindset","Task #":"5.1","Task Title":"Watch Marty Neumeier","Action Steps":"'What is Branding?' deep dive","Time (min)":"30","Tool / Resource":"https://www.youtube.com/watch?v=dpZfNNYUZEc","Output / Deliverable":"Notes","Status":"☐"},{"Day":"5","Phase":"Brand Mindset","Task #":"5.2","Task Title":"Watch Learn With Shopify","Action Steps":"7-step branding overview","Time (min)":"10","Tool / Resource":"https://www.youtube.com/watch?v=4xnLp9A8G_U","Output / Deliverable":"Notes","Status":"☐"},{"Day":"5","Phase":"Brand Mindset","Task #":"5.3","Task Title":"Answer Neumeier's 5 questions","Action Steps":"Who are we? What do we do? Why does it matter? Who is it for? What's our Zag?","Time (min)":"30","Tool / Resource":"brand-context.md","Output / Deliverable":"brand-context.md draft","Status":"☐"},{"Day":"5","Phase":"Brand Mindset","Task #":"5.4","Task Title":"Decide Personal vs Business brand","Action Steps":"Apply: 'If I removed the products/services, would people still follow me?'","Time (min)":"15","Tool / Resource":"brand-context.md","Output / Deliverable":"Brand type decided","Status":"☐"},{"Day":"5","Phase":"Brand Mindset (Greg Step 5)","Task #":"5.5","Task Title":"Analyze 'Top Content' in the community","Action Steps":"Use IdeaBrowser's top-content view (or scan top Reddit posts of all time in your subreddits). What format wins? Memes? Long-form? Polls? Stories? Capture patterns.","Time (min)":"45","Tool / Resource":"https://ideabrowser.com/join","Output / Deliverable":"Content patterns log","Status":"☐"},{"Day":"5","Phase":"Brand Mindset (Greg Step 5)","Task #":"5.6","Task Title":"Ask AI about content preferences","Action Steps":"Ask Claude/ChatGPT: 'Given these top-performing posts in [niche], what content style does this audience love? Do they prefer memes, long-form essays, listicles, or screenshots? Why?'","Time (min)":"20","Tool / Resource":"Claude/ChatGPT","Output / Deliverable":"Content style guide","Status":"☐"},{"Day":"6","Phase":"Brand Build (Caleb 1/3)","Task #":"6.1","Task Title":"Caleb Ralston 0:00-1:30","Action Steps":"Sections: Brand Journey Framework, Positioning, Why people listen, Differentiation","Time (min)":"90","Tool / Resource":"https://www.youtube.com/watch?v=uJ8Pg6t_iho","Output / Deliverable":"Notes","Status":"☐"},{"Day":"6","Phase":"Brand Build (Caleb 1/3)","Task #":"6.2","Task Title":"Download workbook","Action Steps":"Get Caleb's free workbook","Time (min)":"5","Tool / Resource":"https://calebralston.com/startyourbrand","Output / Deliverable":"Workbook PDF","Status":"☐"},{"Day":"6","Phase":"Brand Build (Caleb 1/3)","Task #":"6.3","Task Title":"Fill: Credibility Bank","Action Steps":"List your wins/proof","Time (min)":"30","Tool / Resource":"Workbook","Output / Deliverable":"Credibility Bank done","Status":"☐"},{"Day":"6","Phase":"Brand Build (Caleb 1/3)","Task #":"6.4","Task Title":"Fill: Differentiation","Action Steps":"Identify your contrarian (not controversial) belief","Time (min)":"30","Tool / Resource":"Workbook","Output / Deliverable":"Differentiation done","Status":"☐"},{"Day":"7","Phase":"Brand Build (Caleb 2/3)","Task #":"7.1","Task Title":"Caleb Ralston 1:30-3:00","Action Steps":"Sections: Content Strategy, Cadence, First 3 Videos","Time (min)":"90","Tool / Resource":"Same video","Output / Deliverable":"Notes","Status":"☐"},{"Day":"7","Phase":"Brand Build (Caleb 2/3)","Task #":"7.2","Task Title":"Pick 1-2 platforms","Action Steps":"Choose where to publish (mistake = picking 5)","Time (min)":"20","Tool / Resource":"Workbook","Output / Deliverable":"Platforms decided","Status":"☐"},{"Day":"7","Phase":"Brand Build (Caleb 2/3)","Task #":"7.3","Task Title":"Plan first 3 videos/posts","Action Steps":"Use Caleb's 4Cs + Wrapping Paper framework + the content style from Day 5.6","Time (min)":"60","Tool / Resource":"Workbook","Output / Deliverable":"3 content drafts","Status":"☐"},{"Day":"8","Phase":"Brand Build (Caleb 3/3)","Task #":"8.1","Task Title":"Caleb Ralston 3:00-5:05","Action Steps":"Month-by-month case study + Operating System","Time (min)":"120","Tool / Resource":"Same video","Output / Deliverable":"Notes","Status":"☐"},{"Day":"8","Phase":"Brand Build (Caleb 3/3)","Task #":"8.2","Task Title":"Build brand-voice.md","Action Steps":"3 adjectives + 5 do's + 5 don'ts + before/after examples","Time (min)":"45","Tool / Resource":"brand-voice.md","Output / Deliverable":"Voice guide","Status":"☐"},{"Day":"8","Phase":"Brand Build (Caleb 3/3)","Task #":"8.3","Task Title":"Build content-pillars.md","Action Steps":"3-5 content pillars; aligns to brand-context.md","Time (min)":"30","Tool / Resource":"content-pillars.md","Output / Deliverable":"Pillars defined","Status":"☐"},{"Day":"9","Phase":"Tooling Setup","Task #":"9.1","Task Title":"Install Node.js + Git + VS Code","Action Steps":"Latest stable; configure git user.name & user.email","Time (min)":"30","Tool / Resource":"nodejs.org / git-scm.com","Output / Deliverable":"Toolchain ready","Status":"☐"},{"Day":"9","Phase":"Tooling Setup","Task #":"9.2","Task Title":"Install Claude Desktop + CLI","Action Steps":"Sign up Claude Pro/Max if affordable","Time (min)":"30","Tool / Resource":"https://claude.ai/download","Output / Deliverable":"Claude installed","Status":"☐"},{"Day":"9","Phase":"Tooling Setup","Task #":"9.3","Task Title":"Install Docker Desktop","Action Steps":"Required for MCP servers","Time (min)":"20","Tool / Resource":"https://docker.com","Output / Deliverable":"Docker running","Status":"☐"},{"Day":"9","Phase":"Tooling Setup","Task #":"9.4","Task Title":"Create GitHub PAT","Action Steps":"Scopes: repo, workflow, read:org","Time (min)":"10","Tool / Resource":"github.com/settings/tokens","Output / Deliverable":"PAT saved securely","Status":"☐"},{"Day":"9","Phase":"Tooling Setup","Task #":"9.5","Task Title":"Create [BrandName]-hq repo","Action Steps":"Initialize git repo with brand-context.md / brand-voice.md / CLAUDE.md","Time (min)":"15","Tool / Resource":"GitHub","Output / Deliverable":"Repo live","Status":"☐"},{"Day":"10","Phase":"Claude Setup","Task #":"10.1","Task Title":"Build Claude Project","Action Steps":"Project: '[Brand] HQ'. Upload: brand-context.md, brand-voice.md, content-pillars.md, competitor analysis sheet, wireframe from Day 3.6","Time (min)":"30","Tool / Resource":"Claude","Output / Deliverable":"Project ready","Status":"☐"},{"Day":"10","Phase":"Claude Setup","Task #":"10.2","Task Title":"Install Anthropic Skills","Action Steps":"Run /plugin marketplace add anthropics/skills","Time (min)":"15","Tool / Resource":"Claude Code CLI","Output / Deliverable":"Skills installed","Status":"☐"},{"Day":"10","Phase":"Claude Setup","Task #":"10.3","Task Title":"Install Marketing Skills","Action Steps":"npx skills add coreyhaines31/marketingskills (page-cro / copywriting / seo-audit / ai-seo / social-content)","Time (min)":"20","Tool / Resource":"GitHub coreyhaines31/marketingskills","Output / Deliverable":"Skills installed","Status":"☐"},{"Day":"10","Phase":"Claude Setup","Task #":"10.4","Task Title":"Add GitHub MCP","Action Steps":"Run claude mcp add github with PAT","Time (min)":"20","Tool / Resource":"github/github-mcp-server","Output / Deliverable":"GitHub MCP working","Status":"☐"},{"Day":"10","Phase":"Claude Setup","Task #":"10.5","Task Title":"Add Firecrawl MCP","Action Steps":"For ethical web scraping","Time (min)":"15","Tool / Resource":"firecrawl.dev","Output / Deliverable":"Firecrawl MCP active","Status":"☐"},{"Day":"11","Phase":"Content Engine","Task #":"11.1","Task Title":"Watch Tech With Tim Claude Code","Action Steps":"Skills + MCP + Subagents","Time (min)":"90","Tool / Resource":"https://www.youtube.com/watch?v=uogzSxOw4LU","Output / Deliverable":"Notes","Status":"☐"},{"Day":"11","Phase":"Content Engine","Task #":"11.2","Task Title":"Build content calendar","Action Steps":"Use Master Prompt 'Content Calendar' with Claude (incorporates style from Day 5.6)","Time (min)":"60","Tool / Resource":"Claude + content-pillars.md","Output / Deliverable":"30-day calendar","Status":"☐"},{"Day":"11","Phase":"Content Engine","Task #":"11.3","Task Title":"Generate first batch","Action Steps":"Produce 5 posts/scripts with brand voice","Time (min)":"60","Tool / Resource":"Claude","Output / Deliverable":"5 ready-to-publish pieces","Status":"☐"},{"Day":"11","Phase":"Content Engine","Task #":"11.4","Task Title":"Schedule weekly competitor monitoring","Action Steps":"Set up Octoparse/Apify MCP + /schedule weekly report","Time (min)":"45","Tool / Resource":"mcp.octoparse.com / apify.com","Output / Deliverable":"Auto-monitoring on","Status":"☐"},{"Day":"12","Phase":"Data & Analytics","Task #":"12.1","Task Title":"Pick analytics stack","Action Steps":"Plausible/Umami + GA4 + Search Console + PostHog (heatmaps)","Time (min)":"30","Tool / Resource":"Each tool's site","Output / Deliverable":"Accounts created","Status":"☐"},{"Day":"12","Phase":"Data & Analytics","Task #":"12.2","Task Title":"Watch Claude Data Analysis","Action Steps":"Without spreadsheet: claude code data analysis","Time (min)":"20","Tool / Resource":"https://www.youtube.com/watch?v=we4J_JgPeQA","Output / Deliverable":"Notes","Status":"☐"},{"Day":"12","Phase":"Data & Analytics","Task #":"12.3","Task Title":"Connect data to Claude","Action Steps":"Postgres/Supabase MCP or upload CSV exports weekly","Time (min)":"60","Tool / Resource":"Claude","Output / Deliverable":"Data flows in","Status":"☐"},{"Day":"13","Phase":"Git Skills","Task #":"13.1","Task Title":"Watch freeCodeCamp Git/GitHub","Action Steps":"2026 crash course","Time (min)":"180","Tool / Resource":"https://www.youtube.com/watch?v=mAFoROnOfHs","Output / Deliverable":"Notes","Status":"☐"},{"Day":"13","Phase":"Git Skills","Task #":"13.2","Task Title":"Practice 10 commands","Action Steps":"init, clone, add, commit, push, branch, checkout, merge, rebase, pull","Time (min)":"60","Tool / Resource":"Terminal","Output / Deliverable":"Comfortable","Status":"☐"},{"Day":"14","Phase":"GitHub Actions","Task #":"14.1","Task Title":"Watch DevOps Directive","Action Steps":"Complete GitHub Actions course","Time (min)":"180","Tool / Resource":"https://www.youtube.com/watch?v=Xwpi0ITkL3U","Output / Deliverable":"Notes","Status":"☐"},{"Day":"14","Phase":"GitHub Actions","Task #":"14.2","Task Title":"Add Claude GitHub Action","Action Steps":"/install-github-app inside Claude Code","Time (min)":"30","Tool / Resource":"code.claude.com/docs/en/github-actions","Output / Deliverable":"@claude works in PRs","Status":"☐"},{"Day":"14","Phase":"GitHub Actions","Task #":"14.3","Task Title":"Add CI workflow","Action Steps":"build.yml + deploy.yml for your site repo","Time (min)":"60","Tool / Resource":".github/workflows/","Output / Deliverable":"CI green","Status":"☐"},{"Day":"15","Phase":"3D Site (Day 1)","Task #":"15.1","Task Title":"Watch Three.js 101","Action Steps":"Crash course","Time (min)":"90","Tool / Resource":"https://www.youtube.com/watch?v=KM64t3pA4fs","Output / Deliverable":"Notes","Status":"☐"},{"Day":"15","Phase":"3D Site (Day 1)","Task #":"15.2","Task Title":"Scaffold project","Action Steps":"npm create vite@latest brand-3d --template react-ts; install three @react-three/fiber @react-three/drei gsap tailwindcss","Time (min)":"30","Tool / Resource":"Terminal","Output / Deliverable":"Project running","Status":"☐"},{"Day":"16","Phase":"3D Site (Day 2)","Task #":"16.1","Task Title":"Watch JS Mastery 3D Portfolio","Action Steps":"Free 5h tutorial","Time (min)":"300","Tool / Resource":"https://www.youtube.com/watch?v=kt0FrkQgw8w","Output / Deliverable":"Notes + sample built","Status":"☐"},{"Day":"16","Phase":"3D Site (Day 2)","Task #":"16.2","Task Title":"Add Hero with 3D logo","Action Steps":"R3F + Drei <Float>, <Environment>, <OrbitControls>","Time (min)":"90","Tool / Resource":"VS Code + Claude Code","Output / Deliverable":"Hero working","Status":"☐"},{"Day":"17","Phase":"3D Site (Day 3)","Task #":"17.1","Task Title":"Watch JS Mastery Creative Frontend","Action Steps":"10h GSAP + Three.js + React","Time (min)":"600 (split over 2-3 days)","Tool / Resource":"https://www.youtube.com/watch?v=ATdaYQw0ptk","Output / Deliverable":"Notes + components built","Status":"☐"},{"Day":"17","Phase":"3D Site (Day 3)","Task #":"17.2","Task Title":"Add scroll-driven animations","Action Steps":"GSAP ScrollTrigger camera dolly + section reveals","Time (min)":"120","Tool / Resource":"VS Code + Claude Code","Output / Deliverable":"Scroll animations live","Status":"☐"},{"Day":"18","Phase":"3D Site (Day 4)","Task #":"18.1","Task Title":"Build remaining sections","Action Steps":"Story / Products / Local Proof / Contact","Time (min)":"240","Tool / Resource":"VS Code + Claude Code","Output / Deliverable":"Sections built","Status":"☐"},{"Day":"18","Phase":"3D Site (Day 4)","Task #":"18.2","Task Title":"Optimize performance","Action Steps":"Compress models, lazy-load, mobile test, Lighthouse run","Time (min)":"120","Tool / Resource":"gltf-pipeline + Lighthouse","Output / Deliverable":"Lighthouse score >= 75","Status":"☐"},{"Day":"19","Phase":"Launch","Task #":"19.1","Task Title":"Connect domain","Action Steps":"Buy domain; point to Vercel/Netlify","Time (min)":"30","Tool / Resource":"Namecheap/Cloudflare","Output / Deliverable":"Domain live","Status":"☐"},{"Day":"19","Phase":"Launch","Task #":"19.2","Task Title":"Deploy to Vercel","Action Steps":"git push -> Vercel auto-deploys; add ANTHROPIC_API_KEY secret","Time (min)":"30","Tool / Resource":"vercel.com","Output / Deliverable":"Live URL","Status":"☐"},{"Day":"19","Phase":"Launch","Task #":"19.3","Task Title":"Add analytics tags","Action Steps":"Plausible script + GA4 + PostHog snippet","Time (min)":"30","Tool / Resource":"Each provider","Output / Deliverable":"Analytics flowing","Status":"☐"},{"Day":"19","Phase":"Launch","Task #":"19.4","Task Title":"Submit to Search Console","Action Steps":"Verify ownership; submit sitemap.xml","Time (min)":"20","Tool / Resource":"search.google.com","Output / Deliverable":"Indexing started","Status":"☐"},{"Day":"19","Phase":"Launch","Task #":"19.5","Task Title":"Publish first content","Action Steps":"Post the 5 pieces from Day 11; announce launch","Time (min)":"60","Tool / Resource":"Each platform","Output / Deliverable":"Launch post live","Status":"☐"},{"Day":"20","Phase":"Iterate","Task #":"20.1","Task Title":"Weekly Claude analytics report","Action Steps":"Claude reads PostHog/GSC via MCP and ships PR with 3 improvements","Time (min)":"60 (weekly)","Tool / Resource":"Claude + GitHub MCP","Output / Deliverable":"Auto-report PR","Status":"☐"},{"Day":"20","Phase":"Iterate","Task #":"20.2","Task Title":"Monthly competitor re-scan","Action Steps":"Re-run Octoparse/Apify scrape; compare to baseline","Time (min)":"90 (monthly)","Tool / Resource":"Claude + scraping MCP","Output / Deliverable":"Diff report","Status":"☐"},{"Day":"20","Phase":"Iterate","Task #":"20.3","Task Title":"Quarterly brand review","Action Steps":"Revisit brand-context.md and brand-voice.md; update if positioning evolved","Time (min)":"120 (quarterly)","Tool / Resource":"Workbook","Output / Deliverable":"Updated docs","Status":"☐"}],"videos":[{"Stage":"Idea Discovery","Priority":"#1 START HERE","Creator":"Greg Isenberg","Channel":"@GregIsenberg","Video Title":"How I use Reddit and AI to find winning startup ideas","YouTube URL":"https://www.youtube.com/watch?v=8vXoI7lUroQ","Length":"~20m","Published":"Jul 2024","Views":"530K+","Why It's The Best":"Most-watched globally on this topic. Greg sold companies for millions; founder of Late Checkout; host of Startup Ideas podcast.","Watch When":"Day 1"},{"Stage":"Idea Discovery","Priority":"#2","Creator":"Greg Isenberg","Channel":"@GregIsenberg","Video Title":"How I Use AI & Reddit to Find $1M+ Startup Ideas (FULL Blueprint)","YouTube URL":"https://www.youtube.com/watch?v=F7MxPxNbFUw","Length":"~30m","Published":"Jun 2025","Views":"64K+","Why It's The Best":"Most recent and complete blueprint. Adds ChatGPT history audit + Google Reddit hack + friction-point audit.","Watch When":"Day 2"},{"Stage":"Validation","Priority":"#1","Creator":"Amardeep Parmar","Channel":"The BAE HQ","Video Title":"How to Find and Validate Startup Ideas in 2025 (Step-by-Step Guide)","YouTube URL":"https://www.youtube.com/watch?v=iTZIM4AlGZQ","Length":"~25m","Published":"2025","Views":"High","Why It's The Best":"UK-based; comprehensive validation breakdown + shortlisting + founder fit.","Watch When":"Day 3"},{"Stage":"Validation","Priority":"#2","Creator":"FLAME / Rev","Channel":"FLAME - AI Business Validation","Video Title":"How to Validate a Business Idea in 2026 | 4-Pillar Framework","YouTube URL":"https://www.youtube.com/watch?v=MwfrxWVtshg","Length":"3:25","Published":"Feb 2026","Views":"New","Why It's The Best":"Fastest validation framework: Demand / Ease / Revenue / Personal Fit. Score any idea in 2 minutes.","Watch When":"Day 3"},{"Stage":"Idea Discovery","Priority":"#3","Creator":"Adam Erhart","Channel":"@Adamerhartvideo","Video Title":"How To Find PROFITABLE Business Niches Everyone Ignores","YouTube URL":"https://www.youtube.com/watch?v=VxIEKIvzjE4","Length":"Mid","Published":"2024-2025","Views":"High","Why It's The Best":"Practical small-business niche-finding from a top marketing strategist.","Watch When":"Day 1-2"},{"Stage":"Competitor Analysis","Priority":"#1","Creator":"Ancillar Nombewu","Channel":"Access Genie","Video Title":"How to Do Competitor Analysis Like a Pro (Step-by-Step Guide)","YouTube URL":"https://www.youtube.com/watch?v=9QcRcRuVCfI","Length":"22:14","Published":"Mar 2025","Views":"High-quality","Why It's The Best":"Walks through Osum + SEMrush on a real example (Pet Dental brand). Includes SWOT + spreadsheet template.","Watch When":"Day 4"},{"Stage":"Competitor Analysis","Priority":"#2","Creator":"Various","Channel":"—","Video Title":"How to Conduct a Local Market Analysis Using AI and Google Maps","YouTube URL":"https://www.youtube.com/watch?v=RVQSTZJLrUw","Length":"Mid","Published":"2025","Views":"Mid","Why It's The Best":"Specifically tailored to LOCAL brands using free tools.","Watch When":"Day 4"},{"Stage":"Competitor Analysis","Priority":"#3","Creator":"LYFE Marketing","Channel":"—","Video Title":"7 Easy Steps on How to Perform a Competitor Analysis","YouTube URL":"https://www.my-mooc.com/en/video/7-easy-steps-on-how-to-perform-a-competitor-analysis-63d77592-dc9f-428d-ad15-48fde1be371d","Length":"8:00","Published":"Reference","Views":"—","Why It's The Best":"Concise reference framework from a marketing agency.","Watch When":"Day 4"},{"Stage":"Brand Mindset","Priority":"#1","Creator":"Marty Neumeier","Channel":"Various","Video Title":"What is Branding? — A deep dive","YouTube URL":"https://www.youtube.com/watch?v=dpZfNNYUZEc","Length":"Mid","Published":"Classic","Views":"Very high","Why It's The Best":"Father of 'The Brand Gap' and 'Zag'. Defines branding as a gut feeling — non-negotiable foundation.","Watch When":"Day 5"},{"Stage":"Brand Mindset","Priority":"#2","Creator":"Michelle Bali","Channel":"Learn With Shopify","Video Title":"How to Build a Brand from Scratch in 2026","YouTube URL":"https://www.youtube.com/watch?v=4xnLp9A8G_U","Length":"9:45","Published":"Nov 2025","Views":"15K+","Why It's The Best":"7-step branding overview in 10 minutes. Perfect first overview.","Watch When":"Day 5"},{"Stage":"Brand Build","Priority":"#1 PRIMARY","Creator":"Caleb Ralston","Channel":"@calebralston","Video Title":"How to START a Personal Brand (Full Course)","YouTube URL":"https://www.youtube.com/watch?v=uJ8Pg6t_iho","Length":"5h 5m","Published":"Jan 2026","Views":"159K+ / 8.7K likes","Why It's The Best":"Ex-strategist behind Hormozi & Gary Vee. The world's gold-standard course on this. Free workbook included.","Watch When":"Days 6-8"},{"Stage":"Brand Build","Priority":"#2","Creator":"Caleb Ralston","Channel":"@calebralston","Video Title":"How To Build A $1M Personal Brand (FULL COURSE)","YouTube URL":"https://www.youtube.com/watch?v=Ch4Sl0POBhU","Length":"Long","Published":"Apr 2025","Views":"High","Why It's The Best":"Earlier full course; deeper on monetization & team-building.","Watch When":"Optional"},{"Stage":"Brand Build","Priority":"#3","Creator":"Renee","Channel":"Slay The Renee' Way","Video Title":"Start a Brand From Scratch — Branding Masterclass for Beginners","YouTube URL":"https://www.youtube.com/watch?v=m9_1YI495HY","Length":"14:41","Published":"Jan 2026","Views":"2.7K","Why It's The Best":"Distinguishes Personal vs Business brand cleanly + audience-in-one-sentence formula.","Watch When":"Day 5"},{"Stage":"Brand Build","Priority":"#4","Creator":"Patrick Dang","Channel":"Patrick Dang","Video Title":"How to Launch Your Personal Brand in 2026 (Full Course)","YouTube URL":"https://www.youtube.com/watch?v=kiVTc92Ez0k","Length":"Long","Published":"2026","Views":"High","Why It's The Best":"Combines AI/Claude into the brand-launch workflow.","Watch When":"Optional"},{"Stage":"Brand Build","Priority":"#5","Creator":"Marshall Crews","Channel":"Marshall Crews","Video Title":"Starting a Clothing Brand in 2026 is Simple Actually (FREE COURSE)","YouTube URL":"https://www.youtube.com/watch?v=KRRIL_FerrI","Length":"Long","Published":"Feb 2025","Views":"High","Why It's The Best":"If your brand is apparel/lifestyle. Demystifies MOQs and manufacturing.","Watch When":"If apparel"},{"Stage":"Brand Build","Priority":"#6","Creator":"Yadster","Channel":"Yadster","Video Title":"How To Start a Clothing Brand (Full Guide 2025)","YouTube URL":"https://www.youtube.com/watch?v=4D_1AQDmHB8","Length":"Long","Published":"Apr 2025","Views":"High","Why It's The Best":"E-commerce + Shopify + email/SMS + paid ads.","Watch When":"If apparel"},{"Stage":"Brand Build","Priority":"#7","Creator":"Chris Do","Channel":"The Futur","Video Title":"Brand Strategy For Designers (Part 1)","YouTube URL":"https://www.youtube.com/watch?v=tgDjT6G5VZo","Length":"Mid","Published":"Ongoing","Views":"Very high","Why It's The Best":"Industry-leading brand-strategy thinking for creatives.","Watch When":"Day 5"},{"Stage":"Marketing","Priority":"#1","Creator":"Adam Erhart","Channel":"@Adamerhartvideo","Video Title":"Channel: Marketing Strategies playlists","YouTube URL":"https://www.youtube.com/@Adamerhartvideo","Length":"—","Published":"Ongoing","Views":"—","Why It's The Best":"Best practical small-business marketing channel.","Watch When":"Week 2"},{"Stage":"Marketing","Priority":"#2","Creator":"Alex Hormozi","Channel":"@AlexHormozi","Video Title":"Offer creation videos","YouTube URL":"https://www.youtube.com/@AlexHormozi","Length":"—","Published":"Ongoing","Views":"—","Why It's The Best":"Rule of 100 / offer creation / lead gen.","Watch When":"Week 2"},{"Stage":"Marketing","Priority":"#3","Creator":"Daniel Priestley","Channel":"Various","Video Title":"Waitlist validation strategy","YouTube URL":"—","Length":"—","Published":"Ongoing","Views":"—","Why It's The Best":"Credibility Bank + Waitlist before product.","Watch When":"Week 2"},{"Stage":"Marketing","Priority":"#4","Creator":"Gary Vaynerchuk","Channel":"@garyvee","Video Title":"Content distribution videos","YouTube URL":"https://www.youtube.com/@garyvee","Length":"—","Published":"Ongoing","Views":"—","Why It's The Best":"Content-first growth & social distribution.","Watch When":"Week 2"},{"Stage":"Claude Tooling","Priority":"#1","Creator":"Tech With Tim","Channel":"Tech With Tim","Video Title":"The Ultimate Claude Code Guide | MCP Skills & More","YouTube URL":"https://www.youtube.com/watch?v=uogzSxOw4LU","Length":"Long","Published":"2025-2026","Views":"High","Why It's The Best":"Most complete Claude Code + MCP + Skills tutorial.","Watch When":"Day 11"},{"Stage":"Claude Tooling","Priority":"#2","Creator":"Leon van Zyl","Channel":"Leon van Zyl","Video Title":"The Only Claude Code Tutorial You Need (2026 Update)","YouTube URL":"https://www.youtube.com/watch?v=Q0bsphUTLtw","Length":"Long","Published":"2026","Views":"High","Why It's The Best":"CLI install + Permission modes + Planning mode + CLAUDE.md.","Watch When":"Day 11"},{"Stage":"Claude Tooling","Priority":"#3","Creator":"Various","Channel":"—","Video Title":"Claude Code + GitHub MCP Setup in 5 mins","YouTube URL":"https://www.youtube.com/watch?v=YSGepb9GD28","Length":"~5m","Published":"2025","Views":"Mid","Why It's The Best":"Quick GitHub MCP install for Claude.","Watch When":"Day 14"},{"Stage":"Claude Tooling","Priority":"#4","Creator":"—","Channel":"—","Video Title":"FULL Claude Tutorial For Beginners 2026 (FULL COURSE)","YouTube URL":"https://www.youtube.com/watch?v=Xg55nTrbYYY","Length":"Long","Published":"2026","Views":"High","Why It's The Best":"Beginner-friendly Claude foundations.","Watch When":"Optional"},{"Stage":"Claude Tooling","Priority":"#5","Creator":"Grace Leung","Channel":"—","Video Title":"Claude Design + Claude Skills: Automate Your Marketing","YouTube URL":"https://www.youtube.com/watch?v=Ph-maUAiSU8","Length":"Long","Published":"2025-2026","Views":"Mid-high","Why It's The Best":"Builds Brand Voice Skill + Campaign Manager Agent.","Watch When":"Day 11"},{"Stage":"Claude Tooling","Priority":"#6","Creator":"—","Channel":"—","Video Title":"8 Claude Code Skills Every Developer Needs in 2026","YouTube URL":"https://www.youtube.com/watch?v=Va-U1dqhwzk","Length":"Mid","Published":"2026","Views":"Mid","Why It's The Best":"Practical day-to-day skills.","Watch When":"Optional"},{"Stage":"Data Analysis","Priority":"#1","Creator":"—","Channel":"—","Video Title":"Claude Code: Data Analysis Without the Spreadsheet","YouTube URL":"https://www.youtube.com/watch?v=we4J_JgPeQA","Length":"Mid","Published":"2025","Views":"Mid","Why It's The Best":"Raw data → full business analysis with Claude Code.","Watch When":"Day 12"},{"Stage":"Data Analysis","Priority":"#2","Creator":"—","Channel":"—","Video Title":"How To Use Claude For Data Analysis 2026! Tutorial","YouTube URL":"https://www.youtube.com/watch?v=REDqq8tQi78","Length":"Mid","Published":"2026","Views":"Mid","Why It's The Best":"Beginner Claude data analysis basics.","Watch When":"Day 12"},{"Stage":"Data Analysis","Priority":"#3","Creator":"Alex The Analyst","Channel":"@AlexTheAnalyst","Video Title":"Channel — Data Analyst Bootcamp","YouTube URL":"https://www.youtube.com/@AlexTheAnalyst","Length":"—","Published":"Ongoing","Views":"Very high","Why It's The Best":"Best free SQL/Python/Power BI/Tableau path with portfolio projects.","Watch When":"Optional"},{"Stage":"Data Analysis","Priority":"#4","Creator":"—","Channel":"Codebasics","Video Title":"Channel — Project-based Python/Pandas/Power BI","YouTube URL":"https://www.youtube.com/@codebasics","Length":"—","Published":"Ongoing","Views":"Very high","Why It's The Best":"Real-world projects.","Watch When":"Optional"},{"Stage":"Data Analysis","Priority":"#5","Creator":"Mosh","Channel":"Programming with Mosh","Video Title":"The Complete Data Analyst Roadmap","YouTube URL":"https://www.youtube.com/watch?v=YRJbhFLLPyE","Length":"Mid","Published":"2025","Views":"High","Why It's The Best":"Clear roadmap from zero to job-ready.","Watch When":"Optional"},{"Stage":"Git/GitHub","Priority":"#1","Creator":"freeCodeCamp","Channel":"@freecodecamp","Video Title":"Git & GitHub Crash Course for Beginners [2026]","YouTube URL":"https://www.youtube.com/watch?v=mAFoROnOfHs","Length":"Long","Published":"2026","Views":"Very high","Why It's The Best":"Most comprehensive free course.","Watch When":"Day 13"},{"Stage":"Git/GitHub","Priority":"#2","Creator":"Traversy Media","Channel":"Traversy Media","Video Title":"Git & GitHub Crash Course 2025","YouTube URL":"https://www.youtube.com/watch?v=vA5TTz6BXhY","Length":"Mid","Published":"2025","Views":"High","Why It's The Best":"SSH keys + CI/CD with Vercel.","Watch When":"Day 13"},{"Stage":"Git/GitHub","Priority":"#3","Creator":"Simplilearn","Channel":"Simplilearn","Video Title":"Git & GitHub Full Course 2026 (Beginner to Advanced)","YouTube URL":"https://www.youtube.com/watch?v=slFRfhAwKcs","Length":"Long","Published":"2026","Views":"High","Why It's The Best":"Comprehensive incl. GitHub Actions.","Watch When":"Optional"},{"Stage":"GitHub Actions","Priority":"#1","Creator":"DevOps Directive","Channel":"DevOps Directive","Video Title":"Complete GitHub Actions Course - From BEGINNER to PRO","YouTube URL":"https://www.youtube.com/watch?v=Xwpi0ITkL3U","Length":"Long","Published":"2024-2025","Views":"High","Why It's The Best":"Includes companion repo + capstone.","Watch When":"Day 14"},{"Stage":"GitHub Actions","Priority":"#2","Creator":"—","Channel":"—","Video Title":"GitHub Actions Tutorial: Zero to Hero in 90 minutes","YouTube URL":"https://www.youtube.com/watch?v=TLB5MY9BBa4","Length":"90m","Published":"2024-2025","Views":"High","Why It's The Best":"Condensed deep-dive: environments + secrets + runners.","Watch When":"Day 14"},{"Stage":"3D Web","Priority":"#1 START","Creator":"Zero To Mastery","Channel":"Zero To Mastery","Video Title":"Three.js 101 Crash Course — Beginner's Guide","YouTube URL":"https://www.youtube.com/watch?v=KM64t3pA4fs","Length":"~1.5h","Published":"2024-2025","Views":"High","Why It's The Best":"Best beginner foundation: Scene/Camera/Geometry/Materials.","Watch When":"Day 15"},{"Stage":"3D Web","Priority":"#2","Creator":"JavaScript Mastery","Channel":"JavaScript Mastery","Video Title":"Build & Deploy an Amazing 3D Portfolio with React.js & Three.js","YouTube URL":"https://www.youtube.com/watch?v=kt0FrkQgw8w","Length":"~5h","Published":"2025","Views":"Very high","Why It's The Best":"Free best-in-class 3D portfolio build (with companion repo adrianhajdin/3d-portfolio).","Watch When":"Day 16"},{"Stage":"3D Web","Priority":"#3","Creator":"JavaScript Mastery","Channel":"JavaScript Mastery","Video Title":"Creative Frontend Course — GSAP + Three.js + React (10 Hours)","YouTube URL":"https://www.youtube.com/watch?v=ATdaYQw0ptk","Length":"10h","Published":"Dec 2025","Views":"Very high","Why It's The Best":"The most comprehensive 2025 free course. 3 projects.","Watch When":"Days 17-18"},{"Stage":"3D Web","Priority":"#4","Creator":"—","Channel":"—","Video Title":"React Three Fiber/Three.js Tutorial for Beginners","YouTube URL":"https://www.youtube.com/watch?v=52sTNIJs78A","Length":"~2h","Published":"2024-2025","Views":"High","Why It's The Best":"First R3F project + GSAP scroll animations.","Watch When":"Optional"},{"Stage":"3D Web","Priority":"#5","Creator":"Bruno Simon","Channel":"—","Video Title":"Three.js Journey (paid)","YouTube URL":"https://threejs-journey.com/","Length":"Massive","Published":"Updated regularly","Views":"Industry standard","Why It's The Best":"World standard for 3D web. Paid but lifetime + Discord.","Watch When":"Optional paid"},{"Stage":"3D Web","Priority":"#6","Creator":"Wawa Sensei","Channel":"—","Video Title":"React Three Fiber: The Ultimate Guide (paid)","YouTube URL":"https://wawasensei.dev/courses/react-three-fiber","Length":"Long","Published":"Updated regularly","Views":"High","Why It's The Best":"Best dedicated R3F course for React devs.","Watch When":"Optional paid"}],"tools":[{"Category":"Idea Discovery","Tool / Account":"Reddit","URL":"https://reddit.com","Why":"Mining pain points & unmet needs","Pricing":"Free","Priority":"Must","When To Set Up":"Day 1"},{"Category":"Idea Discovery","Tool / Account":"IdeaBrowser (Gummy Search successor)","URL":"https://ideabrowser.com/join","Why":"Replaces the discontinued Gummy Search. AI surfaces trending Subreddits + 'Pain & Anger', 'Advice Requests', 'Solution Requests', 'Top Content' views. Greg Isenberg's primary tool.","Pricing":"Free trial / paid","Priority":"Must","When To Set Up":"Day 1"},{"Category":"Idea Discovery","Tool / Account":"Perplexity AI","URL":"https://perplexity.ai","Why":"Find top creators / influencers in any niche. Step 3 of Greg's framework: 'Who are the top 10 YouTube creators in [niche]?'","Pricing":"Free tier / paid","Priority":"Recommended","When To Set Up":"Day 2"},{"Category":"Idea Discovery","Tool / Account":"Framer","URL":"https://framer.com","Why":"Quick wireframes / prototypes. Step 4 of Greg's framework: turn the idea into a 1-page mock + landing page.","Pricing":"Free tier / paid","Priority":"Recommended","When To Set Up":"Day 3"},{"Category":"Idea Discovery","Tool / Account":"Google Trends","URL":"https://trends.google.com","Why":"Demand validation","Pricing":"Free","Priority":"Must","When To Set Up":"Day 3"},{"Category":"Idea Discovery","Tool / Account":"subredditstats.com","URL":"https://subredditstats.com","Why":"Find subreddits by size (10K-100K sweet spot)","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 1"},{"Category":"Validation","Tool / Account":"FLAME","URL":"https://goflame.ai","Why":"4-pillar idea scoring","Pricing":"Free first score","Priority":"Optional","When To Set Up":"Day 3"},{"Category":"Competitor Analysis","Tool / Account":"Osum","URL":"https://osum.com","Why":"Auto-generates competitor SWOT in minutes","Pricing":"Free trial / paid","Priority":"Must","When To Set Up":"Day 4"},{"Category":"Competitor Analysis","Tool / Account":"SEMrush","URL":"https://semrush.com","Why":"Traffic / keywords / ads","Pricing":"Free trial / paid","Priority":"Recommended","When To Set Up":"Day 4"},{"Category":"Competitor Analysis","Tool / Account":"Ubersuggest","URL":"https://neilpatel.com/ubersuggest/","Why":"Cheap SEO data","Pricing":"Free tier / cheap","Priority":"Optional","When To Set Up":"Day 4"},{"Category":"Competitor Analysis","Tool / Account":"SimilarWeb","URL":"https://similarweb.com","Why":"Traffic estimates","Pricing":"Free tier","Priority":"Recommended","When To Set Up":"Day 4"},{"Category":"Competitor Analysis","Tool / Account":"Facebook Ad Library","URL":"https://www.facebook.com/ads/library","Why":"All competitor ads","Pricing":"Free","Priority":"Must","When To Set Up":"Day 4"},{"Category":"Competitor Analysis","Tool / Account":"Google Maps","URL":"https://maps.google.com","Why":"Local competitor reviews & locations","Pricing":"Free","Priority":"Must","When To Set Up":"Day 4"},{"Category":"Competitor Analysis","Tool / Account":"SE Ranking","URL":"https://seranking.com","Why":"SEO + has Claude MCP integration","Pricing":"Paid","Priority":"Optional","When To Set Up":"Day 11"},{"Category":"Brand Mindset","Tool / Account":"Marty Neumeier book — The Brand Gap","URL":"https://www.martyneumeier.com/the-brand-gap","Why":"Foundation reading","Pricing":"Paid book","Priority":"Recommended","When To Set Up":"Day 5"},{"Category":"Brand Build","Tool / Account":"Caleb Ralston Workbook","URL":"https://calebralston.com/startyourbrand","Why":"All frameworks from the 5h course","Pricing":"Free","Priority":"Must","When To Set Up":"Day 6"},{"Category":"Brand Build","Tool / Account":"Notion","URL":"https://notion.so","Why":"Brand HQ document workspace","Pricing":"Free tier","Priority":"Recommended","When To Set Up":"Day 5"},{"Category":"AI / Claude","Tool / Account":"Anthropic Claude Pro/Max","URL":"https://claude.ai","Why":"Pro = projects + skills | Max = best for heavy use","Pricing":"$20-200/mo","Priority":"Must","When To Set Up":"Day 9"},{"Category":"AI / Claude","Tool / Account":"Claude Desktop","URL":"https://claude.ai/download","Why":"Local app for MCP servers","Pricing":"Free with Claude account","Priority":"Must","When To Set Up":"Day 9"},{"Category":"AI / Claude","Tool / Account":"Claude Code CLI","URL":"npm i -g @anthropic-ai/claude-code","Why":"Best agentic AI on terminal","Pricing":"Free + API usage","Priority":"Must","When To Set Up":"Day 9"},{"Category":"AI / Claude","Tool / Account":"Anthropic Skills repo","URL":"https://github.com/anthropics/skills","Why":"Official skills (PDF/DOCX/PPTX/XLSX)","Pricing":"Free","Priority":"Must","When To Set Up":"Day 10"},{"Category":"AI / Claude","Tool / Account":"Corey Haines Marketing Skills","URL":"https://github.com/coreyhaines31/marketingskills","Why":"32 marketing skills (CRO/SEO/copywriting)","Pricing":"Free","Priority":"Must","When To Set Up":"Day 10"},{"Category":"AI / Claude","Tool / Account":"skills.sh","URL":"https://skills.sh","Why":"Vercel-curated Skills directory","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 10"},{"Category":"AI / Claude","Tool / Account":"MCP Market","URL":"https://mcpmarket.com","Why":"Marketplace for MCP/Skills","Pricing":"Free / paid skills","Priority":"Recommended","When To Set Up":"Day 10"},{"Category":"AI / Claude","Tool / Account":"MCP Directory","URL":"https://mcp.directory","Why":"Skills directory","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 10"},{"Category":"Scraping / MCP","Tool / Account":"Octoparse MCP","URL":"https://mcp.octoparse.com","Why":"No-code scraping via Claude","Pricing":"Free tier / paid","Priority":"Recommended","When To Set Up":"Day 11"},{"Category":"Scraping / MCP","Tool / Account":"Apify","URL":"https://apify.com","Why":"Pre-built actors (Meta Ads / TikTok / IG)","Pricing":"Free tier / paid","Priority":"Recommended","When To Set Up":"Day 11"},{"Category":"Scraping / MCP","Tool / Account":"Firecrawl","URL":"https://firecrawl.dev","Why":"AI-friendly web scraping MCP","Pricing":"Free tier / paid","Priority":"Recommended","When To Set Up":"Day 11"},{"Category":"Dev","Tool / Account":"Node.js 20+","URL":"https://nodejs.org","Why":"Required runtime","Pricing":"Free","Priority":"Must","When To Set Up":"Day 9"},{"Category":"Dev","Tool / Account":"VS Code","URL":"https://code.visualstudio.com","Why":"Editor; install GitLens / ESLint / Prettier / Tailwind IntelliSense","Pricing":"Free","Priority":"Must","When To Set Up":"Day 9"},{"Category":"Dev","Tool / Account":"Git","URL":"https://git-scm.com","Why":"Version control","Pricing":"Free","Priority":"Must","When To Set Up":"Day 9"},{"Category":"Dev","Tool / Account":"Docker Desktop","URL":"https://www.docker.com/products/docker-desktop","Why":"Run MCP servers locally","Pricing":"Free for personal","Priority":"Must","When To Set Up":"Day 9"},{"Category":"Dev","Tool / Account":"GitHub","URL":"https://github.com","Why":"Source hosting","Pricing":"Free","Priority":"Must","When To Set Up":"Day 9"},{"Category":"Dev","Tool / Account":"GitHub Personal Access Token","URL":"github.com/settings/tokens","Why":"Scopes: repo, workflow, read:org","Pricing":"Free","Priority":"Must","When To Set Up":"Day 9"},{"Category":"Dev","Tool / Account":"GitHub Desktop (optional)","URL":"https://desktop.github.com","Why":"GUI for git","Pricing":"Free","Priority":"Optional","When To Set Up":"Day 9"},{"Category":"3D","Tool / Account":"Sketchfab","URL":"https://sketchfab.com","Why":"Free .glb 3D models","Pricing":"Free tier","Priority":"Recommended","When To Set Up":"Day 15"},{"Category":"3D","Tool / Account":"Poly Pizza","URL":"https://poly.pizza","Why":"CC0 free 3D models","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 15"},{"Category":"3D","Tool / Account":"Spline","URL":"https://spline.design","Why":"Visual 3D editor (Figma for 3D)","Pricing":"Free tier","Priority":"Optional","When To Set Up":"Day 15"},{"Category":"3D","Tool / Account":"gltfjsx","URL":"https://github.com/pmndrs/gltfjsx","Why":"Convert .glb -> R3F components","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 16"},{"Category":"Hosting","Tool / Account":"Vercel","URL":"https://vercel.com","Why":"Easiest Vite/Next deploys; auto from GitHub","Pricing":"Free hobby tier","Priority":"Must","When To Set Up":"Day 19"},{"Category":"Hosting","Tool / Account":"Netlify","URL":"https://netlify.com","Why":"Alternative","Pricing":"Free hobby tier","Priority":"Optional","When To Set Up":"Day 19"},{"Category":"Hosting","Tool / Account":"Cloudflare Pages","URL":"https://pages.cloudflare.com","Why":"Fastest globally","Pricing":"Free generous tier","Priority":"Optional","When To Set Up":"Day 19"},{"Category":"Hosting","Tool / Account":"GitHub Pages","URL":"https://pages.github.com","Why":"Static-site hosting","Pricing":"Free","Priority":"Optional","When To Set Up":"Day 19"},{"Category":"Domain","Tool / Account":"Namecheap","URL":"https://namecheap.com","Why":"Affordable domains","Pricing":"~$10/yr","Priority":"Must","When To Set Up":"Day 19"},{"Category":"Domain","Tool / Account":"Cloudflare Registrar","URL":"https://www.cloudflare.com/products/registrar/","Why":"At-cost domains","Pricing":"~$8/yr","Priority":"Optional","When To Set Up":"Day 19"},{"Category":"Analytics","Tool / Account":"Google Search Console","URL":"https://search.google.com/search-console","Why":"Free SEO insights — REQUIRED","Pricing":"Free","Priority":"Must","When To Set Up":"Day 19"},{"Category":"Analytics","Tool / Account":"GA4","URL":"https://analytics.google.com","Why":"Standard analytics","Pricing":"Free","Priority":"Must","When To Set Up":"Day 19"},{"Category":"Analytics","Tool / Account":"Plausible","URL":"https://plausible.io","Why":"Privacy-friendly analytics","Pricing":"Paid (~$9/mo)","Priority":"Recommended","When To Set Up":"Day 19"},{"Category":"Analytics","Tool / Account":"Umami","URL":"https://umami.is","Why":"Open-source alternative","Pricing":"Self-host free / paid","Priority":"Optional","When To Set Up":"Day 19"},{"Category":"Analytics","Tool / Account":"Vercel Analytics","URL":"Built into Vercel","Why":"Easy when on Vercel","Pricing":"Free tier","Priority":"Optional","When To Set Up":"Day 19"},{"Category":"Analytics","Tool / Account":"PostHog","URL":"https://posthog.com","Why":"Heatmaps + funnels + product analytics","Pricing":"Free tier (1M events)","Priority":"Recommended","When To Set Up":"Day 19"},{"Category":"Repos to Star","Tool / Account":"anthropics/skills","URL":"https://github.com/anthropics/skills","Why":"Official Skills","Pricing":"Free","Priority":"Must","When To Set Up":"Day 10"},{"Category":"Repos to Star","Tool / Account":"coreyhaines31/marketingskills","URL":"https://github.com/coreyhaines31/marketingskills","Why":"Marketing skills","Pricing":"Free","Priority":"Must","When To Set Up":"Day 10"},{"Category":"Repos to Star","Tool / Account":"github/github-mcp-server","URL":"https://github.com/github/github-mcp-server","Why":"Official GitHub MCP","Pricing":"Free","Priority":"Must","When To Set Up":"Day 14"},{"Category":"Repos to Star","Tool / Account":"adrianhajdin/3d-portfolio","URL":"https://github.com/adrianhajdin/3d-portfolio","Why":"JS Mastery 3D Portfolio source","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 16"},{"Category":"Repos to Star","Tool / Account":"TechnoBlogger14o3/react-three-fiber-tutorials","URL":"https://github.com/TechnoBlogger14o3/react-three-fiber-tutorials","Why":"7 R3F courses + 41 examples","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 16"},{"Category":"Repos to Star","Tool / Account":"sidpalas/devops-directive-github-actions-course","URL":"https://github.com/sidpalas/devops-directive-github-actions-course","Why":"GitHub Actions companion","Pricing":"Free","Priority":"Recommended","When To Set Up":"Day 14"}],"prompts":[{"Phase":"Idea Discovery","Prompt Name":"Reddit Pain-Point Mining","Use With":"Claude / ChatGPT","Prompt":"You are an idea-discovery analyst. I'll paste 50 Reddit posts from [subreddit name]. For each post: 1) extract the explicit pain point, 2) categorize it (workflow / tool / cost / quality / experience / other), 3) score severity 1-5, 4) note if the user mentioned a willingness to pay. Output a Markdown table sorted by severity desc."},{"Phase":"Idea Discovery","Prompt Name":"IdeaBrowser Three-Section Synthesis (Greg Step 2)","Use With":"Claude / ChatGPT","Prompt":"I'll paste 3 lists from IdeaBrowser for the audience [audience name]: (A) Pain & Anger top 30 posts, (B) Advice Requests top 30, (C) Solution Requests top 30. Tasks: 1) cluster recurring themes ACROSS all three lists; 2) for each cluster: severity 1-5 + frequency + 'why now' (timing trigger); 3) propose 5 brand/product ideas that solve the highest-scoring cluster; 4) flag the cluster with the LOWEST competition (most solution-requests, fewest existing tools)."},{"Phase":"Idea Discovery","Prompt Name":"Creator-Comments Insight Extractor (Greg Step 3)","Use With":"Claude / ChatGPT","Prompt":"I'll paste the top 30 comments from [N] popular YouTube videos by creators in [niche]. For each video: 1) what is the audience PRAISING (works); 2) what are they COMPLAINING about (gap); 3) what are they ASKING for that the creator hasn't covered (idea fuel). Then synthesize across all videos: 5 unmet needs the audience repeatedly expresses, ranked by frequency. End with 3 brand angles that would resonate."},{"Phase":"Idea Discovery","Prompt Name":"Wireframe Spec (Greg Step 4)","Use With":"Claude","Prompt":"Idea: [paste 1-line idea]. Audience pain points: [paste top 5 from Greg Step 2]. Output a wireframe spec for a 1-page Framer prototype: 1) Hero (headline + subhead + CTA + visual concept); 2) Problem section (3 bullet pains in audience's exact language); 3) Solution section (how it works in 3 steps); 4) Social proof section (placeholder); 5) Pricing teaser; 6) Final CTA. Also propose 5 brand-name candidates that are catchy + relevant + .com-able."},{"Phase":"Idea Discovery","Prompt Name":"Top-Content Style Analysis (Greg Step 5)","Use With":"Claude / ChatGPT","Prompt":"Here are the top 20 posts of all time in [subreddit/audience]: [paste]. Analyze: 1) format mix (memes / long-form / lists / screenshots / polls / videos); 2) tone (irreverent / earnest / educational / story); 3) hook patterns; 4) average length; 5) common visual styles. End with: 'For a brand entering this audience, the content style that will resonate is X because Y.' Be specific."},{"Phase":"Idea Discovery","Prompt Name":"ChatGPT/Claude History Audit","Use With":"Claude","Prompt":"Below is a sample of my last 200 prompts to ChatGPT/Claude: [paste]. Group repeated themes. For each theme: 1) the recurring problem I face, 2) why no existing tool fully solves it for me, 3) a brand/product idea that would solve it, 4) who else likely shares this problem (audience size guess)."},{"Phase":"Idea Discovery","Prompt Name":"Friction Point Audit","Use With":"Claude","Prompt":"Here are entries from my friction log: [paste]. For each, identify: 1) the manual workflow, 2) the inefficiency, 3) a 1-line product idea that automates or removes it, 4) ease-to-build score 1-5."},{"Phase":"Validation","Prompt Name":"4-Pillar Idea Scoring","Use With":"Claude","Prompt":"Score this idea: '[idea]'. For each pillar give a number 1-10 + 1-paragraph reasoning. Pillars: 1) Market Demand (search volume / Reddit complaints / 1-star competitor reviews); 2) Ease to Build (MVP in 30 days?); 3) Revenue Potential (price x audience size); 4) Personal Fit (interest + unfair advantage). End with: total /40, verdict, 3-step next action."},{"Phase":"Validation","Prompt Name":"Onlyness Statement","Use With":"Claude","Prompt":"Using brand-context.md, draft 5 'onlyness' statements in the format: 'We're the only [category] that [unique mechanism] for [audience] who want [outcome].' Then critique each one for clarity, differentiation, and memorability, and recommend the top one with reasoning."},{"Phase":"Competitor Analysis","Prompt Name":"Content Gap Analysis","Use With":"Claude + scraped competitor blogs/pages","Prompt":"You are a senior content strategist for [BrandName] (see brand-context.md). I scraped the following competitor blog/landing pages: [paste]. Tasks: 1) topic coverage map (Topic | Competitor | Depth 1-5); 2) 10 missing angles nobody covers well; 3) for each: working title / search intent / format / primary keyword / why it fits our brand voice; 4) rank by ROI (impact/effort)."},{"Phase":"Competitor Analysis","Prompt Name":"Ad Intelligence","Use With":"Claude + Apify Meta Ad scrape","Prompt":"Here are competitor ads from Meta Ad Library [paste]: 1) extract headline / primary text / CTA / format for each; 2) group by messaging theme; 3) identify the 3 ads running longest = winning ads; 4) reverse-engineer the winning formula; 5) propose 5 ad angles for [BrandName]."},{"Phase":"Competitor Analysis","Prompt Name":"Social Listening","Use With":"Claude + Reddit/X scrape","Prompt":"Search Reddit/X mentions of [Competitor] in last 30 days. 1) Extract top 20 high-engagement posts; 2) list top 10 user frustrations; 3) generate 5 content ideas that solve those frustrations from [BrandName]'s angle (in our brand voice)."},{"Phase":"Competitor Analysis","Prompt Name":"Competitor Teardown","Use With":"Claude + Osum / SEMrush export","Prompt":"Here is competitor data: [paste]. Produce: 1) feature matrix (us vs them); 2) messaging hierarchy comparison; 3) pricing strategy analysis; 4) 5 weaknesses we can exploit; 5) 3 features they have that we MUST add; 6) 3 features they have that we should DELIBERATELY refuse to add (Zag)."},{"Phase":"Brand Strategy","Prompt Name":"Brand Strategist (Neumeier school)","Use With":"Claude with brand-context.md","Prompt":"Act as a senior brand strategist (Marty Neumeier school). Using brand-context.md, generate: 1) Positioning statement (1 sentence); 2) Onlyness statement; 3) 3 Zag opportunities ignored by competitors; 4) Brand archetype (Jung's 12) + reasoning; 5) Brand voice in 3 adjectives + 5 do's + 5 don'ts."},{"Phase":"Brand Strategy","Prompt Name":"Brand Voice Skill","Use With":"Claude Skill","Prompt":"Skill: brand-voice. Always read brand-voice.md before writing. Apply: tone = [3 adjectives]. Always: [do's]. Never: [don'ts]. Before returning text, run a self-check: does it sound like a sentence we'd say? If not, rewrite. Output: final version + 1-sentence note on what you changed."},{"Phase":"Local SEO","Prompt Name":"Local SEO Plan","Use With":"Claude","Prompt":"Act as an SEO expert specializing in local search. Our brand is [name] in [city]. Generate: 1) 30 long-tail keywords with local intent; 2) top 10 Google Business Profile categories; 3) 5 schema markup recommendations (LocalBusiness / FAQ / Product etc.); 4) outline for a 'Best [service] in [city]' pillar page; 5) 10 outreach targets for local backlinks."},{"Phase":"Content","Prompt Name":"Content Calendar","Use With":"Claude with brand-context.md + content-pillars.md","Prompt":"Build a 30-day content calendar. Channels: Instagram / TikTok / LinkedIn / Blog. Format mix: 40% educational / 30% storytelling / 20% promo / 10% community. For each item: hook + body + CTA + hashtag set + posting time. Tied to brand pillars."},{"Phase":"Data","Prompt Name":"CSV Profile + Insights","Use With":"Claude Code","Prompt":"Read [data.csv]. 1) Profile (shape / dtypes / null % / unique values). 2) Sanity checks; flag anomalies. 3) Hypothesis-driven analysis: top 3 drivers of [metric]; where do we lose users? 4) Output: markdown report + 5 charts (matplotlib)."},{"Phase":"Data","Prompt Name":"Market Research Synthesis","Use With":"Claude (long context)","Prompt":"I've uploaded 10 PDF reports / podcast transcripts. Produce: 1) trends ranked 1-10; 2) emerging vocabulary; 3) quote bank (10 quotes with sources); 4) 5 strategic implications for our local brand."},{"Phase":"3D Site","Prompt Name":"3D Site Spec","Use With":"Claude Code","Prompt":"You're a creative developer. Design a 3-section Hero for a [industry] local brand. Section 1: 3D brand mark, floating, mouse-reactive lighting. Section 2: scroll-triggered timeline of brand story. Section 3: 3D product carousel. Output: 1) component tree (R3F); 2) asset list (.glb / textures); 3) performance budget; 4) code skeleton in TypeScript."},{"Phase":"3D Site","Prompt Name":"Hero Component","Use With":"Claude Code","Prompt":"You are a senior R3F developer. Read brand-context.md and brand-voice.md. Build a Hero component: floating 3D logo with subtle bobbing + scroll-triggered camera dolly-in + light follows mouse. Use TypeScript / R3F / Drei / GSAP."},{"Phase":"Iterate","Prompt Name":"Weekly Analytics Report","Use With":"Claude with PostHog/GSC MCP","Prompt":"Pull last 7 days from PostHog and Google Search Console. Output: 1) top 10 pages by traffic; 2) top 10 search queries with impressions vs clicks; 3) drop-off funnels; 4) 3 specific improvements ranked by impact/effort; 5) draft a PR description for the top fix."},{"Phase":"Iterate","Prompt Name":"Monthly Competitor Re-Scan","Use With":"Claude + scraping MCPs","Prompt":"Re-run scrape of [list of competitor URLs]. Compare to baseline in /data/competitors-baseline.json. Output: 1) what changed (pricing / messaging / features / blog cadence); 2) any new ad themes; 3) 3 implications for us; 4) 1-page exec summary."}]};
+const DATA = window.__DATA__;
+
+// ----------- helpers -----------
+function $(sel){return document.querySelector(sel);}
+function escapeHtml(s){if(s==null) return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function linkify(s){
+  if(!s) return '';
+  const safe = escapeHtml(s);
+  return safe.replace(/(https?:\/\/[^\s,<]+)/g,(u)=>`<a href="${u}" target="_blank" rel="noopener">${u.replace(/^https?:\/\//,'').slice(0,42)}${u.length>50?'…':''}</a>`);
+}
+function pillFor(value){
+  if(!value) return '';
+  const v=value.toLowerCase();
+  if(v.includes('start here')||v.includes('#1 start')) return `<span class="pill start">▶ START</span>`;
+  if(v.includes('must')) return `<span class="pill must">Must</span>`;
+  if(v.includes('recommended')) return `<span class="pill rec">Recommended</span>`;
+  if(v.includes('optional')) return `<span class="pill opt">Optional</span>`;
+  return `<span class="pill">${escapeHtml(value)}</span>`;
+}
+function copyText(t){
+  navigator.clipboard.writeText(t).then(()=>{
+    const n=document.createElement('div');
+    n.textContent='✓ Copied';
+    n.style.cssText='position:fixed;bottom:20px;left:20px;background:var(--ok);color:#0b0f17;padding:10px 14px;border-radius:8px;font-weight:700;z-index:99';
+    document.body.appendChild(n);setTimeout(()=>n.remove(),1200);
+  });
+}
+
+// ---------- progress (localStorage) ----------
+const STORAGE_KEY='lbr.progress.v1';
+function loadProgress(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');}catch(e){return {};}}
+function saveProgress(p){localStorage.setItem(STORAGE_KEY, JSON.stringify(p));}
+let progress = loadProgress();
+function toggleTask(id){
+  progress[id]=!progress[id];
+  saveProgress(progress);
+  updateProgressBar();
+}
+function updateProgressBar(){
+  const total = DATA.plan.length;
+  const done = DATA.plan.filter(r=>progress[r['Task #']]).length;
+  const pct = total ? Math.round(done*100/total) : 0;
+  const bar = document.querySelector('#progressBar > div');
+  if(bar) bar.style.width = pct+'%';
+  const meta = document.getElementById('progressMeta');
+  if(meta) meta.innerHTML = `<span><b>${done}</b> / ${total} tasks done</span><span><b>${pct}%</b> complete</span>`;
+}
+function resetProgress(){if(confirm('Reset all progress?')){progress={};saveProgress(progress);updateProgressBar();applyPlan();}}
+function exportProgress(){
+  const blob=new Blob([JSON.stringify(progress,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='local-brand-progress-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+}
+function importProgress(ev){
+  const f=ev.target.files[0];if(!f) return;
+  const r=new FileReader();r.onload=e=>{try{progress=JSON.parse(e.target.result);saveProgress(progress);updateProgressBar();applyPlan();alert('Imported ✓');}catch(err){alert('Invalid file');}};
+  r.readAsText(f);
+}
+
+// ---------- table renderer ----------
+let sortState = {};
+function renderTable(target, rows, opts={}){
+  const head = rows.length ? Object.keys(rows[0]) : [];
+  const t=document.querySelector(target);
+  const thead=t.querySelector('thead'); const tbody=t.querySelector('tbody');
+  thead.innerHTML='<tr>'+head.map(h=>{
+    const arrow = sortState[target]?.col===h ? (sortState[target].dir>0?' ▲':' ▼') : '';
+    return `<th data-col="${escapeHtml(h)}">${escapeHtml(h)}${arrow}</th>`;
+  }).join('')+'</tr>';
+  thead.querySelectorAll('th').forEach(th=>th.addEventListener('click',()=>{
+    const col=th.dataset.col;
+    const cur=sortState[target]||{};
+    sortState[target] = (cur.col===col) ? {col, dir: -cur.dir} : {col, dir: 1};
+    if(opts.refresh) opts.refresh();
+  }));
+  let r2 = rows.slice();
+  if(sortState[target]){
+    const {col, dir} = sortState[target];
+    r2.sort((a,b)=>{
+      const A=(a[col]||'')+'', B=(b[col]||'')+'';
+      const nA=parseFloat(A), nB=parseFloat(B);
+      if(!isNaN(nA) && !isNaN(nB)) return (nA-nB)*dir;
+      return A.localeCompare(B)*dir;
+    });
+  }
+  tbody.innerHTML = r2.length ? r2.map(r=>{
+    return '<tr>'+head.map(h=>{
+      let v = r[h] ?? '';
+      const lh=h.toLowerCase();
+      if(lh==='status' && r['Task #']){
+        const id=r['Task #'];
+        const checked = progress[id] ? '☑' : '☐';
+        return `<td class="check" onclick="toggleTask('${escapeHtml(id)}');this.innerHTML=this.innerHTML==='☑'?'☐':'☑';">${checked}</td>`;
+      } else if(lh==='priority'){
+        return `<td>${pillFor(v)}</td>`;
+      } else if(lh==='day'){
+        return `<td><span class="day">D${escapeHtml(v)}</span></td>`;
+      } else if(/url|link/.test(lh)){
+        return `<td>${linkify(v)}</td>`;
+      } else if(/title|why|prompt|action|action steps/.test(lh)){
+        return `<td class="truncate">${linkify(v)}</td>`;
+      } else {
+        return `<td>${linkify(v)}</td>`;
+      }
+    }).join('')+'</tr>';
+  }).join('') : `<tr><td class="empty" colspan="${head.length||1}">No matches.</td></tr>`;
+}
+
+// ---------- selects ----------
+function fillSelect(sel, vals){
+  const el=$(sel);
+  const cur=el.value;
+  const seen=new Set();
+  el.innerHTML = '<option value="">'+el.options[0].textContent+'</option>'
+    + vals.filter(v=>v && !seen.has(v) && seen.add(v)).sort().map(v=>`<option>${escapeHtml(v)}</option>`).join('');
+  el.value=cur;
+}
+
+// ---------- filtering per tab ----------
+function applyPlan(){
+  const q=$('#planSearch').value.toLowerCase();
+  const ph=$('#planPhase').value;
+  const dy=$('#planDay').value;
+  const rows = DATA.plan.filter(r=>{
+    if(ph && r.Phase!==ph) return false;
+    if(dy && r.Day!==dy) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  const totalMin = rows.reduce((a,r)=>a+(parseInt(r['Time (min)'])||0),0);
+  $('#planMeta').innerHTML=`<span><b>${rows.length}</b> tasks</span><span><b>~${Math.round(totalMin/60)}h</b> filtered total</span>`;
+  renderTable('#planTable', rows, {refresh: applyPlan});
+  updateProgressBar();
+}
+function applyVids(){
+  const q=$('#vidSearch').value.toLowerCase();
+  const st=$('#vidStage').value;
+  const pr=$('#vidPriority').value;
+  const rows = DATA.videos.filter(r=>{
+    if(st && r.Stage!==st) return false;
+    if(pr && r.Priority!==pr) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  $('#vidMeta').innerHTML=`<span><b>${rows.length}</b> videos</span>`;
+  renderTable('#vidTable', rows, {refresh: applyVids});
+}
+function applyTools(){
+  const q=$('#toolSearch').value.toLowerCase();
+  const c=$('#toolCategory').value;
+  const pr=$('#toolPriority').value;
+  const rows = DATA.tools.filter(r=>{
+    if(c && r.Category!==c) return false;
+    if(pr && r.Priority!==pr) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  $('#toolMeta').innerHTML=`<span><b>${rows.length}</b> tools/accounts</span>`;
+  renderTable('#toolTable', rows, {refresh: applyTools});
+}
+function applyPrompts(){
+  const q=$('#promptSearch').value.toLowerCase();
+  const ph=$('#promptPhase').value;
+  const rows = DATA.prompts.filter(r=>{
+    if(ph && r.Phase!==ph) return false;
+    if(!q) return true;
+    return Object.values(r).some(v=>(v||'').toLowerCase().includes(q));
+  });
+  $('#promptMeta').innerHTML=`<span><b>${rows.length}</b> prompts</span>`;
+  $('#promptList').innerHTML = rows.length ? rows.map((r,i)=>`
+    <details>
+      <summary>${escapeHtml(r.Phase||'')} — ${escapeHtml(r['Prompt Name']||'')} <span class="pill">${escapeHtml(r['Use With']||'')}</span></summary>
+      <pre id="prompt_${i}">${escapeHtml(r.Prompt||'')}</pre>
+      <button class="copybtn" onclick="copyText(document.getElementById('prompt_${i}').innerText)">📋 Copy prompt</button>
+    </details>
+  `).join('') : '<div class="empty">No matches.</div>';
+}
+
+// ---------- CSV export ----------
+function exportCSV(key){
+  const rows = DATA[key]; if(!rows.length) return;
+  const head = Object.keys(rows[0]);
+  const esc=(v)=>{const s=(v??'')+'';return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  const csv = [head.join(','), ...rows.map(r=>head.map(h=>esc(r[h])).join(','))].join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=key+'.csv';a.click();
+}
+
+// ---------- tabs ----------
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const tab=b.dataset.tab;
+  document.querySelectorAll('main > section').forEach(s=>s.classList.add('hide'));
+  document.getElementById(tab).classList.remove('hide');
+}));
+
+// ---------- boot ----------
+fillSelect('#planPhase',  DATA.plan.map(r=>r.Phase));
+fillSelect('#planDay',    DATA.plan.map(r=>r.Day));
+fillSelect('#vidStage',   DATA.videos.map(r=>r.Stage));
+fillSelect('#vidPriority',DATA.videos.map(r=>r.Priority));
+fillSelect('#toolCategory',DATA.tools.map(r=>r.Category));
+fillSelect('#toolPriority',DATA.tools.map(r=>r.Priority));
+fillSelect('#promptPhase', DATA.prompts.map(r=>r.Phase));
+
+['planSearch','planPhase','planDay'].forEach(id=>document.getElementById(id).addEventListener('input',applyPlan));
+['vidSearch','vidStage','vidPriority'].forEach(id=>document.getElementById(id).addEventListener('input',applyVids));
+['toolSearch','toolCategory','toolPriority'].forEach(id=>document.getElementById(id).addEventListener('input',applyTools));
+['promptSearch','promptPhase'].forEach(id=>document.getElementById(id).addEventListener('input',applyPrompts));
+
+applyPlan(); applyVids(); applyTools(); applyPrompts();
+updateProgressBar();
+</script>
+</body>
+</html>

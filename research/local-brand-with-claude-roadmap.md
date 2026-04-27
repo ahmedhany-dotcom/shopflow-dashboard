@@ -1,6 +1,42 @@
 # بناء Local Brand باستخدام Claude — خارطة طريق شاملة من A إلى Z
 
-> ## 🥇 لو معندكش وقت تقرا كل حاجة — ابدأ من هنا
+> ## 🚦 ابدأ من هنا فعلياً — أول فيديو تتفرج عليه (لو معندكش فكرة لسه)
+>
+> **اليوم 1 — قبل أي حاجة تانية: لقاء فكرة براند مش موجودة في السوق**
+>
+> ### 🥇 Greg Isenberg — "How I use Reddit and AI to find winning startup ideas"
+> - 🔗 `https://www.youtube.com/watch?v=8vXoI7lUroQ`
+> - 📅 يوليو 2024 — 👁️ **530,000+ مشاهدة** (الأكثر مشاهدة عالمياً في الموضوع ده)
+> - 🏆 Greg Isenberg = أكبر اسم في العالم في "إيجاد أفكار براندات/Startups مش موجودة." باع شركات بملايين، صاحب Late Checkout، عنده Podcast كامل اسمه Startup Ideas.
+> - **هتتعلم:** تستخدم Reddit + AI تكتشف Pain Points حقيقية في Communities من 10K–100K member (المنطقة الذهبية: فيها مشاكل لكن مش مزدحمة بالمنافسين).
+>
+> **اليوم 2 — Blueprint أحدث وأعمق:**
+>
+> ### 🥈 Greg Isenberg — "How I Use AI & Reddit to Find $1M+ Startup Ideas (FULL Blueprint)"
+> - 🔗 `https://www.youtube.com/watch?v=F7MxPxNbFUw`
+> - 📅 يونيو 2025 ✅ — 64K+ مشاهدة
+> - **3 أساليب جنان:** ChatGPT History Audit / Google Reddit Hack (`site:reddit.com "is there a tool" [niche]`) / Friction Point Audit.
+>
+> **اليوم 3 — تـ Validate الفكرة:**
+>
+> 1. **Amardeep Parmar — "How to Find and Validate Startup Ideas in 2025"** — `https://www.youtube.com/watch?v=iTZIM4AlGZQ`
+> 2. **FLAME — "4-Pillar Framework"** (3 دقايق فقط، فبراير 2026) — `https://www.youtube.com/watch?v=MwfrxWVtshg`
+>
+> **اليوم 4 — تحلل المنافسين Local:**
+>
+> - **Access Genie — "Competitor Analysis Like a Pro Step-by-Step"** (22 دقيقة، تطبيقي + Osum + SEMrush) — `https://www.youtube.com/watch?v=9QcRcRuVCfI`
+>
+> **اليوم 5+ — تبدأ تبني البراند:**
+>
+> - **Caleb Ralston — "How to START a Personal Brand (Full Course)"** (5h 5m، يناير 2026، 159K+) — `https://www.youtube.com/watch?v=uJ8Pg6t_iho` + Workbook مجاني `https://calebralston.com/startyourbrand`
+>
+> **مهم:** لو ابتديت بـ Caleb Ralston قبل ما يكون عندك فكرة، هتلف في حلقة مفرغة. **الفكرة الأول، البناء بعدين.**
+>
+> 👇 باقي الترتيب الكامل بالتفصيل في **[Section A](#section-a-best-creators)** والمراحل الكاملة بعديها.
+
+---
+
+## 🥇 معلومات إضافية عن Caleb Ralston (ده اللي هتعتمد عليه في Phase 1 بعد ما يبقى عندك فكرة)
 >
 > أفضل صانع محتوى في العالم حالياً يشرح بناء البراند من A إلى Z، **Step-by-Step**، حديث، وموثوق:
 >
@@ -66,14 +102,49 @@
 
 > القسم ده مرتب حسب **المرحلة** اللي محتاج تشتغل فيها (1 → 5). كل فيديو موثوق، حديث (2025–2026)، ومن قناة معتمدة. لو متاح تاريخ النشر / المشاهدات / المدة، حاطها لك صريحة.
 
-### المرحلة 1 — لقاحات / إيجاد فكرة (Idea & Niche)
+### المرحلة 1 — إيجاد فكرة براند مش موجودة (Idea Discovery & Validation)
+
+> ⚡ **دي أهم مرحلة وأول حاجة تبدأ بيها لو معندكش فكرة لسه. متبدأش أي حاجة في الـ Roadmap قبلها.**
 
 | الترتيب | الصانع / القناة | الفيديو | المدة | حداثة | مشاهدات | ليه الأفضل |
 |---|---|---|---|---|---|---|
-| 🥇 | **Amardeep Parmar** | "How to Find and Validate Startup Ideas in 2025 (Step-by-Step Guide)" — `https://www.youtube.com/watch?v=iTZIM4AlGZQ` | ~25m | 2025 | عالية | بريطاني، شامل: validation breakdown + shortlisting problems + founder potential. |
-| 🥈 | **FLAME / Rev** | "How to Validate a Business Idea in 2026 \| 4-Pillar Framework" — `https://www.youtube.com/watch?v=MwfrxWVtshg` | 3:25 | فبراير 2026 ✅ | جديد | Framework من 4 أعمدة: Demand, Ease, Revenue, Personal Fit. مدة قصيرة جداً. |
-| 🥉 | **Adam Erhart** (كندي/أمريكي) | "How To Find PROFITABLE Business Niches Everyone Ignores" — `https://www.youtube.com/watch?v=VxIEKIvzjE4` | متوسط | 2024-2025 | عالية | متخصص ماركتنج للبراندات الصغيرة، أسلوبه عملي جداً. |
-| ➕ | **Adam Erhart Channel** | `https://www.youtube.com/@Adamerhartvideo` | — | مستمر | — | **أهم قناة** للماركتنج للـ Local Brands. شوف Playlist "Marketing Strategies." |
+| 🥇🥇🥇 | **Greg Isenberg** | **"How I use Reddit and AI to find winning startup ideas"** — `https://www.youtube.com/watch?v=8vXoI7lUroQ` | ~20m | يوليو 2024 | **530K+** | **الأقوى عالمياً.** Greg صاحب Late Checkout، باع شركات بملايين، عنده Podcast كامل اسمه Startup Ideas. يعلمك تستخدم Reddit + AI تكتشف Pain Points في Subreddits 10K-100K (المنطقة الذهبية). |
+| 🥇 | **Greg Isenberg** | **"How I Use AI & Reddit to Find $1M+ Startup Ideas (FULL Blueprint)"** — `https://www.youtube.com/watch?v=F7MxPxNbFUw` | ~30m | **يونيو 2025** ✅ | 64K+ | النسخة الأحدث وأشمل. 3 أساليب: ChatGPT History Audit + Google Reddit Hack (`site:reddit.com "is there a tool" [niche]`) + Friction Point Audit. |
+| 🥈 | **Amardeep Parmar** | "How to Find and Validate Startup Ideas in 2025 (Step-by-Step Guide)" — `https://www.youtube.com/watch?v=iTZIM4AlGZQ` | ~25m | 2025 | عالية | بريطاني، شامل: validation breakdown + shortlisting problems + founder potential. |
+| 🥉 | **FLAME / Rev** | "How to Validate a Business Idea in 2026 \| 4-Pillar Framework" — `https://www.youtube.com/watch?v=MwfrxWVtshg` | 3:25 | فبراير 2026 ✅ | جديد | Framework من 4 أعمدة: Demand, Ease, Revenue, Personal Fit. لتـ score الفكرة في دقيقتين. |
+| 4 | **Adam Erhart** | "How To Find PROFITABLE Business Niches Everyone Ignores" — `https://www.youtube.com/watch?v=VxIEKIvzjE4` | متوسط | 2024-2025 | عالية | متخصص ماركتنج للبراندات الصغيرة، أسلوبه عملي جداً. |
+| ➕ | **Greg Isenberg Channel** | `https://www.youtube.com/@GregIsenberg` | — | مستمر | — | **اشترك دلوقتي.** كل أسبوع فيه فيديو/Podcast جديد عن أفكار براندات. |
+| ➕ | **Adam Erhart Channel** | `https://www.youtube.com/@Adamerhartvideo` | — | مستمر | — | للـ Marketing بعد ما تلاقي الفكرة. |
+
+#### 🛠️ الأدوات اللي Greg ينصح بيها (للـ Idea Discovery):
+- **IdeaBrowser** — `https://www.ideabrowser.com` — يطلع لك Subreddits trending + Pain points تلقائياً.
+- **Google Search Hack** — اكتب: `site:reddit.com "is there an app for" [مجالك]` أو `site:reddit.com "wish there was" [مجالك]` أو `site:reddit.com "is there a tool" [مجالك]` → هتلاقي ناس حرفياً بتسأل عن أداة/خدمة مش موجودة = فكرة براندك.
+- **Reddit مباشرة** — `https://reddit.com/search` — ابحث في subreddits مرتبطة بـ Local market اللي عايزه.
+- **ChatGPT/Claude History** — راجع آخر شهرين من محادثاتك. أي حاجة كررتها كذا مرة = problem حقيقي.
+
+#### 📋 خطوات اليوم 1 (مشاهدة + تطبيق فوري):
+1. اتفرج على Greg Isenberg الفيديو الأول (530K).
+2. افتح ملف `ideas.md`.
+3. اعمل Google search بالـ Hacks فوق على 5 مجالات تهتم بيها.
+4. حدد 5–10 Subreddits Local (10K–100K member).
+5. اقرا أعلى 50 post في كل Subreddit، ودون كل شكوى/Pain point.
+6. آخر اليوم لازم يبقى عندك على الأقل **20 فكرة** في الملف.
+
+#### 📋 خطوات اليوم 2 (Blueprint أعمق):
+1. اتفرج على Greg Isenberg الفيديو الثاني (FULL Blueprint - 2025).
+2. طبق ChatGPT/Claude History Audit على نفسك.
+3. اعمل Friction Point Audit — كل مرة تعمل copy-paste بين أداتين دونها.
+4. ضيف الـ ideas الجديدة على الـ 20 من اليوم 1.
+
+#### 📋 خطوات اليوم 3 (Validation):
+1. اتفرج على Amardeep Parmar (25 دقيقة).
+2. اتفرج على FLAME (3 دقايق).
+3. طبق الـ 4-Pillar framework على كل فكرة:
+   - **Market Demand** (Google Trends, Reddit complaints, competitor reviews 1-star).
+   - **Ease to Build** (تقدر تطلع MVP في 30 يوم؟).
+   - **Revenue Potential** (sizing + pricing).
+   - **Personal Fit** (تهتم فعلاً؟ عندك unfair advantage؟).
+4. خلصت: عندك **Top 3 Ideas** مع scores.
 
 ---
 
@@ -151,25 +222,50 @@
 
 ---
 
-### 🎬 Sequence المنصوح به للمشاهدة (لو عندك وقت محدود):
+### 🎬 Sequence المنصوح به للمشاهدة بالترتيب المطلوب (Watch In This Order):
 
-**اليوم 1 (3 ساعات):**
-1. Learn With Shopify — 10 دقايق (Overview).
-2. Marty Neumeier "What is Branding?" — 30 دقيقة (Mindset).
-3. Caleb Ralston (الجزء الأول 0:00 → 1:30:00) — Brand Positioning كامل.
+> ✅ ده الترتيب الفعلي اللي تمشي عليه. اتفرج بالترتيب ده، **متقفزش خطوة**.
 
-**اليوم 2 (3 ساعات):**
-1. Caleb Ralston (الجزء التاني 1:30 → 3:00:00) — Content Strategy.
-2. Access Genie — 22 دقيقة — Competitor Analysis تطبيقي.
+**🎯 اليوم 1 — لاقي الفكرة (~50 دقيقة + ساعتين تطبيق):**
+1. **Greg Isenberg — "How I use Reddit and AI to find winning startup ideas"** (530K views) — `https://www.youtube.com/watch?v=8vXoI7lUroQ`
+2. **تطبيق فوري:** افتح Reddit، طبق الـ Hacks، اكتب على الأقل 20 فكرة في ملف `ideas.md`.
 
-**اليوم 3 (2-3 ساعات):**
-1. Caleb Ralston (الجزء التالت 3:00 → 5:05) — Month-by-month case study.
-2. Adam Erhart — اختار فيديو واحد عن "Marketing Strategy" يطبق على نوع براندك.
+**🎯 اليوم 2 — تعمق في الـ Idea Machine (~50 دقيقة + ساعة تطبيق):**
+1. **Greg Isenberg — "FULL Blueprint" 2025** — `https://www.youtube.com/watch?v=F7MxPxNbFUw`
+2. **تطبيق:** ChatGPT History Audit + Google Reddit Hack + Friction Point Audit.
 
-**الويك التاني:**
-- ابدأ تشتغل **Workbook بتاع Caleb Ralston** فعلياً (دي ساعتين تطبيق).
-- اعمل Competitor spreadsheet على 5 منافسين Local باستخدام Osum + SEMrush trial.
-- وقتها هتبقى جاهز لـ Phase 1 من Claude في الـ Roadmap.
+**🎯 اليوم 3 — Validate الـ Top 3 (~40 دقيقة + ساعة تطبيق):**
+1. **Amardeep Parmar** (25 دقيقة) — `https://www.youtube.com/watch?v=iTZIM4AlGZQ`
+2. **FLAME 4-Pillar** (3 دقايق) — `https://www.youtube.com/watch?v=MwfrxWVtshg`
+3. **تطبيق:** Score كل فكرة، اختار **Top 3**.
+
+**🎯 اليوم 4 — حلل المنافسين Local (~30 دقيقة + ساعتين تطبيق):**
+1. **Access Genie — "Competitor Analysis Step-by-Step"** (22 دقيقة) — `https://www.youtube.com/watch?v=9QcRcRuVCfI`
+2. **AI + Google Maps Local Market Analysis** — `https://www.youtube.com/watch?v=RVQSTZJLrUw`
+3. **تطبيق:** اعمل spreadsheet لـ 5 منافسين على فكرتك الأولى. استخدم Osum trial.
+
+**🎯 اليوم 5 — Mindset البراند (1 ساعة):**
+1. **Marty Neumeier — "What is Branding?"** — `https://www.youtube.com/watch?v=dpZfNNYUZEc`
+2. **Learn With Shopify — Overview 10 دقايق** — `https://www.youtube.com/watch?v=4xnLp9A8G_U`
+
+**🎯 الأيام 6-8 — Caleb Ralston Full Course (5h 5m مقسمة):**
+- **اليوم 6 (1.5 ساعة):** Caleb Ralston **0:00 → 1:30** — Brand Positioning + Why people listen + Differentiation.
+- **اليوم 7 (1.5 ساعة):** Caleb Ralston **1:30 → 3:00** — Content Strategy + Cadence + First 3 Videos.
+- **اليوم 8 (2 ساعة):** Caleb Ralston **3:00 → 5:05** — Month-by-month case study + Operating System.
+- 🆓 خلال الأيام دي اشتغل على الـ **Workbook** (`https://calebralston.com/startyourbrand`).
+
+**🎯 الويك التاني — Marketing Execution:**
+- **Adam Erhart** — اختار فيديو واحد على Local Marketing.
+- **Alex Hormozi** — أي فيديو عن Offer Creation.
+- ابدأ تنفذ Phases 2 → 8 من الـ Roadmap (Claude, GitHub, 3D site).
+
+---
+
+### ⚡ TL;DR — أول حاجة دلوقتي
+
+> **افتح اللينك ده في تاب جديد دلوقتي:** `https://www.youtube.com/watch?v=8vXoI7lUroQ`
+>
+> اتفرج عليه → افتح ملف اسمه `ideas.md` → اعمل Google search بالـ Reddit hack → دون 20 فكرة. ده كل اللي محتاجه النهارده.
 
 ---
 

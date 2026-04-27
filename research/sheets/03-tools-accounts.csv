@@ -1,6 +1,8 @@
 Category,Tool / Account,URL,Why,Pricing,Priority,When To Set Up
 Idea Discovery,Reddit,https://reddit.com,Mining pain points & unmet needs,Free,Must,Day 1
-Idea Discovery,IdeaBrowser,https://www.ideabrowser.com,AI surfaces trending Subreddits and gaps,Free trial / paid,Recommended,Day 2
+Idea Discovery,IdeaBrowser (Gummy Search successor),https://ideabrowser.com/join,"Replaces the discontinued Gummy Search. AI surfaces trending Subreddits + 'Pain & Anger', 'Advice Requests', 'Solution Requests', 'Top Content' views. Greg Isenberg's primary tool.",Free trial / paid,Must,Day 1
+Idea Discovery,Perplexity AI,https://perplexity.ai,"Find top creators / influencers in any niche. Step 3 of Greg's framework: 'Who are the top 10 YouTube creators in [niche]?'",Free tier / paid,Recommended,Day 2
+Idea Discovery,Framer,https://framer.com,"Quick wireframes / prototypes. Step 4 of Greg's framework: turn the idea into a 1-page mock + landing page.",Free tier / paid,Recommended,Day 3
 Idea Discovery,Google Trends,https://trends.google.com,Demand validation,Free,Must,Day 3
 Idea Discovery,subredditstats.com,https://subredditstats.com,Find subreddits by size (10K-100K sweet spot),Free,Recommended,Day 1
 Validation,FLAME,https://goflame.ai,4-pillar idea scoring,Free first score,Optional,Day 3

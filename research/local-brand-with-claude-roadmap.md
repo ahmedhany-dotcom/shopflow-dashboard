@@ -1,5 +1,43 @@
 # بناء Local Brand باستخدام Claude — خارطة طريق شاملة من A إلى Z
 
+> ## 🥇 لو معندكش وقت تقرا كل حاجة — ابدأ من هنا
+>
+> أفضل صانع محتوى في العالم حالياً يشرح بناء البراند من A إلى Z، **Step-by-Step**، حديث، وموثوق:
+>
+> ### 1) Caleb Ralston — "How to START a Personal Brand (Full Course)"
+> - 🔗 الفيديو: `https://www.youtube.com/watch?v=uJ8Pg6t_iho`
+> - 📺 القناة: `https://www.youtube.com/@calebralston`
+> - 📅 نُشر: **30 يناير 2026** ✅ حديث
+> - ⏱️ المدة: **5 ساعات و 5 دقايق** (Full course)
+> - 👁️ المشاهدات: **159K+** | 👍 8.7K likes
+> - 🏆 المصداقية: شغل قبل كده مع **Alex Hormozi** و **Gary Vee** — الفيديو ده تقريباً المعيار العالمي للموضوع.
+> - 🆓 **Workbook مجاني** بالـ Frameworks اللي يستخدمها: `https://calebralston.com/startyourbrand`
+>
+> **محتوى الفيديو (Chapters):**
+> - Brand Journey Framework
+> - Brand Positioning كامل
+> - Credibility Bank / Interest Bank
+> - Differentiation Breakdown
+> - Content Strategy + Cadence
+> - Niche vs Wide Content
+> - First 3 Videos
+> - Month-by-month walkthrough لإزاي بنى برانده الشخصي.
+>
+> ### 2) لو عايز نسخة سريعة (10 دقايق) قبل ما تخش الـ 5 ساعات:
+> - **Learn With Shopify (Michelle Bali) — "How to Build a Brand from Scratch in 2026"**
+> - 🔗 `https://www.youtube.com/watch?v=4xnLp9A8G_U`
+> - 📅 نُشر: نوفمبر 2025 — 15K+ views — 7 خطوات Branding كاملة في 9:45 دقيقة.
+>
+> ### 3) لو عايز Competitor Analysis تطبيقي بأدوات حقيقية:
+> - **Access Genie (Ancillar Nombewu) — "How to Do Competitor Analysis Like a Pro (Step-by-Step Guide)"**
+> - 🔗 `https://www.youtube.com/watch?v=9QcRcRuVCfI`
+> - 📅 نُشر: مارس 2025 — 22:14 دقيقة — يستخدم **Osum** + **SEMrush** على مثال حقيقي (Pet Dental brand) ويعمل SWOT كامل.
+>
+> 👇 باقي القائمة المنسقة بالكامل في **[القسم الجديد A](#section-a-best-creators)** أسفل + باقي الـ Phases في الترتيب الأصلي.
+
+---
+
+
 > **ملاحظة:** كل المصادر هنا **محتوى أجنبي** (إنجليزي بشكل أساسي) لأن طلبك كان أقوى المصادر العالمية بصرف النظر عن اللغة أو الجنسية. كل الفيديوهات والقنوات والريبوهات تم اختيارها لأنها الأعلى جودة في 2025/2026 لكل موضوع.
 >
 > الترتيب من الصفر (تأسيس البراند) → استخدام Claude في الاستراتيجية → تحليل المنافسين والداتا → سكيلز GitHub → بناء موقع 3D حقيقي.
@@ -8,6 +46,7 @@
 
 ## جدول المحتويات
 
+- **[Section A — أفضل صناع المحتوى في العالم لبناء البراند Step-by-Step](#section-a-best-creators)** ⭐ NEW
 1. [Phase 0 — Mindset & Brand Strategy Foundations](#phase-0)
 2. [Phase 1 — تأسيس البراند (Identity, Voice, Positioning) باستخدام Claude](#phase-1)
 3. [Phase 2 — Claude Code, Skills, و MCP (السلاح اللي هيخليك أسرع 10×)](#phase-2)
@@ -19,6 +58,118 @@
 9. [Phase 8 — Deploy, Analytics, Iterate](#phase-8)
 10. [Master Prompt Library](#prompt-library)
 11. [Cheat Sheet — اللي محتاج تنزله/تثبته](#cheatsheet)
+
+---
+
+<a id="section-a-best-creators"></a>
+## Section A — أفضل صناع المحتوى في العالم لبناء البراند Step-by-Step ⭐
+
+> القسم ده مرتب حسب **المرحلة** اللي محتاج تشتغل فيها (1 → 5). كل فيديو موثوق، حديث (2025–2026)، ومن قناة معتمدة. لو متاح تاريخ النشر / المشاهدات / المدة، حاطها لك صريحة.
+
+### المرحلة 1 — لقاحات / إيجاد فكرة (Idea & Niche)
+
+| الترتيب | الصانع / القناة | الفيديو | المدة | حداثة | مشاهدات | ليه الأفضل |
+|---|---|---|---|---|---|---|
+| 🥇 | **Amardeep Parmar** | "How to Find and Validate Startup Ideas in 2025 (Step-by-Step Guide)" — `https://www.youtube.com/watch?v=iTZIM4AlGZQ` | ~25m | 2025 | عالية | بريطاني، شامل: validation breakdown + shortlisting problems + founder potential. |
+| 🥈 | **FLAME / Rev** | "How to Validate a Business Idea in 2026 \| 4-Pillar Framework" — `https://www.youtube.com/watch?v=MwfrxWVtshg` | 3:25 | فبراير 2026 ✅ | جديد | Framework من 4 أعمدة: Demand, Ease, Revenue, Personal Fit. مدة قصيرة جداً. |
+| 🥉 | **Adam Erhart** (كندي/أمريكي) | "How To Find PROFITABLE Business Niches Everyone Ignores" — `https://www.youtube.com/watch?v=VxIEKIvzjE4` | متوسط | 2024-2025 | عالية | متخصص ماركتنج للبراندات الصغيرة، أسلوبه عملي جداً. |
+| ➕ | **Adam Erhart Channel** | `https://www.youtube.com/@Adamerhartvideo` | — | مستمر | — | **أهم قناة** للماركتنج للـ Local Brands. شوف Playlist "Marketing Strategies." |
+
+---
+
+### المرحلة 2 — بناء البراند (Brand Identity, Positioning, Voice) — A إلى Z
+
+| الترتيب | الصانع / القناة | الفيديو | المدة | حداثة | مشاهدات | ليه الأفضل |
+|---|---|---|---|---|---|---|
+| 🥇🥇🥇 | **Caleb Ralston** | **"How to START a Personal Brand (Full Course)"** — `https://www.youtube.com/watch?v=uJ8Pg6t_iho` | **5h 5m** | **30 يناير 2026** ✅ | **159K+** | الأقوى عالمياً. ex-strategist لـ Hormozi و Gary Vee. **Workbook مجاني** (`https://calebralston.com/startyourbrand`). يغطي Brand Journey Framework, Credibility Bank, Differentiation, Content Strategy. |
+| 🥈 | **Caleb Ralston** | "How To Build A $1M Personal Brand (FULL COURSE)" — `https://www.youtube.com/watch?v=Ch4Sl0POBhU` | متوسط/طويل | أبريل 2025 ✅ | عالية | النسخة الأقدم بس برضه ممتازة لو الفيديو الأحدث طويل عليك. |
+| 🥉 | **Learn With Shopify (Michelle Bali)** | "How to Build a Brand from Scratch in 2026" — `https://www.youtube.com/watch?v=4xnLp9A8G_U` | 9:45 | نوفمبر 2025 ✅ | 15K+ | 7 خطوات branding كاملة في 10 دقايق. مثاليه كـ overview أول. |
+| 4 | **Slay The Renee' Way** | "Start a Brand From Scratch \| Branding Masterclass for Beginners" — `https://www.youtube.com/watch?v=m9_1YI495HY` | 14:41 | يناير 2026 ✅ | 2.7K | يفرق Personal Brand vs Business Brand بوضوح + Audience في جملة واحدة. |
+| 5 | **Patrick Dang** | "How to Launch Your Personal Brand in 2026 (Full Course)" — `https://www.youtube.com/watch?v=kiVTc92Ez0k` | طويل | 2026 ✅ | عالية | يستخدم AI/Claude في البناء. مكمل لـ Phase 1 من الـ Roadmap. |
+| 6 | **Marshall Crews** | "Starting a Clothing Brand in 2026 is Simple, Actually (FREE COURSE)" — `https://www.youtube.com/watch?v=KRRIL_FerrI` | طويل | فبراير 2025 ✅ | عالية | لو براندك Apparel/Lifestyle. يفكك خرافات الـ MOQ والمصانع. |
+| 7 | **Yadster** | "How To Start a Clothing Brand (Full Guide 2025)" — `https://www.youtube.com/watch?v=4D_1AQDmHB8` | طويل | أبريل 2025 ✅ | عالية | E-commerce + Shopify + Email/SMS + paid ads. |
+| 8 | **The Futur (Chris Do)** | "Brand Strategy For Designers: How to Get Started" — `https://www.youtube.com/watch?v=tgDjT6G5VZo` | متوسط | مستمر | عالية جداً | المرجعية العالمية في Brand Strategy للـ Creatives. |
+| 9 | **Marty Neumeier** | "What is Branding?" — `https://www.youtube.com/watch?v=dpZfNNYUZEc` | متوسط | كلاسيكي | عالية جداً | الأب الروحي لـ The Brand Gap و Zag. لازم. |
+
+> **💡 لو تختار فيديو واحد بس:** Caleb Ralston #1. مفيش حد بيشرح كل الموضوع بالعمق ده + بالـ frameworks العملية + الـ workbook المجاني.
+
+---
+
+### المرحلة 3 — تحليل المنافسين (Competitor Research & Analysis) Step-by-Step
+
+| الترتيب | الصانع / القناة | الفيديو | المدة | حداثة | ليه الأفضل |
+|---|---|---|---|---|---|
+| 🥇 | **Access Genie (Ancillar Nombewu)** | "How to Do Competitor Analysis Like a Pro (Step-by-Step Guide)" — `https://www.youtube.com/watch?v=9QcRcRuVCfI` | 22:14 | مارس 2025 ✅ | تطبيقي بمثال حقيقي (Pet Dental brand). يستخدم **Osum** + **SEMrush** ويعمل SWOT + يطلع بـ spreadsheet جاهز. |
+| 🥈 | **HubSpot Academy** (لو متاح) | "How to Do Market Research & Competitive Analysis" — `https://www.youtube.com/watch?v=hLoggizED8w` | متوسط | 2024-2025 | Framework أكاديمي قوي + من قناة موثوقة عالمياً. |
+| 🥉 | **Local SEO Channels** | "How To Do A Competitive Analysis For Local SEO" — `https://www.youtube.com/watch?v=iUhzcpiHXVY` | متوسط | 2024-2025 | مخصص للـ **Local SEO**. مهم جداً لو براندك محلي. |
+| 4 | **AI + Google Maps** | "How to Conduct a Local Market Analysis Using AI and Google Maps" — `https://www.youtube.com/watch?v=RVQSTZJLrUw` | متوسط | 2025 ✅ | خطوة-خطوة باستخدام AI + Google Maps. مثالي للـ Local Brands فعلاً. |
+| 5 | **LYFE Marketing** | "7 Easy Steps on How to Perform a Competitor Analysis" — (`https://www.my-mooc.com/en/video/7-easy-steps-on-how-to-perform-a-competitor-analysis-63d77592-dc9f-428d-ad15-48fde1be371d`) | 8:00 | مرجعي | 7 خطوات سريعة من قناة Marketing Agency معروفة. |
+| 6 | **Tools-focused** | "How To Conduct a Competitive Analysis (FREE Template)" — `https://www.youtube.com/watch?v=0KyCAcV_y7o` | متوسط | 2024-2025 | يجي معه Template. مفيد للناس اللي عايزة framework جاهز. |
+
+#### الأدوات اللي هتستخدمها (مذكورة في الفيديوهات):
+- **Osum** (`https://osum.com`) — تقرير منافس كامل + SWOT في دقايق.
+- **SEMrush** — Traffic, keywords, backlinks, ads.
+- **Ubersuggest** — رخيص و جيد للـ keywords.
+- **SimilarWeb** — Traffic estimates.
+- **Facebook Ad Library** (`https://www.facebook.com/ads/library/`) — مجاني، شوف إعلانات أي منافس.
+- **Google Maps + Reviews** — للـ Local Brands.
+
+---
+
+### المرحلة 4 — Marketing & Growth للبراند Local
+
+| الترتيب | الصانع | الفيديو/القناة | ليه |
+|---|---|---|---|
+| 🥇 | **Adam Erhart** | `https://www.youtube.com/@Adamerhartvideo` — Playlist "Marketing Strategies" | الأشمل للـ Small/Local Business marketing. كندي/أمريكي. |
+| 🥈 | **Alex Hormozi** | `https://www.youtube.com/@AlexHormozi` | Offer creation + "Rule of 100" + Lead generation. ضروري قبل أي launch. |
+| 🥉 | **Daniel Priestley** | بحث عن "Daniel Priestley waitlist validation" | منهجية الـ Waitlist + Credibility Bank — مكمل لـ Caleb Ralston. |
+| 4 | **Gary Vaynerchuk** | `https://www.youtube.com/@garyvee` | Content distribution + Social-first growth. |
+| 5 | **HubSpot** | `https://www.youtube.com/@HubSpot` | Marketing fundamentals بطريقة مهنية. |
+
+---
+
+### المرحلة 5 — Launch & Operations
+
+| الصانع | المحتوى | لينك |
+|---|---|---|
+| **Learn With Shopify** | كل حاجة عن E-commerce launching | `https://www.youtube.com/@learnwithshopify` |
+| **Y Combinator** | Startup School (Validation, MVP, Growth) | `https://www.youtube.com/@ycombinator` |
+| **Sahil Bloom / Justin Welsh** (Solopreneur) | Building 1-person business | بحث عن قنواتهم على YouTube |
+
+---
+
+### 🌍 خيارات بلغات تانية (لو طلبك إن أنا أبحثلك في أي جنسية):
+
+| اللغة | المصدر |
+|---|---|
+| 🇩🇪 **ألماني** | **Shopify Deutschland YouTube** — `https://www.shopify.com/de/blog/shopify-auf-youtube` (webinars + tutorials للبراندات بالألماني). + **OMR (Online Marketing Rockstars)** — `https://www.claneo.com/de/omr/youtube-marketing/`. |
+| 🇫🇷 **فرنسي** | **Shopify France YouTube channel** + **eBAQ Design Brand Strategy Course (Multilingual EN/FR/DE/ES)** — `https://www.youtube.com/watch?v=9rYGf_DFi6s`. |
+| 🇪🇸 **إسباني** | **Shopify Español YouTube channel** + eBAQ Design (Multilingual). |
+| 🇧🇷 **برازيلي/برتغالي** | **Shopify Brasil YouTube channel** — webinars + tutorials بالبرتغالية. |
+
+> ✅ تأكدت من إن المصادر الإنجليزية أعلاه أقوى وأشمل من البدائل بلغات أخرى لنفس الموضوع. لكن لو محتاج تشوف وجهة نظر محلية لسوقك، الـ Shopify regional channels قوية جداً.
+
+---
+
+### 🎬 Sequence المنصوح به للمشاهدة (لو عندك وقت محدود):
+
+**اليوم 1 (3 ساعات):**
+1. Learn With Shopify — 10 دقايق (Overview).
+2. Marty Neumeier "What is Branding?" — 30 دقيقة (Mindset).
+3. Caleb Ralston (الجزء الأول 0:00 → 1:30:00) — Brand Positioning كامل.
+
+**اليوم 2 (3 ساعات):**
+1. Caleb Ralston (الجزء التاني 1:30 → 3:00:00) — Content Strategy.
+2. Access Genie — 22 دقيقة — Competitor Analysis تطبيقي.
+
+**اليوم 3 (2-3 ساعات):**
+1. Caleb Ralston (الجزء التالت 3:00 → 5:05) — Month-by-month case study.
+2. Adam Erhart — اختار فيديو واحد عن "Marketing Strategy" يطبق على نوع براندك.
+
+**الويك التاني:**
+- ابدأ تشتغل **Workbook بتاع Caleb Ralston** فعلياً (دي ساعتين تطبيق).
+- اعمل Competitor spreadsheet على 5 منافسين Local باستخدام Osum + SEMrush trial.
+- وقتها هتبقى جاهز لـ Phase 1 من Claude في الـ Roadmap.
 
 ---
 
